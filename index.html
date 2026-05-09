@@ -830,7 +830,7 @@ setInterval(async () => {
         const r = await fetch(API);
         if (r.ok) { votes = await r.json(); apiOk = true; localStorage.setItem('rituals-votes', JSON.stringify(votes)); renderVotes(); updateStats(); }
     } catch {}
-}, 30000);
+}, 5000);
 </script>
 
 </body>
