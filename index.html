@@ -828,9 +828,18 @@ setTimeout(() => {
 setInterval(async () => {
     try {
         const r = await fetch(API);
-        if (r.ok) { votes = await r.json(); apiOk = true; localStorage.setItem('rituals-votes', JSON.stringify(votes)); renderVotes(); updateStats(); }
+        if (r.ok) {
+            votes = await r.json(); apiOk = true;
+            localStorage.setItem('rituals-votes', JSON.stringify(votes));
+            renderVotes(); updateStats();
+            if (document.getElementById('summaryOverlay').classList.contains('visible')) {
+                const title = document.querySelector('.summary-top h3').textContent;
+                if (title === 'Resultat votacions') showDashboard();
+                else showSummary();
+            }
+        }
     } catch {}
-}, 5000);
+}, 10000);
 </script>
 
 </body>
