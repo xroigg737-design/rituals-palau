@@ -45,12 +45,14 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .sticky-bar{position:sticky;top:0;z-index:100;background:rgba(250,249,247,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
 .user-bar{display:flex;align-items:center;gap:.8rem;padding:.6rem 1.2rem;max-width:960px;margin:0 auto}
 .user-label{font-family:var(--sans);font-size:.7rem;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
-.user-avatars{display:flex;gap:.4rem}
-.user-avatar{width:34px;height:34px;border-radius:50%;border:2px solid transparent;display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:.65rem;font-weight:600;color:#fff;cursor:pointer;transition:all .25s;flex-shrink:0}
-.user-avatar:hover{transform:scale(1.08)}
-.user-avatar.active{border-color:var(--text);box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--text);transform:scale(1.1)}
+.user-select{font-family:var(--sans);font-size:.82rem;font-weight:500;padding:.35rem .8rem;border:1.5px solid var(--border);border-radius:20px;background:var(--card);color:var(--text);cursor:pointer;outline:none;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23999'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .6rem center;padding-right:1.8rem;min-width:120px;transition:border-color .3s}
+.user-select:focus{border-color:rgba(0,0,0,.3)}
 .user-stats{margin-left:auto;font-family:var(--sans);font-size:.7rem;color:var(--text3);white-space:nowrap}
 .user-stats strong{color:var(--text);font-weight:600}
+.cost-total{font-family:var(--sans);font-size:.75rem;color:var(--text2);margin-left:.6rem;white-space:nowrap}
+.cost-total strong{color:var(--yes);font-weight:600}
+.results-link{font-family:var(--sans);font-size:.65rem;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--text2);text-decoration:none;padding:.35rem .7rem;border:1px solid var(--border);border-radius:16px;white-space:nowrap;transition:all .3s;margin-left:auto}
+.results-link:hover{background:rgba(0,0,0,.05);color:var(--text)}
 
 .section-nav{display:flex;gap:.15rem;padding:.5rem 1rem;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:960px;margin:0 auto;scrollbar-width:none}
 .section-nav::-webkit-scrollbar{display:none}
@@ -66,45 +68,55 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .section-header{text-align:center;margin-bottom:1.8rem;position:relative}
 .section-header::before,.section-header::after{content:'';position:absolute;top:50%;width:calc(50% - 6rem);height:1px;background:var(--border)}
 .section-header::before{left:0}.section-header::after{right:0}
-.section-header h2{font-family:var(--serif);font-size:2rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.15rem;display:inline-block;background:var(--bg);padding:0 1.5rem;position:relative}
+.section-header h2{font-family:var(--serif);font-size:2rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.15rem;display:inline-block;background:var(--bg);padding:0 1.5rem;position:relative}
 .section-header .sub{font-family:var(--serif);font-size:1rem;font-style:italic;color:var(--text2);margin-bottom:.3rem}
 .section-header .count{font-family:var(--sans);font-size:.7rem;color:var(--text3);letter-spacing:.05em}
 .section-header .accent-line{width:40px;height:2px;background:var(--text);margin:.8rem auto 0;opacity:.2}
 
-.concert-list{max-width:960px;margin:0 auto;padding:0 1rem 1rem}
+.concert-list{max-width:960px;margin:0 auto;padding:0 .5rem 1rem}
 
-.card{background:var(--card);border:1px solid var(--border2);border-radius:6px;padding:1.3rem 1.4rem;margin-bottom:.6rem;transition:border-color .3s,box-shadow .3s}
-.card:hover{border-color:rgba(0,0,0,.18);box-shadow:0 1px 8px rgba(0,0,0,.04)}
-.card.past{opacity:.4}.card.past:hover{opacity:.55}
+.list-header{display:grid;grid-template-columns:78px 1fr 52px 115px;gap:0 .6rem;padding:.4rem .8rem;font-family:var(--sans);font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);border-bottom:2px solid var(--border);margin-bottom:0;position:sticky;top:95px;background:var(--bg);z-index:10}
+.list-header span:nth-child(3){text-align:right}
 
-.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.4rem;gap:.5rem}
-.card-date{font-family:var(--sans);font-size:.72rem;font-weight:500;color:var(--text2);letter-spacing:.03em;line-height:1.4}
-.card-date .day-name{color:var(--text3);font-weight:400}
-.card-badge{font-family:var(--sans);font-size:.6rem;font-weight:500;padding:.15rem .5rem;border-radius:10px;letter-spacing:.06em;text-transform:uppercase;flex-shrink:0}
-.badge-palau{background:rgba(139,26,26,.08);color:var(--palau)}
-.badge-auditori{background:rgba(26,58,92,.08);color:var(--auditori)}
-.badge-next{background:var(--text);color:#fff;font-weight:600;margin-left:.4rem}
+.row{display:grid;grid-template-columns:78px 1fr 52px 115px;gap:0 .6rem;padding:.55rem .8rem;border-bottom:1px solid var(--border2);transition:background .2s;align-items:start}
+.row:hover{background:rgba(0,0,0,.02)}
+.row.past{opacity:.35}.row.past:hover{opacity:.5}
+.row.next{background:rgba(12,74,74,.03)}
 
-.card-title{font-family:var(--serif);font-size:1.25rem;font-weight:600;line-height:1.3;margin-bottom:.15rem}
-.card-subtitle{font-family:var(--serif);font-size:.95rem;font-style:italic;color:var(--text2);line-height:1.4;margin-bottom:.3rem}
-.card-composers{font-family:var(--sans);font-size:.75rem;color:var(--text2);margin-bottom:.25rem;line-height:1.5}
-.card-performers{font-family:var(--serif);font-size:.88rem;color:var(--text);line-height:1.5;margin-bottom:.4rem}
-.card-cycle{font-family:var(--sans);font-size:.65rem;color:var(--text3);letter-spacing:.04em;margin-bottom:.3rem}
-.card-price{font-family:var(--sans);font-size:.78rem;color:var(--text2);margin-bottom:.7rem}
-.card-price strong{color:var(--text);font-weight:600}
+.row-date{font-family:var(--sans);font-size:.72rem;font-weight:500;color:var(--text2);line-height:1.35}
+.row-date .rd-day{font-size:.85rem;font-weight:600;color:var(--text);display:block}
+.row-date .rd-time{font-size:.62rem;color:var(--text3);font-weight:400}
 
-.vote-row{display:flex;gap:.35rem;align-items:center;padding-top:.6rem;border-top:1px solid var(--border2);flex-wrap:wrap}
-.vote-btn{width:30px;height:30px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:600;font-family:var(--sans);cursor:pointer;transition:all .2s;position:relative;color:#fff}
-.vote-btn.empty{opacity:.25}
-.vote-btn.mine{box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--text3)}
-.vote-btn.mine.empty{opacity:.5}
-.vote-btn.yes{opacity:1;box-shadow:0 0 0 2.5px var(--yes)}
-.vote-btn.yes::after{content:'\2665';position:absolute;bottom:-4px;right:-3px;font-size:.55rem;color:var(--yes);line-height:1}
-.vote-btn.maybe{opacity:1;box-shadow:0 0 0 2.5px var(--maybe)}
-.vote-btn.maybe::after{content:'?';position:absolute;bottom:-4px;right:-2px;font-size:.6rem;font-weight:700;color:var(--maybe);line-height:1}
-.vote-count{margin-left:auto;font-family:var(--sans);font-size:.7rem;color:var(--text3)}
+.row-info{min-width:0}
+.row-title{font-family:var(--serif);font-size:1.05rem;font-weight:600;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row-title .badge{font-family:var(--sans);font-size:.5rem;font-weight:600;padding:.1rem .35rem;border-radius:6px;letter-spacing:.04em;text-transform:uppercase;vertical-align:middle;margin-left:.3rem;position:relative;top:-1px}
+.bp{background:rgba(139,26,26,.08);color:var(--palau)}
+.ba{background:rgba(26,58,92,.08);color:var(--auditori)}
+.bn{background:var(--text);color:#fff}
+.ico-piano{display:inline-block;width:14px;height:10px;vertical-align:middle;margin-left:.3rem;position:relative;top:-1px;opacity:.45}
+.row-sub{font-family:var(--serif);font-size:.82rem;font-style:italic;color:var(--text2);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row-detail{font-family:var(--sans);font-size:.68rem;color:var(--text3);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.row-price{font-family:var(--sans);font-size:.72rem;color:var(--text2);text-align:right;white-space:nowrap;padding-top:.1rem}
+
+.vote-row{display:flex;gap:.15rem;align-items:center;flex-wrap:nowrap;padding-top:.1rem}
+.vote-btn{width:16px;height:16px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;font-size:.38rem;font-weight:600;font-family:var(--sans);cursor:pointer;transition:all .15s;position:relative;color:#fff;flex-shrink:0}
+.vote-btn.mine{width:22px;height:22px;font-size:.48rem;box-shadow:0 0 0 1.5px var(--bg),0 0 0 2.5px var(--text3)}
+.vote-btn.mine.empty{opacity:.45}
+.vote-btn.empty{opacity:.15}
+.vote-btn.yes{opacity:1;box-shadow:0 0 0 1.5px var(--yes)}
+.vote-btn.yes.mine{box-shadow:0 0 0 1.5px var(--bg),0 0 0 2.5px var(--yes)}
+.vote-btn.yes::after{content:'\2665';position:absolute;bottom:-2px;right:-2px;font-size:.38rem;color:var(--yes);line-height:1}
+.vote-btn.maybe{opacity:1;box-shadow:0 0 0 1.5px var(--maybe)}
+.vote-btn.maybe.mine{box-shadow:0 0 0 1.5px var(--bg),0 0 0 2.5px var(--maybe)}
+.vote-btn.maybe::after{content:'?';position:absolute;bottom:-2px;right:-1px;font-size:.38rem;font-weight:700;color:var(--maybe);line-height:1}
+.vote-count{font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-left:.1rem;white-space:nowrap}
 .vote-count .vc-yes{color:var(--yes);font-weight:600}
 .vote-count .vc-maybe{color:var(--maybe)}
+
+.row-expand{display:none;grid-column:1/-1;padding:.4rem 0 .2rem;font-family:var(--serif);font-size:.82rem;color:var(--text);line-height:1.5}
+.row.open .row-expand{display:block}
+.row.open{background:rgba(0,0,0,.015)}
 
 .footer{text-align:center;padding:2.5rem 1rem 3rem;border-top:1px solid var(--border);margin-top:1rem}
 .footer p{font-family:var(--serif);font-size:.95rem;color:var(--text3);font-style:italic;margin-bottom:1rem}
@@ -115,6 +127,47 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .toast.visible{transform:translateX(-50%) translateY(0);opacity:1}
 
 .no-results{text-align:center;padding:3rem 1rem;font-family:var(--serif);font-size:1.1rem;color:var(--text3);font-style:italic}
+
+.summary-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.5);display:none;align-items:flex-end;justify-content:center}
+.summary-overlay.visible{display:flex}
+.summary-panel{background:var(--bg);width:100%;max-width:700px;max-height:85vh;border-radius:16px 16px 0 0;overflow-y:auto;padding:1.5rem 1rem 2rem;box-shadow:0 -4px 30px rgba(0,0,0,.2)}
+.summary-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
+.summary-top h3{font-family:var(--serif);font-size:1.5rem;font-weight:700}
+.summary-close{background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text3);padding:.2rem .5rem;line-height:1}
+.summary-total{font-family:var(--sans);font-size:.75rem;color:var(--text3);margin-bottom:1rem}
+.summary-total strong{color:var(--yes);font-weight:600}
+.sum-row{display:grid;grid-template-columns:90px 1fr auto;gap:0 .8rem;padding:.6rem 0;border-bottom:1px solid var(--border2);align-items:start}
+.sum-date{font-family:var(--sans);font-size:.75rem;font-weight:500;color:var(--text2);line-height:1.4}
+.sum-date strong{color:var(--text);display:block;font-size:.82rem}
+.sum-info{min-width:0}
+.sum-title{font-family:var(--serif);font-size:.95rem;font-weight:600;line-height:1.25}
+.sum-detail{font-family:var(--sans);font-size:.7rem;color:var(--text2);line-height:1.4;margin-top:.1rem}
+.sum-venue{font-family:var(--sans);font-size:.65rem;color:var(--text3);margin-top:.15rem}
+.sum-price{font-family:var(--sans);font-size:.75rem;color:var(--text2);white-space:nowrap;padding-top:.15rem}
+.sum-empty{text-align:center;padding:2rem 1rem;font-family:var(--serif);font-size:1rem;color:var(--text3);font-style:italic}
+.sum-state{font-family:var(--sans);font-size:.55rem;font-weight:600;padding:.1rem .3rem;border-radius:4px;margin-left:.3rem;vertical-align:middle}
+.sum-yes{background:rgba(45,125,70,.1);color:var(--yes)}
+.sum-maybe{background:rgba(201,141,26,.1);color:var(--maybe)}
+
+.dash-row{display:flex;align-items:center;gap:.7rem;padding:.55rem 0;border-bottom:1px solid var(--border2)}
+.dash-rank{font-family:var(--sans);font-size:.85rem;font-weight:700;color:var(--text3);width:22px;text-align:center;flex-shrink:0}
+.dash-votes{display:flex;gap:2px;flex-shrink:0}
+.dash-dot{width:10px;height:10px;border-radius:50%}
+.dash-dot.v-yes{opacity:1}.dash-dot.v-maybe{opacity:.45}.dash-dot.v-no{opacity:.1}
+.dash-info{flex:1;min-width:0}
+.dash-title{font-family:var(--serif);font-size:.92rem;font-weight:600;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dash-date{font-family:var(--sans);font-size:.68rem;color:var(--text3)}
+
+.auth-wall{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#0c4a4a 0%,#0a3a3a 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff}
+.auth-wall h2{font-family:var(--serif);font-size:2.4rem;font-weight:300;letter-spacing:.1em;margin-bottom:.3rem}
+.auth-wall p{font-family:var(--sans);font-size:.75rem;opacity:.5;letter-spacing:.15em;text-transform:uppercase;margin-bottom:2rem}
+.auth-form{display:flex;gap:.5rem;align-items:center}
+.auth-input{font-family:var(--sans);font-size:1rem;padding:.6rem 1.2rem;border:1.5px solid rgba(255,255,255,.25);border-radius:24px;background:rgba(255,255,255,.08);color:#fff;outline:none;width:200px;text-align:center;letter-spacing:.1em;transition:border-color .3s}
+.auth-input:focus{border-color:rgba(255,255,255,.5)}
+.auth-input::placeholder{color:rgba(255,255,255,.3)}
+.auth-btn{font-family:var(--sans);font-size:.8rem;font-weight:500;padding:.6rem 1.5rem;border:1.5px solid rgba(255,255,255,.4);border-radius:24px;background:none;color:#fff;cursor:pointer;letter-spacing:.08em;transition:all .3s}
+.auth-btn:hover{background:rgba(255,255,255,.15)}
+.auth-error{font-family:var(--sans);font-size:.75rem;color:#ff6b6b;margin-top:.8rem;min-height:1.2em}
 
 @media(max-width:700px){
     .hero-photo-row{flex-direction:column;max-height:none}
@@ -127,21 +180,24 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     .section-header h2{font-size:1.5rem;letter-spacing:.08em}
     .section-header::before,.section-header::after{width:calc(50% - 4rem)}
     .section{padding:2rem .5rem .5rem}
-    .concert-list{padding:0 .5rem 1rem}
-    .card{padding:.9rem 1rem;margin-bottom:.5rem}
-    .card-top{flex-direction:column;gap:.25rem}
-    .card-date{font-size:.68rem}
-    .card-title{font-size:1.05rem}
-    .card-subtitle{font-size:.88rem}
-    .card-performers{font-size:.8rem}
-    .card-composers{font-size:.72rem}
-    .card-price{font-size:.74rem;margin-bottom:.5rem}
-    .vote-row{gap:.25rem;padding-top:.5rem}
-    .vote-btn{width:28px;height:28px;font-size:.55rem}
+    .concert-list{padding:0 .3rem 1rem}
+    .list-header{grid-template-columns:58px 1fr auto;gap:0 .4rem;padding:.3rem .5rem;top:82px;font-size:.55rem}
+    .list-header span:nth-child(4){display:none}
+    .row{grid-template-columns:58px 1fr auto;gap:0 .4rem;padding:.5rem .5rem .35rem}
+    .row-date{font-size:.65rem}.row-date .rd-day{font-size:.78rem}
+    .row-title{font-size:.92rem;white-space:normal}
+    .row-sub{font-size:.75rem;white-space:normal}
+    .row-detail{font-size:.62rem}
+    .row-price{font-size:.66rem}
+    .vote-row{grid-column:1/-1;gap:.15rem;padding-top:.3rem}
+    .vote-btn{width:18px;height:18px;font-size:.4rem}
+    .vote-btn.mine{width:24px;height:24px;font-size:.5rem}
     .user-bar{padding:.4rem .6rem;gap:.4rem}
-    .user-avatar{width:30px;height:30px;font-size:.6rem}
+    .user-select{font-size:.75rem;min-width:100px;padding:.3rem .6rem}
     .user-label{font-size:.6rem;display:none}
     .user-stats{font-size:.65rem}
+    .cost-total{font-size:.62rem;margin-left:.3rem}
+    .results-link{font-size:.58rem;padding:.25rem .5rem}
     .section-nav{padding:.4rem .6rem}
     .section-nav a{font-size:.6rem;padding:.3rem .5rem}
     .filter-bar{padding:.5rem .6rem}
@@ -152,6 +208,16 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     </style>
 </head>
 <body>
+
+<div class="auth-wall" id="authWall">
+    <h2>Rituals al Palau</h2>
+    <p>Temporada 2026–2027</p>
+    <div class="auth-form">
+        <input type="password" class="auth-input" id="authInput" placeholder="Contrasenya" autofocus>
+        <button class="auth-btn" onclick="checkAuth()">Entrar</button>
+    </div>
+    <div class="auth-error" id="authError"></div>
+</div>
 
 <header class="hero" id="top">
     <div class="hero-photo-row">
@@ -169,8 +235,9 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 <div class="sticky-bar">
     <div class="user-bar">
         <span class="user-label">Qui ets?</span>
-        <div class="user-avatars" id="userAvatars"></div>
+        <select class="user-select" id="userSelect" onchange="selectUser(this.value)"></select>
         <div class="user-stats" id="userStats"></div>
+        <a href="#footer" class="results-link" onclick="scrollToFooter(event)">Resultats</a>
     </div>
     <nav class="section-nav" id="sectionNav"></nav>
 </div>
@@ -181,15 +248,39 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 
 <main id="app"></main>
 
-<footer class="footer">
+<footer class="footer" id="footer">
     <p>Palau de la Musica Catalana &middot; L'Auditori de Barcelona</p>
+    <button class="share-btn" onclick="showSummary()">Resum seleccio</button>
+    <button class="share-btn" onclick="showDashboard()">Resultat votacions</button>
     <button class="share-btn" onclick="shareApp()">Compartir</button>
     <button class="share-btn" onclick="downloadCalendar()">Calendari</button>
 </footer>
 
+<div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
+    <div class="summary-panel">
+        <div class="summary-top"><h3>Resum seleccio</h3><button class="summary-close" onclick="closeSummary()">&times;</button></div>
+        <div id="summaryContent"></div>
+    </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
+const AUTH_KEY = 'rituals-auth';
+function checkAuth() {
+    const v = document.getElementById('authInput').value;
+    if (v.toLowerCase() === 'palau') {
+        localStorage.setItem(AUTH_KEY, '1');
+        document.getElementById('authWall').style.display = 'none';
+    } else {
+        document.getElementById('authError').textContent = 'Contrasenya incorrecta';
+        document.getElementById('authInput').value = '';
+        document.getElementById('authInput').focus();
+    }
+}
+document.getElementById('authInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkAuth(); });
+if (localStorage.getItem(AUTH_KEY) === '1') document.getElementById('authWall').style.display = 'none';
+
 const USERS = [
     {id:'xavi',name:'Xavi',ini:'X',color:'#2563eb'},
     {id:'anna',name:'Anna',ini:'A',color:'#dc2626'},
@@ -353,19 +444,20 @@ let votes = {};
 let filterText = '';
 
 // ── API ──
-const API = 'api/votes.php';
+const API = 'https://i-xr.duckdns.org/rituals-palau/api/votes.php';
 let apiOk = true;
 
 async function loadVotes() {
     try {
         const r = await fetch(API);
-        if (r.ok) votes = await r.json();
+        if (r.ok) { votes = await r.json(); apiOk = true; }
         else throw new Error();
     } catch {
         apiOk = false;
         const saved = localStorage.getItem('rituals-votes');
         if (saved) votes = JSON.parse(saved);
     }
+    localStorage.setItem('rituals-votes', JSON.stringify(votes));
     renderVotes();
 }
 
@@ -374,15 +466,14 @@ async function saveVote(id, user, vote) {
     if (vote === 0) delete votes[id][user];
     else votes[id][user] = vote;
     localStorage.setItem('rituals-votes', JSON.stringify(votes));
-    if (apiOk) {
-        try {
-            await fetch(API, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({id, user, vote})
-            });
-        } catch { apiOk = false; }
-    }
+    try {
+        const r = await fetch(API, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({id, user, vote})
+        });
+        if (r.ok) apiOk = true;
+    } catch { apiOk = false; }
     renderVotes();
     updateStats();
 }
@@ -415,6 +506,12 @@ function isPast(ds) {
     return new Date(ds + 'T23:59:59') < new Date();
 }
 
+const PIANO_SVG = `<svg class="ico-piano" viewBox="0 0 28 20" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="28" height="20" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="7" y1="0" x2="7" y2="20" stroke="currentColor" stroke-width=".8"/><line x1="14" y1="0" x2="14" y2="20" stroke="currentColor" stroke-width=".8"/><line x1="21" y1="0" x2="21" y2="20" stroke="currentColor" stroke-width=".8"/><rect x="4.5" y="0" width="5" height="12" rx=".8" fill="currentColor"/><rect x="18.5" y="0" width="5" height="12" rx=".8" fill="currentColor"/></svg>`;
+
+function isPianoSolo(c) {
+    return !c.p.includes('·') && /\bpno\b/.test(c.p);
+}
+
 function matchesFilter(concert) {
     if (!filterText) return true;
     const q = filterText.toLowerCase();
@@ -432,27 +529,34 @@ function render() {
 }
 
 function renderUserBar() {
-    const container = document.getElementById('userAvatars');
-    container.innerHTML = USERS.map(u => {
-        const active = currentUser === u.id ? ' active' : '';
-        return `<button class="user-avatar${active}" style="background:${u.color}" onclick="selectUser('${u.id}')" title="${u.name}">${u.ini}</button>`;
-    }).join('');
+    const sel = document.getElementById('userSelect');
+    sel.innerHTML = `<option value="">— Tria —</option>` + USERS.map(u =>
+        `<option value="${u.id}"${currentUser === u.id ? ' selected' : ''}>${u.name}</option>`
+    ).join('');
 }
 
 function renderNav() {
     const nav = document.getElementById('sectionNav');
     nav.innerHTML = SECTIONS.map(s => {
         const count = C.filter(c => c.g === s.id).length;
-        return `<a href="#${s.id}">${s.title} (${count})</a>`;
+        return `<a href="#${s.id}" onclick="scrollToSection(event,'${s.id}')">${s.title} (${count})</a>`;
     }).join('');
+}
+
+function scrollToSection(e, id) {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (!el) return;
+    const bar = document.querySelector('.sticky-bar');
+    const offset = bar ? bar.offsetHeight + 8 : 120;
+    const top = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({top, behavior:'smooth'});
 }
 
 function renderSections() {
     const app = document.getElementById('app');
     const sorted = [...C].sort((a, b) => a.d.localeCompare(b.d));
     let nextFound = false;
-    const today = new Date();
-    today.setHours(0,0,0,0);
 
     let html = '';
     for (const sec of SECTIONS) {
@@ -468,26 +572,29 @@ function renderSections() {
         html += `<div class="accent-line"></div>`;
         html += `</div></section>`;
         html += `<div class="concert-list">`;
+        html += `<div class="list-header"><span>Data</span><span>Concert</span><span>Preu</span><span>Vots</span></div>`;
 
         for (const c of visible) {
             const past = isPast(c.d);
             const isNext = !past && !nextFound;
             if (isNext) nextFound = true;
+            const d = new Date(c.d + 'T12:00:00');
+            const cls = past ? ' past' : isNext ? ' next' : '';
 
-            html += `<div class="card${past ? ' past' : ''}" id="c-${c.i}">`;
-            html += `<div class="card-top">`;
-            html += `<div class="card-date">${fmtDate(c.d)} <span class="day-name">· ${dayName(c.d)}</span> · ${c.h}h</div>`;
-            html += `<div>`;
-            html += `<span class="card-badge ${c.v === 'P' ? 'badge-palau' : 'badge-auditori'}">${c.v === 'P' ? 'Palau' : 'Auditori'}</span>`;
-            if (isNext) html += `<span class="card-badge badge-next">Proxim</span>`;
-            html += `</div></div>`;
-            html += `<div class="card-title">${c.t}</div>`;
-            if (c.s) html += `<div class="card-subtitle">${c.s}</div>`;
-            html += `<div class="card-composers">${c.c}</div>`;
-            html += `<div class="card-performers">${c.p}</div>`;
-            if (c.y) html += `<div class="card-cycle">${c.y}</div>`;
-            html += `<div class="card-price">${c.pr}</div>`;
+            html += `<div class="row${cls}" id="c-${c.i}" onclick="this.classList.toggle('open')">`;
+            html += `<div class="row-date"><span class="rd-day">${d.getDate()} ${MONTHS[d.getMonth()]}</span>${dayName(c.d)} · ${c.h}h<br><span class="rd-time">${d.getFullYear()}</span></div>`;
+            html += `<div class="row-info">`;
+            html += `<div class="row-title">${c.t}${isPianoSolo(c) ? ' '+PIANO_SVG : ''} <span class="badge ${c.v === 'P' ? 'bp' : 'ba'}">${c.v === 'P' ? 'Palau' : 'Auditori'}</span>`;
+            if (isNext) html += ` <span class="badge bn">Proper</span>`;
+            html += `</div>`;
+            if (c.s) html += `<div class="row-sub">${c.s}</div>`;
+            html += `<div class="row-detail">${c.c}</div>`;
+            html += `</div>`;
+            html += `<div class="row-price">${c.pr}</div>`;
             html += `<div class="vote-row" id="vr-${c.i}"></div>`;
+            html += `<div class="row-expand"><strong>${c.p}</strong>`;
+            if (c.y) html += `<br><em>${c.y}</em>`;
+            html += `<br>${fmtDate(c.d)}, ${c.h}h — ${c.v === 'P' ? 'Palau de la Música' : "L'Auditori"}</div>`;
             html += `</div>`;
         }
         if (visible.length === 0 && filterText) {
@@ -525,19 +632,28 @@ function renderVotes() {
     }
 }
 
+function parsePriceMax(pr) {
+    if (!pr) return 0;
+    const nums = pr.match(/\d+/g);
+    return nums ? parseInt(nums[nums.length - 1]) : 0;
+}
+
 function updateStats() {
     const el = document.getElementById('userStats');
     if (!currentUser) { el.innerHTML = ''; return; }
-    const myVotes = Object.values(votes).filter(v => v[currentUser]).length;
-    const yesVotes = Object.values(votes).filter(v => v[currentUser] === 1).length;
-    el.innerHTML = `<strong>${yesVotes}</strong>♥ <strong>${myVotes - yesVotes}</strong>?`;
+    const yesVotes = Object.entries(votes).filter(([,v]) => v[currentUser] === 1);
+    const maybeVotes = Object.entries(votes).filter(([,v]) => v[currentUser] === 2);
+    let totalMax = 0;
+    yesVotes.forEach(([id]) => { const c = C.find(x => x.i === id); if (c) totalMax += parsePriceMax(c.pr); });
+    let html = `<strong>${yesVotes.length}</strong>♥ <strong>${maybeVotes.length}</strong>?`;
+    if (totalMax > 0) html += ` <span class="cost-total">· <strong>${totalMax}€</strong></span>`;
+    el.innerHTML = html;
 }
 
 // ── EVENTS ──
 function selectUser(id) {
-    currentUser = currentUser === id ? null : id;
+    currentUser = id || null;
     localStorage.setItem('rituals-user', currentUser || '');
-    renderUserBar();
     renderVotes();
     updateStats();
     if (currentUser) showToast('Hola, ' + USERS.find(u => u.id === id).name + '!');
@@ -549,6 +665,11 @@ function toggleVote(concertId) {
     const current = cv[currentUser] || 0;
     const next = current === 0 ? 1 : current === 1 ? 2 : 0;
     saveVote(concertId, currentUser, next);
+}
+
+function scrollToFooter(e) {
+    e.preventDefault();
+    document.getElementById('footer').scrollIntoView({behavior:'smooth'});
 }
 
 function showToast(msg) {
@@ -593,6 +714,86 @@ function downloadCalendar() {
     showToast(`${yes.length} concerts descarregats`);
 }
 
+// ── SUMMARY ──
+function showSummary() {
+    if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
+    document.querySelector('.summary-top h3').textContent = 'Resum seleccio';
+    const selected = C.filter(c => {
+        const cv = votes[c.i] || {};
+        return cv[currentUser] === 1 || cv[currentUser] === 2;
+    }).sort((a, b) => a.d.localeCompare(b.d) || a.h.localeCompare(b.h));
+
+    const el = document.getElementById('summaryContent');
+    if (selected.length === 0) {
+        el.innerHTML = `<div class="sum-empty">No tens cap concert seleccionat</div>`;
+    } else {
+        let totalMax = 0;
+        selected.filter(c => (votes[c.i]||{})[currentUser] === 1).forEach(c => totalMax += parsePriceMax(c.pr));
+        let html = `<div class="summary-total">${selected.length} concerts · cost estimat: <strong>${totalMax}€</strong></div>`;
+        for (const c of selected) {
+            const st = (votes[c.i]||{})[currentUser];
+            const stLabel = st === 1 ? '<span class="sum-state sum-yes">&#9829;</span>' : '<span class="sum-state sum-maybe">?</span>';
+            const venue = c.v === 'P' ? 'Palau de la Musica' : "L'Auditori";
+            const d = new Date(c.d + 'T12:00:00');
+            html += `<div class="sum-row">`;
+            html += `<div class="sum-date"><strong>${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}</strong>${dayName(c.d)} · ${c.h}h</div>`;
+            html += `<div class="sum-info"><div class="sum-title">${c.t}${stLabel}</div>`;
+            html += `<div class="sum-detail">${c.c} · ${c.p}</div>`;
+            html += `<div class="sum-venue">${venue} · ${c.y || ''}</div></div>`;
+            html += `<div class="sum-price">${c.pr}</div>`;
+            html += `</div>`;
+        }
+        el.innerHTML = html;
+    }
+    document.getElementById('summaryOverlay').classList.add('visible');
+}
+
+function closeSummary() {
+    document.getElementById('summaryOverlay').classList.remove('visible');
+}
+
+function showDashboard() {
+    const ranked = C.map(c => {
+        const cv = votes[c.i] || {};
+        let yes = 0, maybe = 0;
+        const details = USERS.map(u => {
+            const v = cv[u.id] || 0;
+            if (v === 1) yes++;
+            if (v === 2) maybe++;
+            return {u, v};
+        });
+        return {c, yes, maybe, total: yes + maybe, details};
+    }).filter(r => r.total > 1)
+      .sort((a, b) => b.yes - a.yes || b.total - a.total || a.c.d.localeCompare(b.c.d));
+
+    const el = document.getElementById('summaryContent');
+    const top = document.querySelector('.summary-top h3');
+    top.textContent = 'Resultat votacions';
+
+    if (ranked.length === 0) {
+        el.innerHTML = `<div class="sum-empty">Cap concert amb mes d'un vot</div>`;
+    } else {
+        let html = `<div class="summary-total">${ranked.length} concerts amb 2+ vots</div>`;
+        let pos = 0;
+        for (const r of ranked) {
+            pos++;
+            const d = new Date(r.c.d + 'T12:00:00');
+            const dots = r.details.map(({u, v}) => {
+                const st = v === 1 ? 'v-yes' : v === 2 ? 'v-maybe' : 'v-no';
+                return `<span class="dash-dot ${st}" style="background:${u.color}" title="${u.name}"></span>`;
+            }).join('');
+            html += `<div class="dash-row">`;
+            html += `<span class="dash-rank">${pos}</span>`;
+            html += `<div class="dash-votes">${dots}</div>`;
+            html += `<div class="dash-info"><div class="dash-title">${r.c.t}</div>`;
+            html += `<div class="dash-date">${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()} · ${dayName(r.c.d)} · ${r.c.h}h</div></div>`;
+            html += `</div>`;
+        }
+        el.innerHTML = html;
+    }
+    document.getElementById('summaryOverlay').classList.add('visible');
+}
+
 // ── FILTER ──
 document.getElementById('filterInput').addEventListener('input', function() {
     filterText = this.value.trim();
@@ -602,12 +803,17 @@ document.getElementById('filterInput').addEventListener('input', function() {
 
 // ── SCROLL SPY ──
 const navLinks = () => document.querySelectorAll('.section-nav a');
+const navBar = document.getElementById('sectionNav');
 const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
         if (e.isIntersecting) {
             navLinks().forEach(a => a.classList.remove('active'));
             const link = document.querySelector(`.section-nav a[href="#${e.target.id}"]`);
-            if (link) { link.classList.add('active'); link.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'}); }
+            if (link) {
+                link.classList.add('active');
+                const nl = link.offsetLeft - navBar.offsetWidth / 2 + link.offsetWidth / 2;
+                navBar.scrollTo({left: nl, behavior: 'smooth'});
+            }
         }
     });
 }, {rootMargin: '-120px 0px -70% 0px'});
@@ -620,10 +826,9 @@ setTimeout(() => {
 
 // Periodic refresh
 setInterval(async () => {
-    if (!apiOk) return;
     try {
         const r = await fetch(API);
-        if (r.ok) { votes = await r.json(); renderVotes(); updateStats(); }
+        if (r.ok) { votes = await r.json(); apiOk = true; localStorage.setItem('rituals-votes', JSON.stringify(votes)); renderVotes(); updateStats(); }
     } catch {}
 }, 30000);
 </script>
