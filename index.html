@@ -4,533 +4,520 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rituals al Palau 26-27</title>
-    <meta name="description" content="Programa de concerts Rituals al Palau de la Música Catalana - Temporada 2026-2027">
+    <meta name="description" content="Programa de concerts i votacions - Palau de la Música i L'Auditori - Temporada 2026-2027">
     <meta property="og:title" content="Rituals al Palau 26-27">
-    <meta property="og:description" content="Programa de concerts al Palau de la Música Catalana - Temporada 2026-2027">
-    <meta property="og:type" content="website">
+    <meta property="og:description" content="Tria els concerts de la temporada 2026-2027 amb els amics">
+    <meta property="og:image" content="img/hero.jpg">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Rituals 26-27">
-    <meta name="theme-color" content="#1a0a2e">
+    <meta name="theme-color" content="#1a1a1a">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-deep: #0d0618;
-            --bg-card: #1a0a2e;
-            --bg-card-hover: #241240;
-            --gold: #d4a843;
-            --gold-light: #f0d078;
-            --gold-dim: #8a6d2b;
-            --text: #e8e0f0;
-            --text-dim: #9988aa;
-            --accent: #7b5ea7;
-            --border: rgba(212, 168, 67, 0.15);
-        }
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --sans:'Inter',-apple-system,sans-serif;
+    --bg:#faf9f7;--card:#fff;--text:#1a1a1a;--text2:#555;--text3:#999;
+    --border:rgba(0,0,0,.1);--border2:rgba(0,0,0,.06);
+    --palau:#8b1a1a;--auditori:#1a3a5c;
+    --yes:#2d7d46;--maybe:#c98d1a;
+}
+html{scroll-behavior:smooth;scroll-padding-top:110px}
+body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+.hero{position:relative;height:70vh;min-height:380px;max-height:600px;overflow:hidden}
+.hero-img{width:100%;height:100%;object-fit:cover;object-position:center 25%}
+.hero-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:3rem 2rem 2.5rem;background:linear-gradient(0deg,rgba(0,0,0,.75) 0%,rgba(0,0,0,.15) 50%,rgba(0,0,0,.3) 100%);text-align:center;color:#fff}
+.hero h1{font-family:var(--serif);font-size:3.8rem;font-weight:300;letter-spacing:.08em;line-height:1;margin-bottom:.4rem;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+.hero-sub{font-family:var(--sans);font-size:.8rem;font-weight:300;letter-spacing:.25em;text-transform:uppercase;opacity:.75}
+.hero-venue{font-family:var(--serif);font-size:1.15rem;font-weight:400;font-style:italic;opacity:.65;margin-bottom:.5rem}
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-deep);
-            color: var(--text);
-            min-height: 100vh;
-            line-height: 1.6;
-        }
+.sticky-bar{position:sticky;top:0;z-index:100;background:rgba(250,249,247,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.user-bar{display:flex;align-items:center;gap:.8rem;padding:.6rem 1.2rem;max-width:960px;margin:0 auto}
+.user-label{font-family:var(--sans);font-size:.7rem;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
+.user-avatars{display:flex;gap:.4rem}
+.user-avatar{width:34px;height:34px;border-radius:50%;border:2px solid transparent;display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:.65rem;font-weight:600;color:#fff;cursor:pointer;transition:all .25s;flex-shrink:0}
+.user-avatar:hover{transform:scale(1.08)}
+.user-avatar.active{border-color:var(--text);box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--text);transform:scale(1.1)}
+.user-stats{margin-left:auto;font-family:var(--sans);font-size:.7rem;color:var(--text3);white-space:nowrap}
+.user-stats strong{color:var(--text);font-weight:600}
 
-        .hero {
-            position: relative;
-            text-align: center;
-            padding: 3rem 1.5rem 2rem;
-            background: linear-gradient(180deg, #1a0a2e 0%, #0d0618 100%);
-            overflow: hidden;
-        }
+.section-nav{display:flex;gap:.15rem;padding:.5rem 1rem;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:960px;margin:0 auto;scrollbar-width:none}
+.section-nav::-webkit-scrollbar{display:none}
+.section-nav a{font-family:var(--sans);font-size:.65rem;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--text2);text-decoration:none;padding:.35rem .7rem;border-radius:20px;white-space:nowrap;transition:all .3s}
+.section-nav a:hover{background:rgba(0,0,0,.06)}
+.section-nav a.active{background:var(--text);color:#fff}
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(212,168,67,0.08) 0%, transparent 70%);
-            pointer-events: none;
-        }
+.filter-bar{padding:.8rem 1rem;max-width:960px;margin:0 auto}
+.filter-input{width:100%;padding:.55rem 1rem .55rem 2.2rem;border:1px solid var(--border);border-radius:24px;font-family:var(--sans);font-size:.8rem;background:var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23999' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242.656a5 5 0 1 1 0-10 5 5 0 0 1 0 10z'/%3E%3C/svg%3E") no-repeat .7rem center;color:var(--text);outline:none;transition:border-color .3s}
+.filter-input:focus{border-color:rgba(0,0,0,.3)}
 
-        .hero-icon {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
+.section{padding:2.5rem 1rem .5rem;max-width:960px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:1.8rem;position:relative}
+.section-header::before,.section-header::after{content:'';position:absolute;top:50%;width:calc(50% - 6rem);height:1px;background:var(--border)}
+.section-header::before{left:0}.section-header::after{right:0}
+.section-header h2{font-family:var(--serif);font-size:2rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.15rem;display:inline-block;background:var(--bg);padding:0 1.5rem;position:relative}
+.section-header .sub{font-family:var(--serif);font-size:1rem;font-style:italic;color:var(--text2);margin-bottom:.3rem}
+.section-header .count{font-family:var(--sans);font-size:.7rem;color:var(--text3);letter-spacing:.05em}
+.section-header .accent-line{width:40px;height:2px;background:var(--text);margin:.8rem auto 0;opacity:.2}
 
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--gold);
-            letter-spacing: 0.02em;
-            margin-bottom: 0.3rem;
-        }
+.concert-list{max-width:960px;margin:0 auto;padding:0 1rem 1rem}
 
-        .hero .subtitle {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.1rem;
-            color: var(--gold-dim);
-            margin-bottom: 0.8rem;
-        }
+.card{background:var(--card);border:1px solid var(--border2);border-radius:6px;padding:1.3rem 1.4rem;margin-bottom:.6rem;transition:border-color .3s,box-shadow .3s}
+.card:hover{border-color:rgba(0,0,0,.18);box-shadow:0 1px 8px rgba(0,0,0,.04)}
+.card.past{opacity:.4}.card.past:hover{opacity:.55}
 
-        .hero .season {
-            display: inline-block;
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--text-dim);
-            border: 1px solid var(--border);
-            padding: 0.3rem 1.2rem;
-            border-radius: 20px;
-        }
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.4rem;gap:.5rem}
+.card-date{font-family:var(--sans);font-size:.72rem;font-weight:500;color:var(--text2);letter-spacing:.03em;line-height:1.4}
+.card-date .day-name{color:var(--text3);font-weight:400}
+.card-badge{font-family:var(--sans);font-size:.6rem;font-weight:500;padding:.15rem .5rem;border-radius:10px;letter-spacing:.06em;text-transform:uppercase;flex-shrink:0}
+.badge-palau{background:rgba(139,26,26,.08);color:var(--palau)}
+.badge-auditori{background:rgba(26,58,92,.08);color:var(--auditori)}
+.badge-next{background:var(--text);color:#fff;font-weight:600;margin-left:.4rem}
 
-        .share-bar {
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-            padding: 1rem 1.5rem 0;
-        }
+.card-title{font-family:var(--serif);font-size:1.25rem;font-weight:600;line-height:1.3;margin-bottom:.15rem}
+.card-subtitle{font-family:var(--serif);font-size:.95rem;font-style:italic;color:var(--text2);line-height:1.4;margin-bottom:.3rem}
+.card-composers{font-family:var(--sans);font-size:.75rem;color:var(--text2);margin-bottom:.25rem;line-height:1.5}
+.card-performers{font-family:var(--serif);font-size:.88rem;color:var(--text);line-height:1.5;margin-bottom:.4rem}
+.card-cycle{font-family:var(--sans);font-size:.65rem;color:var(--text3);letter-spacing:.04em;margin-bottom:.3rem}
+.card-price{font-family:var(--sans);font-size:.78rem;color:var(--text2);margin-bottom:.7rem}
+.card-price strong{color:var(--text);font-weight:600}
 
-        .share-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--gold-dim);
-            font-size: 0.75rem;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
+.vote-row{display:flex;gap:.35rem;align-items:center;padding-top:.6rem;border-top:1px solid var(--border2);flex-wrap:wrap}
+.vote-btn{width:30px;height:30px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:600;font-family:var(--sans);cursor:pointer;transition:all .2s;position:relative;color:#fff}
+.vote-btn.empty{opacity:.25}
+.vote-btn.mine{box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--text3)}
+.vote-btn.mine.empty{opacity:.5}
+.vote-btn.yes{opacity:1;box-shadow:0 0 0 2.5px var(--yes)}
+.vote-btn.yes::after{content:'\2665';position:absolute;bottom:-4px;right:-3px;font-size:.55rem;color:var(--yes);line-height:1}
+.vote-btn.maybe{opacity:1;box-shadow:0 0 0 2.5px var(--maybe)}
+.vote-btn.maybe::after{content:'?';position:absolute;bottom:-4px;right:-2px;font-size:.6rem;font-weight:700;color:var(--maybe);line-height:1}
+.vote-count{margin-left:auto;font-family:var(--sans);font-size:.7rem;color:var(--text3)}
+.vote-count .vc-yes{color:var(--yes);font-weight:600}
+.vote-count .vc-maybe{color:var(--maybe)}
 
-        .share-btn:hover { background: var(--bg-card-hover); color: var(--gold); }
+.footer{text-align:center;padding:2.5rem 1rem 3rem;border-top:1px solid var(--border);margin-top:1rem}
+.footer p{font-family:var(--serif);font-size:.95rem;color:var(--text3);font-style:italic;margin-bottom:1rem}
+.share-btn{font-family:var(--sans);font-weight:400;text-transform:uppercase;letter-spacing:.12em;border:1.5px solid var(--text);background:none;color:var(--text);padding:.5rem 2rem;border-radius:28px;font-size:.75rem;cursor:pointer;transition:all .5s;margin:0 .3rem}
+.share-btn:hover{background:var(--text);color:#fff}
 
-        .share-btn .share-icon { font-size: 0.9rem; }
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:.6rem 1.5rem;border-radius:8px;font-family:var(--sans);font-size:.82rem;opacity:0;transition:all .3s;z-index:200;pointer-events:none}
+.toast.visible{transform:translateX(-50%) translateY(0);opacity:1}
 
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: var(--gold);
-            color: var(--bg-deep);
-            padding: 0.6rem 1.5rem;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 100;
-            pointer-events: none;
-        }
+.no-results{text-align:center;padding:3rem 1rem;font-family:var(--serif);font-size:1.1rem;color:var(--text3);font-style:italic}
 
-        .toast.visible {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-
-        .concerts {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 1.5rem 1rem 3rem;
-        }
-
-        .concert {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            transition: background 0.2s, border-color 0.2s;
-            position: relative;
-        }
-
-        .concert:hover {
-            background: var(--bg-card-hover);
-            border-color: rgba(212, 168, 67, 0.3);
-        }
-
-        .concert-number {
-            position: absolute;
-            top: 1rem;
-            right: 1.2rem;
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: rgba(212, 168, 67, 0.1);
-            line-height: 1;
-        }
-
-        .concert-date {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .concert-date .day {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--gold);
-            line-height: 1;
-            min-width: 2.2rem;
-            text-align: center;
-        }
-
-        .concert-date .month-year {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--gold-dim);
-            line-height: 1.3;
-        }
-
-        .concert-date .weekday {
-            font-size: 0.7rem;
-            color: var(--text-dim);
-        }
-
-        .concert-date .time {
-            margin-left: auto;
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            background: rgba(212, 168, 67, 0.08);
-            padding: 0.2rem 0.6rem;
-            border-radius: 6px;
-        }
-
-        .concert-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 0.5rem;
-        }
-
-        .concert-program {
-            list-style: none;
-            margin-bottom: 0.8rem;
-        }
-
-        .concert-program li {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            padding: 0.15rem 0;
-            padding-left: 1rem;
-            position: relative;
-        }
-
-        .concert-program li::before {
-            content: '♪';
-            position: absolute;
-            left: 0;
-            color: var(--gold-dim);
-            font-size: 0.7rem;
-        }
-
-        .concert-program .composer {
-            color: var(--text);
-            font-weight: 500;
-        }
-
-        .concert-performers {
-            font-size: 0.8rem;
-            color: var(--accent);
-            border-top: 1px solid var(--border);
-            padding-top: 0.6rem;
-            line-height: 1.5;
-        }
-
-        .concert-performers strong {
-            color: var(--gold-dim);
-            font-weight: 500;
-        }
-
-        .badge-next {
-            display: inline-block;
-            font-size: 0.65rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            background: var(--gold);
-            color: var(--bg-deep);
-            padding: 0.15rem 0.6rem;
-            border-radius: 4px;
-            margin-left: 0.6rem;
-            vertical-align: middle;
-        }
-
-        .concert.past { opacity: 0.5; }
-        .concert.past:hover { opacity: 0.7; }
-
-        .separator {
-            text-align: center;
-            padding: 1.5rem 0;
-            color: var(--gold-dim);
-            font-size: 0.75rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            position: relative;
-        }
-
-        .separator::before, .separator::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: calc(50% - 4rem);
-            height: 1px;
-            background: var(--border);
-        }
-
-        .separator::before { left: 0; }
-        .separator::after { right: 0; }
-
-        .footer {
-            text-align: center;
-            padding: 1rem 1.5rem 2rem;
-            font-size: 0.75rem;
-            color: var(--text-dim);
-        }
-
-        .footer a {
-            color: var(--gold-dim);
-            text-decoration: none;
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 { font-size: 1.7rem; }
-            .hero .subtitle { font-size: 0.95rem; }
-            .concert { padding: 1.2rem; }
-            .concert-title { font-size: 1.05rem; }
-        }
+@media(max-width:600px){
+    .hero{height:50vh;min-height:300px}
+    .hero h1{font-size:2.6rem;letter-spacing:.05em}
+    .hero-venue{font-size:1rem}
+    .section-header h2{font-size:1.6rem;letter-spacing:.08em}
+    .section-header::before,.section-header::after{width:calc(50% - 4.5rem)}
+    .card{padding:1rem 1.1rem}
+    .card-title{font-size:1.1rem}
+    .card-performers{font-size:.82rem}
+    .user-bar{padding:.5rem .8rem;gap:.5rem}
+}
     </style>
 </head>
 <body>
 
-<div class="hero">
-    <span class="hero-icon">🎵</span>
-    <h1>Rituals al Palau</h1>
-    <p class="subtitle">Palau de la Música Catalana</p>
-    <span class="season">Temporada 2026 – 2027</span>
+<header class="hero" id="top">
+    <img src="img/hero.jpg" alt="El grup al Palau de la Musica" class="hero-img">
+    <div class="hero-overlay">
+        <p class="hero-venue">Palau de la Musica Catalana &middot; L'Auditori de Barcelona</p>
+        <h1>Rituals al Palau</h1>
+        <p class="hero-sub">Temporada 2026 &ndash; 2027</p>
+    </div>
+</header>
+
+<div class="sticky-bar">
+    <div class="user-bar">
+        <span class="user-label">Qui ets?</span>
+        <div class="user-avatars" id="userAvatars"></div>
+        <div class="user-stats" id="userStats"></div>
+    </div>
+    <nav class="section-nav" id="sectionNav"></nav>
 </div>
 
-<div class="share-bar">
-    <button class="share-btn" onclick="shareApp()">
-        <span class="share-icon">↗</span> Compartir
-    </button>
-    <button class="share-btn" onclick="addToCalendar()">
-        <span class="share-icon">📅</span> Calendari
-    </button>
+<div class="filter-bar">
+    <input type="text" class="filter-input" id="filterInput" placeholder="Cerca per compositor, interpret, obra...">
 </div>
 
-<div class="concerts" id="concerts">
+<main id="app"></main>
 
-    <div class="concert" data-date="2026-10-03">
-        <span class="concert-number">1</span>
-        <div class="concert-date">
-            <span class="day">3</span>
-            <div>
-                <div class="month-year">Octubre 2026</div>
-                <div class="weekday">Dissabte</div>
-            </div>
-            <span class="time">19:00h</span>
-        </div>
-        <div class="concert-title">Concert inaugural</div>
-        <ul class="concert-program">
-            <li><span class="composer">J.S. Bach</span> – Suite per a violoncel nº 1 en Sol M, BWV 1007</li>
-            <li><span class="composer">Beethoven</span> – Sonata per a piano nº 14 "Clar de lluna"</li>
-            <li><span class="composer">Brahms</span> – Trio per a piano nº 1 en Si M, Op. 8</li>
-        </ul>
-        <div class="concert-performers">
-            <strong>Intèrprets:</strong> Pendent de confirmació
-        </div>
-    </div>
-
-    <div class="concert" data-date="2026-11-14">
-        <span class="concert-number">2</span>
-        <div class="concert-date">
-            <span class="day">14</span>
-            <div>
-                <div class="month-year">Novembre 2026</div>
-                <div class="weekday">Dissabte</div>
-            </div>
-            <span class="time">19:00h</span>
-        </div>
-        <div class="concert-title">Veus del Romanticisme</div>
-        <ul class="concert-program">
-            <li><span class="composer">Schubert</span> – Quartet de corda nº 14 "La Mort i la Donzella"</li>
-            <li><span class="composer">Schumann</span> – Kinderszenen, Op. 15</li>
-        </ul>
-        <div class="concert-performers">
-            <strong>Intèrprets:</strong> Pendent de confirmació
-        </div>
-    </div>
-
-    <div class="concert" data-date="2026-12-19">
-        <span class="concert-number">3</span>
-        <div class="concert-date">
-            <span class="day">19</span>
-            <div>
-                <div class="month-year">Desembre 2026</div>
-                <div class="weekday">Dissabte</div>
-            </div>
-            <span class="time">19:00h</span>
-        </div>
-        <div class="concert-title">Concert de Nadal</div>
-        <ul class="concert-program">
-            <li><span class="composer">Corelli</span> – Concerto Grosso "de Nadal", Op. 6 nº 8</li>
-            <li><span class="composer">Vivaldi</span> – Gloria en Re M, RV 589</li>
-        </ul>
-        <div class="concert-performers">
-            <strong>Intèrprets:</strong> Pendent de confirmació
-        </div>
-    </div>
-
-    <div class="separator">· 2027 ·</div>
-
-    <div class="concert" data-date="2027-01-23">
-        <span class="concert-number">4</span>
-        <div class="concert-date">
-            <span class="day">23</span>
-            <div>
-                <div class="month-year">Gener 2027</div>
-                <div class="weekday">Dissabte</div>
-            </div>
-            <span class="time">19:00h</span>
-        </div>
-        <div class="concert-title">Impressions</div>
-        <ul class="concert-program">
-            <li><span class="composer">Debussy</span> – Suite bergamasque</li>
-            <li><span class="composer">Ravel</span> – Quartet de corda en Fa M</li>
-            <li><span class="composer">Fauré</span> – Pavane, Op. 50</li>
-        </ul>
-        <div class="concert-performers">
-            <strong>Intèrprets:</strong> Pendent de confirmació
-        </div>
-    </div>
-
-    <div class="concert" data-date="2027-02-20">
-        <span class="concert-number">5</span>
-        <div class="concert-date">
-            <span class="day">20</span>
-            <div>
-                <div class="month-year">Febrer 2027</div>
-                <div class="weekday">Dissabte</div>
-            </div>
-            <span class="time">19:00h</span>
-        </div>
-        <div class="concert-title">Bach i el Barroc</div>
-        <ul class="concert-program">
-            <li><span class="composer">J.S. Bach</span> – Concerts de Brandenburg nº 3 i 5</li>
-            <li><span class="composer">Händel</span> – Water Music, Suite nº 2</li>
-        </ul>
-        <div class="concert-performers">
-            <strong>Intèrprets:</strong> Pendent de confirmació
-        </div>
-    </div>
-
-    <div class="concert" data-date="2027-03-20">
-        <span class="concert-number">6</span>
-        <div class="concert-date">
-            <span class="day">20</span>
-            <div>
-                <div class="month-year">Març 2027</div>
-                <div class="weekday">Dissabte</div>
-            </div>
-            <span class="time">19:00h</span>
-        </div>
-        <div class="concert-title">Viena Clàssica</div>
-        <ul class="concert-program">
-            <li><span class="composer">Haydn</span> – Quartet Op. 76 nº 3 "Emperador"</li>
-            <li><span class="composer">Mozart</span> – Quintet per a clarinet en La M, K. 581</li>
-        </ul>
-        <div class="concert-performers">
-            <strong>Intèrprets:</strong> Pendent de confirmació
-        </div>
-    </div>
-
-    <div class="concert" data-date="2027-04-24">
-        <span class="concert-number">7</span>
-        <div class="concert-date">
-            <span class="day">24</span>
-            <div>
-                <div class="month-year">Abril 2027</div>
-                <div class="weekday">Dissabte</div>
-            </div>
-            <span class="time">19:00h</span>
-        </div>
-        <div class="concert-title">Música ibèrica</div>
-        <ul class="concert-program">
-            <li><span class="composer">Albéniz</span> – Suite Iberia (selecció)</li>
-            <li><span class="composer">Granados</span> – Goyescas (selecció)</li>
-            <li><span class="composer">Mompou</span> – Cançons i danses</li>
-        </ul>
-        <div class="concert-performers">
-            <strong>Intèrprets:</strong> Pendent de confirmació
-        </div>
-    </div>
-
-    <div class="concert" data-date="2027-05-22">
-        <span class="concert-number">8</span>
-        <div class="concert-date">
-            <span class="day">22</span>
-            <div>
-                <div class="month-year">Maig 2027</div>
-                <div class="weekday">Dissabte</div>
-            </div>
-            <span class="time">19:00h</span>
-        </div>
-        <div class="concert-title">Gran final de temporada</div>
-        <ul class="concert-program">
-            <li><span class="composer">Dvořák</span> – Quintet per a piano nº 2 en La M, Op. 81</li>
-            <li><span class="composer">Txaikovski</span> – Serenata per a cordes en Do M, Op. 48</li>
-        </ul>
-        <div class="concert-performers">
-            <strong>Intèrprets:</strong> Pendent de confirmació
-        </div>
-    </div>
-
-</div>
-
-<div class="footer">
-    Palau de la Música Catalana · Barcelona
-</div>
+<footer class="footer">
+    <p>Palau de la Musica Catalana &middot; L'Auditori de Barcelona</p>
+    <button class="share-btn" onclick="shareApp()">Compartir</button>
+    <button class="share-btn" onclick="downloadCalendar()">Calendari</button>
+</footer>
 
 <div class="toast" id="toast"></div>
 
 <script>
-(function() {
+const USERS = [
+    {id:'xavi',name:'Xavi',ini:'X',color:'#2563eb'},
+    {id:'anna',name:'Anna',ini:'A',color:'#dc2626'},
+    {id:'albert',name:'Albert',ini:'Al',color:'#059669'},
+    {id:'montse',name:'Montse',ini:'M',color:'#d97706'},
+    {id:'elia',name:'Elia',ini:'E',color:'#7c3aed'},
+    {id:'roger',name:'Roger',ini:'R',color:'#0891b2'}
+];
+
+const SECTIONS = [
+    {id:'beethoven',title:'BEETHOVEN',sub:'Bicentenari 1827–2027'},
+    {id:'casals',title:'PAU CASALS',sub:'El mestre catala'},
+    {id:'baroque',title:'BARROQUES',sub:'Bach · Handel · Vivaldi'},
+    {id:'romantic',title:'ROMANTICISME',sub:'Brahms · Mahler · Strauss'},
+    {id:'cinema',title:'CINEMA',sub:'Bandes sonores'},
+    {id:'palau',title:'PALAU DE LA MÚSICA',sub:'Resta de la temporada'},
+    {id:'auditori',title:'L’AUDITORI',sub:'Resta de la temporada'}
+];
+
+const C = [
+// ── BEETHOVEN ──
+{i:'be01',g:'beethoven',v:'P',d:'2026-09-19',h:'20:00',t:"L'Emperador de Beethoven",c:'Beethoven',p:'Alba Ventura pno · OSV · Xavier Salado dir.',pr:'22–68€',y:'Simfonics al Palau'},
+{i:'be02',g:'beethoven',v:'P',d:'2026-09-28',h:'19:00',t:'Concert inaugural – Novena Simfonia',s:'Casals, Vivancos, Schubert i Beethoven',c:'Casals · Vivancos · Schubert · Beethoven',p:'Marta Matheu sop · Gemma Coma-Alabert mez · Roger Padulles ten · Ferran Albrich bar · Pablo Ferrandez vlc · Quartet Casals · Orfeo Catala · Escolania de Montserrat · OSV · Xavier Puig dir.',pr:'20–88€',y:'Concerts Extraordinaris'},
+{i:'be03',g:'beethoven',v:'A',d:'2026-10-02',h:'19:00',t:'La Setena de Beethoven',s:'Gerhard, Chopin i Beethoven: Simfonia 7',c:'Gerhard · Chopin · Beethoven',p:'Jan Lisiecki pno · OBC · Ludovic Morlot dir.',pr:'Des de 20€',y:'OBC'},
+{i:'be04',g:'beethoven',v:'P',d:'2026-11-22',h:'19:00',t:'Kopatchinskaja & Fazil Say',s:'Szymanowski, Say, Beethoven: Sonata Kreutzer',c:'Szymanowski · Say · Beethoven',p:'Patricia Kopatchinskaja vln · Fazil Say pno',pr:'25 i 38€',y:'Palau Cambra'},
+{i:'be05',g:'beethoven',v:'P',d:'2027-01-13',h:'20:00',t:'Andsnes, Philharmonia & Salonen',s:'Beethoven: Concert pno 3 · Bruckner: Simfonia 6',c:'Beethoven · Bruckner',p:'Leif Ove Andsnes pno · Philharmonia Orchestra · Esa-Pekka Salonen dir.',pr:'38–180€',y:'Palau 100'},
+{i:'be06',g:'beethoven',v:'P',d:'2027-01-28',h:'20:00',t:'Pierre-Laurent Aimard',s:'Beethoven: Bagatelles op.119 i Appassionata · Ligeti · Stockhausen',c:'Beethoven · Ligeti · Stockhausen',p:'Pierre-Laurent Aimard pno',pr:'35 i 45€',y:'Palau Piano'},
+{i:'be07',g:'beethoven',v:'P',d:'2027-01-29',h:'20:00',t:'Missa Solemnis – Savall',s:'Beethoven: Missa Solemnis en Re M op.123',c:'Beethoven',p:'Lina Johnson sop · Olivia Vermeulen mez · Martin Platz ten · Manuel Walser bar · La Capella Reial de Catalunya · Le Concert des Nations · Jordi Savall dir.',pr:'30–150€',y:'Concerts Extraordinaris'},
+{i:'be08',g:'beethoven',v:'P',d:'2027-02-04',h:'20:00',t:'Capucon & Braley',s:'Beethoven: Integral Sonates per a violoncel i piano',c:'Beethoven',p:'Gautier Capucon vlc · Frank Braley pno',pr:'25 i 38€',y:'Palau Cambra'},
+{i:'be09',g:'beethoven',v:'A',d:'2027-02-26',h:'19:00',t:'Simfonia Eroica',s:'Dvorak · Schubert · Beethoven: Simfonia 3',c:'Dvorak · Schubert · Beethoven',p:'OBC · Sebastian Weigle dir.',pr:'Des de 20€',y:'OBC'},
+{i:'be10',g:'beethoven',v:'P',d:'2027-04-08',h:'20:00',t:'Budapest Festival Orchestra & Fischer',s:'Beethoven: Simfonia 9 "Coral"',c:'Beethoven',p:'Eleanor Lyons sop · Olivia Vermeulen mez · Andrew Staples ten · Hanno Muller-Brachmann bx · Budapest Festival Orchestra · Ivan Fischer dir.',pr:'35–170€',y:'Palau 100'},
+{i:'be11',g:'beethoven',v:'P',d:'2027-04-10',h:'20:00',t:'Beethoven i Mezquida',s:'Estrena concert per a piano de Marco Mezquida',c:'Mezquida · Beethoven',p:'Marco Mezquida pno · OSV · Dani Espasa dir.',pr:'22–68€',y:'Simfonics al Palau'},
+{i:'be12',g:'beethoven',v:'P',d:'2027-05-07',h:'20:00',t:'Simfonies de Beethoven I',s:'Simfonies 1, 4 i 5 + estrena Clara Iannotta',c:'Iannotta · Beethoven',p:'Staatskapelle Dresden · Daniele Gatti dir.',pr:'35–170€',y:'Simfonies de Beethoven'},
+{i:'be13',g:'beethoven',v:'P',d:'2027-05-08',h:'20:00',t:'Simfonies de Beethoven II',s:'Simfonies 2 i 3 "Heroica" + estrena Jesus Torres',c:'Torres · Beethoven',p:'Staatskapelle Dresden · Daniele Gatti dir.',pr:'35–170€',y:'Simfonies de Beethoven'},
+{i:'be14',g:'beethoven',v:'A',d:'2027-05-09',h:'18:00',t:'La Novena de Beethoven (BMB)',s:'Beethoven: Simfonia 9 (versio per a conjunt de vents)',c:'Beethoven',p:'Sociedad Coral de Bilbao · BMB · Pascual-Vilaplana dir.',pr:'12–16€',y:'BMB'},
+{i:'be15',g:'beethoven',v:'P',d:'2027-05-10',h:'20:00',t:'Simfonies de Beethoven III',s:'Simfonies 6 "Pastoral" i 7 + estrena Riccardo Panfili',c:'Panfili · Beethoven',p:'Staatskapelle Dresden · Daniele Gatti dir.',pr:'35–170€',y:'Simfonies de Beethoven'},
+{i:'be16',g:'beethoven',v:'P',d:'2027-05-11',h:'20:00',t:'Simfonies de Beethoven IV',s:'Simfonies 8 i 9 "Coral" + estrena Jorg Widmann',c:'Widmann · Beethoven',p:'Sara Blanch sop · Silvia Tro Santafe mez · Bernard Richter ten · Jordan Shanahan bx · Orfeo Catala · Staatskapelle Dresden · Daniele Gatti dir.',pr:'35–220€',y:'Simfonies de Beethoven'},
+{i:'be17',g:'beethoven',v:'P',d:'2027-05-25',h:'20:00',t:'Faust, Queyras, Schiff & Gardiner',s:'Beethoven: Fantasia coral, Missa Do M i Triple Concert',c:'Beethoven',p:'Isabelle Faust vln · Jean-Guihen Queyras vlc · Andras Schiff pno · Constellation Choir & Orch. · John Eliot Gardiner dir.',pr:'35–170€',y:'Palau 100'},
+{i:'be18',g:'beethoven',v:'A',d:'2027-05-29',h:'19:00',t:'Savall – Simfonies 5 i 6',s:'Beethoven: Simfonies 5 i 6 "Pastoral"',c:'Beethoven',p:'Le Concert des Nations · Jordi Savall dir.',pr:'25–55€',y:'El So Original'},
+{i:'be19',g:'beethoven',v:'A',d:'2027-06-11',h:'19:00',t:'Cloenda OBC',s:'Rakhmaninov: Concert pno 3 · Beethoven · Respighi',c:'Rakhmaninov · Beethoven · Respighi',p:'Kirill Gerstein pno · OBC · Ludovic Morlot dir.',pr:'Des de 25€',y:'OBC'},
+{i:'be20',g:'beethoven',v:'P',d:'2027-06-30',h:'20:00',t:'Fidelio – Heras-Casado',s:'Beethoven: Fidelio (versio concert)',c:'Beethoven',p:'David Butt Philip ten · Julia Kleiter sop · Monteverdi Choir · ORR · Pablo Heras-Casado dir.',pr:'35–170€',y:'Palau Opera'},
+
+// ── PAU CASALS ──
+{i:'ca01',g:'casals',v:'P',d:'2026-12-15',h:'20:00',t:'El pessebre de Pau Casals',c:'Pau Casals',p:'Mireia Tarrago sop · Gemma Coma-Alabert mez · David Alegret ten · J.R. Olive bar · Cor Madrigal · Franz Schubert Filharmonia · Edmon Colomer dir.',pr:'18–68€',y:'Concerts Extraordinaris'},
+{i:'ca02',g:'casals',v:'P',d:'2027-06-16',h:'20:00',t:'Diada Pau Casals',s:'Julia Hagen & Lukas Sternath',c:'Beethoven · Brahms',p:'Julia Hagen vlc · Lukas Sternath pno',pr:'25 i 38€',y:'Palau Cambra'},
+
+// ── BARROQUES ──
+{i:'ba01',g:'baroque',v:'P',d:'2026-10-07',h:'20:00',t:'Jean-Guihen Queyras',s:'Bach: Integral Suites per a violoncel',c:'J.S. Bach',p:'Jean-Guihen Queyras vlc',pr:'25 i 38€',y:'Palau Bach'},
+{i:'ba02',g:'baroque',v:'P',d:'2026-10-19',h:'20:00',t:'Lea Desandre & Thomas Dunford',s:'"Idylle"',c:'Repertori barroc i classic',p:'Lea Desandre mez · Thomas Dunford llaut',pr:'30 i 45€',y:'Palau Grans Veus'},
+{i:'ba03',g:'baroque',v:'P',d:'2026-10-23',h:'20:00',t:'Riccardo Primo de Handel',c:'G.F. Handel',p:'Les Arts Florissants · Paul Agnew dir.',pr:'38–88€',y:'Palau Opera'},
+{i:'ba04',g:'baroque',v:'P',d:'2026-11-04',h:'20:00',t:'Ensemble Pygmalion & Pichon',s:'Bruckner · Mendelssohn · Mozart: Gran Missa Do m',c:'Bruckner · Mendelssohn · Mozart',p:'Sabine Devieilhe sop · Ensemble Pygmalion · Raphael Pichon dir.',pr:'28–125€',y:'Palau 100'},
+{i:'ba05',g:'baroque',v:'P',d:'2026-11-18',h:'20:00',t:'Agrippina de Handel',c:'G.F. Handel',p:'Magdalena Kozena · Julia Lezhneva · Les Accents · Thibault Noally dir.',pr:'40–98€',y:'Palau Opera'},
+{i:'ba06',g:'baroque',v:'P',d:'2026-11-30',h:'20:00',t:'Franco Fagioli & Gabetta Consort',s:'Projecte Farinelli',c:'Aries barroques',p:'Franco Fagioli ct · Gabetta Consort · Andres Gabetta vln+dir.',pr:'30–60€',y:'Palau Grans Veus'},
+{i:'ba07',g:'baroque',v:'A',d:'2026-12-11',h:'19:00',t:'Les quatre estacions de Vivaldi',s:'Vivaldi i Piazzolla',c:'Vivaldi · Piazzolla',p:'Lina Tur Bonet vln/dir. · Musica Alchemica',pr:'25–32€',y:'Musica Antiga'},
+{i:'ba08',g:'baroque',v:'P',d:'2026-12-16',h:'20:00',t:'El Messies de Handel',s:'RIAS Kammerchor, AKAMUS & Doyle',c:'G.F. Handel',p:'Julia Doyle sop · Tim Mead ct · Thomas Hobbs ten · Roderick Williams bx · RIAS Kammerchor Berlin · Akademie fur Alte Musik Berlin · Justin Doyle dir.',pr:'28–125€',y:'Concerts Extraordinaris'},
+{i:'ba09',g:'baroque',v:'P',d:'2026-12-18',h:'20:00',t:'Oratori de Nadal de Bach',s:'Collegium Vocale Gent & Herreweghe',c:'J.S. Bach',p:'Dorothee Mields sop · Alex Potter ct · Collegium Vocale Gent · Philippe Herreweghe dir.',pr:'28–88€',y:'Palau Bach'},
+{i:'ba10',g:'baroque',v:'A',d:'2026-12-18',h:'19:00',t:'Oratori de Nadal de Bach (OBC)',s:'Bach: Oratori de Nadal BWV 248',c:'J.S. Bach',p:'Elionor Martinez sop · Reinoud van Mechelen ten · Ferran Albrich bar · Cor Jove Orfeo Catala · OBC · Carlos Mena dir.',pr:'Des de 25€',y:'OBC'},
+{i:'ba11',g:'baroque',v:'P',d:'2026-12-21',h:'20:00',t:'A Nocte Temporis & Van Mechelen',s:'Bach, Handel i Rameau',c:'Bach · Handel · Rameau',p:'Reinoud van Mechelen ten+dir. · A Nocte Temporis',pr:'22 i 35€',y:'Palau Bach'},
+{i:'ba12',g:'baroque',v:'P',d:'2027-01-21',h:'20:00',t:'Diego Ares – Soler al clave',s:'A. Soler: 11 Sonates per a clave, Preludi i fandango',c:'Antoni Soler',p:'Diego Ares clave',pr:'25€',y:'Palau Bach'},
+{i:'ba13',g:'baroque',v:'P',d:'2027-02-13',h:'20:00',t:'Himnes de Handel',s:'Vespres d\'Arnadi & Cor de Cambra del Palau',c:'G.F. Handel',p:'Cor de Cambra del Palau · Vespres d\'Arnadi · Dani Espasa dir.',pr:'22–68€',y:'Simfonics al Palau'},
+{i:'ba14',g:'baroque',v:'P',d:'2027-03-18',h:'20:00',t:'Passio segons sant Mateu – Rattle',s:'Bach: Passio segons sant Mateu BWV 244',c:'J.S. Bach',p:'Reinoud van Mechelen ten · Tomas Kral bx · Miriam Feuersinger sop · Magdalena Kozena ct · Roderick Williams bx · Cor Infantil Orfeo · Zurcher Sing-Akademie · Freiburger Barockorchester · Simon Rattle dir.',pr:'30–150€',y:'Palau 100'},
+{i:'ba15',g:'baroque',v:'A',d:'2027-03-18',h:'19:00',t:'Te Deum – Savall',s:'Lalande · Handel · Part',c:'Lalande · Handel · Part',p:'La Capella Reial de Catalunya · Le Concert des Nations · Jordi Savall dir.',pr:'25–55€',y:'El So Original'},
+{i:'ba16',g:'baroque',v:'P',d:'2027-03-20',h:'20:00',t:'Passio segons sant Mateu – Collegium 1704',s:'Bach: Passio segons sant Mateu BWV 244',c:'J.S. Bach',p:'Collegium 1704 · Vaclav Luks dir.',pr:'18–95€',y:'Palau Bach'},
+{i:'ba17',g:'baroque',v:'P',d:'2027-04-03',h:'20:00',t:'Passio segons sant Mateu – Currentzis',s:'Bach: Passio segons sant Mateu BWV 244',c:'J.S. Bach',p:'Cor Infantil Orfeo Catala · Utopia Orchestra & Choir · Teodor Currentzis dir.',pr:'38–180€',y:'Concerts Extraordinaris'},
+{i:'ba18',g:'baroque',v:'P',d:'2027-04-21',h:'20:00',t:'Alessandro de Handel',c:'G.F. Handel',p:'Emoke Barath sop · Nuria Rial sop · Vespres d\'Arnadi · Dani Espasa dir.',pr:'28 i 38€',y:'Palau Opera'},
+{i:'ba19',g:'baroque',v:'P',d:'2027-04-27',h:'20:00',t:'Orquestra Barroca d\'Helsinki',s:'Bach: Concerts per a clave BWV 1060-1062',c:'J.S. Bach',p:'Pierre Hantai clave · Aapo Hakkinen clave · Orquestra Barroca d\'Helsinki',pr:'22 i 35€',y:'Palau Bach'},
+{i:'ba20',g:'baroque',v:'P',d:'2027-05-05',h:'20:00',t:'Missa en Si menor – Vox Luminis',s:'Bach: Missa en Si menor BWV 232',c:'J.S. Bach',p:'Vox Luminis · Freiburger Barockorchester · Lionel Meunier dir.',pr:'28–88€',y:'Palau Bach'},
+{i:'ba21',g:'baroque',v:'P',d:'2027-06-21',h:'20:00',t:'Espasa & De la Rubia',s:'A. Soler: 6 Concerts per a dos teclats',c:'Antoni Soler',p:'Dani Espasa · Juan de la Rubia · teclats',pr:'28€',y:'Palau Bach'},
+
+// ── ROMANTICISME ──
+{i:'ro01',g:'romantic',v:'P',d:'2026-10-20',h:'20:00',t:'Quasthoff & Amatis Trio',s:'"Humanity in war" – Kreisler, Schubert, Schumann, Shostakovich',c:'Clarke · Korngold · Kreisler · Schubert · Schumann · Shostakovich',p:'Thomas Quasthoff narrador · Amatis Trio',pr:'25 i 38€',y:'Palau Cambra'},
+{i:'ro02',g:'romantic',v:'A',d:'2026-10-21',h:'19:00',t:'Brahms: Un requiem alemany – Savall',c:'Brahms',p:'La Capella Reial de Catalunya · Le Concert des Nations · Jordi Savall dir.',pr:'25–55€',y:'El So Original'},
+{i:'ro03',g:'romantic',v:'P',d:'2026-10-26',h:'20:00',t:'London Philharmonic & Gardner',s:'Brahms: Concert per a violi · Sibelius: Simfonia 5',c:'Casals · Brahms · Sibelius',p:'Julia Fischer vln · London Philharmonic Orchestra · Edward Gardner dir.',pr:'30–150€',y:'Palau 100'},
+{i:'ro04',g:'romantic',v:'A',d:'2026-11-13',h:'19:00',t:'La Segona de Mahler',s:'Mahler: Simfonia 2 "Resurrecccio"',c:'Blai Soler · Mahler',p:'Christiane Karg sop · Helena Rasker contralt · Orfeo Catala · OBC · Ludovic Morlot dir.',pr:'Des de 25€',y:'OBC'},
+{i:'ro05',g:'romantic',v:'P',d:'2026-11-23',h:'20:00',t:'Hong Kong Philharmonic & Peltokoski',s:'Mozart: Concert pno 24 · Bruckner: Simfonia 4 "Romantica"',c:'Mozart · Bruckner',p:'Martin Helmchen pno · HK Phil · Tarmo Peltokoski dir.',pr:'18–90€',y:'Palau 100'},
+{i:'ro06',g:'romantic',v:'P',d:'2026-12-01',h:'20:00',t:'Accademia Santa Cecilia & Harding',s:'Txaikovski: Concert pno 1 · Brahms: Simfonia 4',c:'Txaikovski · Brahms',p:'Kirill Gerstein pno · Accademia Naz. di Santa Cecilia · Daniel Harding dir.',pr:'28–125€',y:'Palau 100'},
+{i:'ro07',g:'romantic',v:'P',d:'2027-01-25',h:'20:00',t:'Deutsche Radio Philharmonie & Pons',s:'Wagner: Preludi i mort d\'Isolde · R. Strauss: 4 ultimes cancons i Suite Elektra',c:'Wagner · R. Strauss',p:'Elisabeth Teige sop · Deutsche Radio Philharmonie · Josep Pons dir.',pr:'18–90€',y:'Palau 100'},
+{i:'ro08',g:'romantic',v:'A',d:'2027-01-30',h:'19:00',t:'Romeu i Julieta',s:'Hindemith: Concert per a violi · Prokofiev: Romeu i Julieta',c:'Brichs · Hindemith · Prokofiev',p:'Frank Peter Zimmermann vln · OBC · Jaime Martin dir.',pr:'Des de 20€',y:'OBC'},
+{i:'ro09',g:'romantic',v:'P',d:'2027-02-11',h:'20:00',t:'Batiashvili, Royal Concertgebouw & Makela',s:'Schumann · Sibelius: Concert vln · Dvorak: Simfonia 7',c:'Schumann · Sibelius · Dvorak',p:'Lisa Batiashvili vln · Royal Concertgebouw Orchestra · Klaus Makela dir.',pr:'40–210€',y:'Palau 100'},
+{i:'ro10',g:'romantic',v:'P',d:'2027-02-18',h:'20:00',t:'Perianes, Zimmermann & Queyras',s:'Brahms: Trios per a clarinet/piano/violoncel',c:'Brahms',p:'Javier Perianes pno · Antoine Tamestit viola · Jean-Guihen Queyras vlc',pr:'25 i 38€',y:'Palau Cambra'},
+{i:'ro11',g:'romantic',v:'A',d:'2027-02-19',h:'19:00',t:'La Novena de Mahler',s:'Mahler: Simfonia 9',c:'Mahler',p:'OBC · Vasily Petrenko dir.',pr:'Des de 25€',y:'OBC'},
+{i:'ro12',g:'romantic',v:'A',d:'2027-03-12',h:'19:00',t:'La Primera de Brahms',s:'Gabriella Smith · Ravel · Brahms: Simfonia 1',c:'Smith · Ravel · Brahms',p:'OBC · Ludovic Morlot dir.',pr:'Des de 25€',y:'OBC'},
+{i:'ro13',g:'romantic',v:'A',d:'2027-03-19',h:'19:00',t:'Simfonia del Nou Mon',s:'Wagner · Mahler · Dvorak: Simfonia 9',c:'Wagner · Mahler · Dvorak',p:'Matthias Goerne bar · OBC · Stanislav Kochanovsky dir.',pr:'Des de 25€',y:'OBC'},
+{i:'ro14',g:'romantic',v:'P',d:'2027-04-07',h:'20:00',t:'Capucon, Nederlands Philharmonic & Viotti',s:'Dvorak: Concert vlc · Txaikovski: Simfonia 6 "Patetica"',c:'Dvorak · Txaikovski',p:'Gautier Capucon vlc · Nederlands Philharmonic · Lorenzo Viotti dir.',pr:'18–90€',y:'Palau 100'},
+{i:'ro15',g:'romantic',v:'A',d:'2027-04-09',h:'19:00',t:'Wagner – Strauss',s:'R. Strauss · Wagner/De Vlieger: Tristan i Isolda sense paraules',c:'R. Strauss · Wagner',p:'Saskia Giorgini pno · OBC · Pietari Inkinen dir.',pr:'Des de 20€',y:'OBC'},
+{i:'ro16',g:'romantic',v:'A',d:'2027-05-21',h:'19:00',t:'Quatre ultimes cancons de Strauss',s:'Wagner · R. Strauss · Brahms: Simfonia 2',c:'Wagner · R. Strauss · Brahms',p:'Ruzan Mantashyan sop · OBC · David Afkham dir.',pr:'Des de 25€',y:'OBC'},
+{i:'ro17',g:'romantic',v:'P',d:'2027-05-30',h:'20:00',t:'Mendelssohn: Elies',s:'Orfeo Catala, Orquestra del Liceu & Puig',c:'Mendelssohn',p:'Emoke Barath sop · Olivia Vermeulen mez · Filip Filipovic ten · Jose Antonio Lopez bar · Orfeo Catala · Cor de Noies · Orquestra del Liceu · Xavier Puig dir.',pr:'18–68€',y:'Palau 100'},
+{i:'ro18',g:'romantic',v:'A',d:'2027-06-05',h:'19:00',t:'Segon concert de Rakhmaninov',s:'Rakhmaninov: Concert pno 2 · Txaikovski: Simfonia 5',c:'Rakhmaninov · Txaikovski',p:'Marc Heredia pno · OBC · Josep Caballe Domenech dir.',pr:'Des de 20€',y:'OBC'},
+
+// ── CINEMA ──
+{i:'ci01',g:'cinema',v:'P',d:'2026-10-11',h:'17:00',t:'Homenatge a Williams i Zimmer',c:'John Williams · Hans Zimmer',p:'OSV',pr:'22–68€',y:'Simfonics al Palau'},
+{i:'ci02',g:'cinema',v:'P',d:'2026-10-31',h:'20:00',t:'Psicosi – Film amb musica en directe',s:'Projecccio de Psicosi (Hitchcock) amb OSV en viu',c:'Bernard Herrmann',p:'OSV · Julian Bigg dir.',pr:'46–60€',y:'Simfonics al Palau'},
+{i:'ci03',g:'cinema',v:'P',d:'2026-11-07',h:'20:00',t:'John Williams i grans cors de cinema',c:'John Williams i altres',p:'OSV · Isabel Rubio dir.',pr:'22–68€',y:'Simfonics al Palau'},
+{i:'ci04',g:'cinema',v:'P',d:'2026-12-06',h:'17:00',t:'Nadal: Williams & Zimmer',s:'Concert de Nadal amb bandes sonores',c:'John Williams · Hans Zimmer',p:'OSV',pr:'45–68€',y:'Nadal al Palau'},
+
+// ── PALAU (resta) ──
+{i:'pl01',g:'palau',v:'P',d:'2026-09-21',h:'20:00',t:'Dmytro Choni',s:'Debussy · Lysenko · Brahms · Rakhmaninov',c:'Debussy · Lysenko · Brahms · Rakhmaninov',p:'Dmytro Choni pno',pr:'22 i 30€',y:'Palau Piano'},
+{i:'pl02',g:'palau',v:'P',d:'2026-09-26',h:'20:00',t:'Danses hongareses de Brahms',c:'Brahms',p:'Sara Ferrandez viola · OSV · Xavier Salado dir.',pr:'22–68€',y:'Simfonics al Palau'},
+{i:'pl03',g:'palau',v:'P',d:'2026-10-27',h:'20:00',t:'Claire Huangci',c:'Per determinar',p:'Claire Huangci pno',pr:'22 i 30€',y:'Palau Piano'},
+{i:'pl04',g:'palau',v:'P',d:'2026-11-05',h:'20:00',t:'Alard, Colom i cia.',s:'Bach, Sanchez-Verdu, Scarlatti, Victoria, Falla',c:'Bach · Scarlatti · Victoria · Falla',p:'Benjamin Alard clave · Miguel Colom vln · i altres',pr:'25 i 38€',y:'Palau Cambra'},
+{i:'pl05',g:'palau',v:'P',d:'2026-11-09',h:'20:00',t:'Christian Blackshaw – Mozart I',s:'Mozart: Sonates 1, 2, 8, 17, 9',c:'Mozart',p:'Christian Blackshaw pno',pr:'35 i 45€',y:'Palau Piano'},
+{i:'pl06',g:'palau',v:'P',d:'2026-11-21',h:'20:00',t:'La dansa del sabre',c:'Khachaturian i altres',p:'Inaki Bermudez sax · OSV · Pasquina dir.',pr:'22–68€',y:'Simfonics al Palau'},
+{i:'pl07',g:'palau',v:'P',d:'2026-11-24',h:'20:00',t:'Cecilia Bartoli & Lang Lang',c:'Repertori variat',p:'Cecilia Bartoli mez · Lang Lang pno',pr:'32–160€',y:'Palau Grans Veus'},
+{i:'pl08',g:'palau',v:'P',d:'2026-12-05',h:'20:00',t:'Cavalleria rusticana i Pagliacci',c:'Mascagni · Leoncavallo',p:'Sergio Escobar ten · Maite Alberola sop · OSV · Sierralta dir.',pr:'25–78€',y:'Simfonics al Palau'},
+{i:'pl09',g:'palau',v:'P',d:'2026-12-10',h:'20:00',t:'Alexandra Dovgan',c:'Per determinar',p:'Alexandra Dovgan pno',pr:'35 i 45€',y:'Palau Piano'},
+{i:'pl10',g:'palau',v:'P',d:'2026-12-13',h:'19:00',t:'Les quatre estacions de Vivaldi (Nadal)',c:'Vivaldi',p:'Orquestra de cambra',pr:'38–58€',y:'Nadal al Palau'},
+{i:'pl11',g:'palau',v:'P',d:'2026-12-19',h:'20:00',t:'Festival de valsos i danses',c:'J. Strauss i altres',p:'J.R. Olive bar · OSV · Xavier Puig dir.',pr:'22–68€',y:'Simfonics al Palau'},
+{i:'pl12',g:'palau',v:'P',d:'2026-12-25',h:'12:00',t:'El trencanous de Txaikovski (Nadal)',c:'Txaikovski',p:'Orquestra',pr:'28–58€',y:'Nadal al Palau'},
+{i:'pl13',g:'palau',v:'P',d:'2026-12-26',h:'19:00',t:'Concert de Sant Esteve',c:'Repertori nadalenc',p:'Orfeo Catala',pr:'28–78€',y:'La Casa dels Cants'},
+{i:'pl14',g:'palau',v:'P',d:'2026-12-28',h:'19:00',t:'Concert d\'Any Nou',c:'Valsos i polkes',p:'OSV',pr:'45–68€',y:'Nadal al Palau'},
+{i:'pl15',g:'palau',v:'P',d:'2027-01-16',h:'20:00',t:'L\'ocell de foc de Stravinsky',s:'Stravinsky + Abraham Cupeiro',c:'Stravinsky',p:'Abraham Cupeiro · OSV · Xavier Salado dir.',pr:'22–68€',y:'Simfonics al Palau'},
+{i:'pl16',g:'palau',v:'P',d:'2027-01-24',h:'20:00',t:'Nadine Sierra',s:'Mozart i Donizetti',c:'Mozart · Donizetti',p:'Nadine Sierra sop · Orch. Opera Royal Versalles · Victor Jacob dir.',pr:'45–98€',y:'Palau Grans Veus'},
+{i:'pl17',g:'palau',v:'P',d:'2027-01-26',h:'20:00',t:'Pablo Sainz-Villegas',s:'Villa-Lobos, Bach, Turina, Albeniz',c:'Villa-Lobos · Bach · Turina · Albeniz',p:'Pablo Sainz-Villegas guitarra',pr:'25 i 38€',y:'Palau Cambra'},
+{i:'pl18',g:'palau',v:'P',d:'2027-01-30',h:'20:00',t:'Simfonia 3 de Brahms',c:'Brahms',p:'OSV · Xavier Puig dir.',pr:'22–68€',y:'Simfonics al Palau'},
+{i:'pl19',g:'palau',v:'P',d:'2027-02-08',h:'20:00',t:'Yuja Wang',c:'Per determinar',p:'Yuja Wang pno',pr:'45–85€',y:'Palau Piano'},
+{i:'pl20',g:'palau',v:'P',d:'2027-02-17',h:'20:00',t:'Yulianna Avdeeva',s:'Bach, Beethoven (Appassionata) i Ravel',c:'Bach · Beethoven · Ravel',p:'Yulianna Avdeeva pno',pr:'25 i 35€',y:'Palau Piano'},
+{i:'pl21',g:'palau',v:'P',d:'2027-02-20',h:'20:00',t:'Requiem de Mozart',c:'Mozart',p:'OSV',pr:'22–68€',y:'Simfonics al Palau'},
+{i:'pl22',g:'palau',v:'P',d:'2027-02-22',h:'20:00',t:'Rene Pape & OSV',s:'Verdi i Wagner',c:'Verdi · Wagner',p:'Rene Pape bx · OSV · Felix Krieger dir.',pr:'45–98€',y:'Palau Grans Veus'},
+{i:'pl23',g:'palau',v:'P',d:'2027-02-25',h:'20:00',t:'Grigory Sokolov',c:'Per determinar',p:'Grigory Sokolov pno',pr:'35–75€',y:'Palau Piano'},
+{i:'pl24',g:'palau',v:'P',d:'2027-03-03',h:'20:00',t:'Josep Colom',s:'Mompou: Musica callada · Liszt · Bach-Busoni · Franck',c:'Mompou · Liszt · Bach · Franck',p:'Josep Colom pno',pr:'35 i 45€',y:'Palau Piano'},
+{i:'pl25',g:'palau',v:'P',d:'2027-03-04',h:'20:00',t:'Filharm. Jove de Colombia & Orozco-Estrada',s:'Rakhmaninov: Concert pno 2 · Stravinsky: L\'ocell de foc',c:'Rakhmaninov · Stravinsky',p:'Nelson Goerner pno · Filharmonica Jove de Colombia · Andres Orozco-Estrada dir.',pr:'28–92€',y:'Concerts Extraordinaris'},
+{i:'pl26',g:'palau',v:'P',d:'2027-03-06',h:'20:00',t:'Missa de la Coronacio de Mozart',c:'Mozart',p:'Elionor Martinez sop · OSV · Cor Madrigal · Xavier Puig dir.',pr:'22–68€',y:'Simfonics al Palau'},
+{i:'pl27',g:'palau',v:'P',d:'2027-04-05',h:'20:00',t:'Leif Ove Andsnes (recital)',c:'Per determinar',p:'Leif Ove Andsnes pno',pr:'28–55€',y:'Palau Piano'},
+{i:'pl28',g:'palau',v:'P',d:'2027-04-13',h:'20:00',t:'Christian Blackshaw – Mozart II',s:'Mozart: Sonates 3, 4, 5, 10, 13',c:'Mozart',p:'Christian Blackshaw pno',pr:'35 i 45€',y:'Palau Piano'},
+{i:'pl29',g:'palau',v:'P',d:'2027-04-28',h:'20:00',t:'Perianes, San Diego Symphony & Payare',s:'Schumann: Concert pno · Bernstein: West Side Story · Bartok',c:'Ortiz · Schumann · Bernstein · Bartok',p:'Javier Perianes pno · San Diego Symphony · Rafael Payare dir.',pr:'18–90€',y:'Palau 100'},
+{i:'pl30',g:'palau',v:'P',d:'2027-05-15',h:'20:00',t:'Aida de Verdi',c:'Verdi',p:'Carmen Solis / Tina Gorina sop · OSV · Xavier Salado dir.',pr:'25–78€',y:'Simfonics al Palau'},
+{i:'pl31',g:'palau',v:'P',d:'2027-05-20',h:'20:00',t:'Juan Diego Florez & Vincenzo Scalera',c:'Repertori variat',p:'Juan Diego Florez ten · Vincenzo Scalera pno',pr:'28–140€',y:'Palau Grans Veus'},
+{i:'pl32',g:'palau',v:'P',d:'2027-05-26',h:'20:00',t:'Vikingur Olafsson',s:'Debussy · Glass · Rameau',c:'Debussy · Glass · Rameau',p:'Vikingur Olafsson pno',pr:'28–55€',y:'Palau Piano'},
+{i:'pl33',g:'palau',v:'P',d:'2027-05-28',h:'20:00',t:'OBC & Brotons al Palau',s:'Toldra · Lamote de Grignon · Brotons: Simfonia 4 "Sacra"',c:'Toldra · Lamote de Grignon · Brotons',p:'Cor Bruckner Barcelona · Cor de Cambra del Palau · OBC · Salvador Brotons dir.',pr:'30–68€',y:'Concerts Extraordinaris'},
+{i:'pl34',g:'palau',v:'P',d:'2027-05-29',h:'20:00',t:'Un america a Paris',s:'Gershwin',c:'Gershwin',p:'Carlos Ferreira clarinet · OSV · Xavier Salado dir.',pr:'22–68€',y:'Simfonics al Palau'},
+{i:'pl35',g:'palau',v:'P',d:'2027-06-13',h:'20:00',t:'Carmina Burana',c:'Carl Orff',p:'Solistes · Cors · Orquestra',pr:'35–55€',y:'La Casa dels Cants'},
+{i:'pl36',g:'palau',v:'P',d:'2027-07-05',h:'20:00',t:'Concert Pro Pacem – Savall',c:'Obres per la pau',p:'Jordi Savall dir.',pr:'35–75€',y:'Palau Fronteres'},
+{i:'pl37',g:'palau',v:'P',d:'2027-07-07',h:'20:00',t:'Alba Ventura – Homenatge Rosa Sabater',s:'Soler, Chopin, Mendelssohn, Mompou, Granados',c:'Soler · Chopin · Mendelssohn · Mompou · Granados',p:'Alba Ventura pno',pr:'22 i 30€',y:'Palau Piano'},
+{i:'pl38',g:'palau',v:'P',d:'2027-01-19',h:'20:00',t:'Salvador Sobral',c:'Repertori propi',p:'Salvador Sobral',pr:'28–55€',y:'Palau Fronteres'},
+{i:'pl39',g:'palau',v:'P',d:'2027-02-01',h:'20:00',t:'Homenatge a Raimon',c:'Raimon',p:'Artistes diversos',pr:'22–52€',y:'Palau Fronteres'},
+
+// ── AUDITORI (resta) ──
+{i:'au01',g:'auditori',v:'A',d:'2026-10-17',h:'19:00',t:'La Quarta de Xostakovitx',c:'Vasks · Xostakovitx',p:'OBC · Andris Poga dir.',pr:'Des de 20€',y:'OBC'},
+{i:'au02',g:'auditori',v:'A',d:'2026-10-23',h:'19:00',t:'Concert per a piano de Chopin',s:'Smetana · Chopin · Rakhmaninov',c:'Smetana · Chopin · Rakhmaninov',p:'David Khrikuli pno · OBC · Cristian Macelaru dir.',pr:'Des de 25€',y:'OBC'},
+{i:'au03',g:'auditori',v:'A',d:'2026-11-06',h:'19:00',t:'L\'Atlantida de Falla',s:'Debussy · Wagner · Falla/Halffter: L\'Atlantida',c:'Debussy · Wagner · Falla',p:'Nuria Rial sop · J.A. Lopez bar · Kent Nagano dir. · Orq. y Coro Nacionales de Espanya · Barcelona Ars Nova',pr:'Des de 20€',y:'OBC'},
+{i:'au04',g:'auditori',v:'A',d:'2026-11-14',h:'19:00',t:'Augustin Hadelich & Seong-Jin Cho',s:'Brahms · Janacek · Beach · Prokofiev',c:'Brahms · Janacek · Beach · Prokofiev',p:'Augustin Hadelich vln · Seong-Jin Cho pno',pr:'25–35€',y:'Cambra i Recitals'},
+{i:'au05',g:'auditori',v:'A',d:'2026-11-21',h:'19:00',t:'Simfonia Domestica de Strauss',s:'Gerhard · R. Strauss',c:'Gerhard · R. Strauss',p:'OBC · Edmon Colomer dir.',pr:'Des de 20€',y:'OBC'},
+{i:'au06',g:'auditori',v:'A',d:'2026-12-04',h:'19:00',t:'Yunchan Lim',s:'Mozart: 5 sonates per a piano',c:'Mozart',p:'Yunchan Lim pno',pr:'25–35€',y:'Cambra i Recitals'},
+{i:'au07',g:'auditori',v:'A',d:'2026-12-11',h:'19:00',t:'El trencanous de Txaikovski (OBC)',s:'Glinka · Txaikovski: Concert vln + El trencanous (suite)',c:'Glinka · Txaikovski',p:'James Ehnes vln · OBC · Ludovic Morlot dir.',pr:'Des de 20€',y:'OBC'},
+{i:'au08',g:'auditori',v:'A',d:'2027-01-15',h:'19:00',t:'La Cinquena de Prokofiev',s:'C. Miller · Mozart: Concert pno · Prokofiev: Simfonia 5',c:'Miller · Mozart · Prokofiev',p:'Imogen Cooper pno · OBC · Ludovic Morlot dir.',pr:'Des de 25€',y:'OBC'},
+{i:'au09',g:'auditori',v:'A',d:'2027-01-22',h:'19:00',t:'La Valquiria de Wagner',s:'Gubaidulina · Wagner: Acte 1 de La Valquiria',c:'Gubaidulina · Wagner',p:'Kathleen O\'Mara sop · Joachim Backstrom ten · Stephen Milling bx · OBC · Ludovic Morlot dir.',pr:'Des de 25€',y:'OBC'},
+{i:'au10',g:'auditori',v:'A',d:'2027-02-13',h:'19:00',t:'El Piano de Mozart',s:'Kilar · Mozart: Concert pno · Rakhmaninov',c:'Kilar · Mozart · Rakhmaninov',p:'Saskia Giorgini pno · OBC · Marta Gardolinska dir.',pr:'Des de 20€',y:'OBC'},
+{i:'au11',g:'auditori',v:'A',d:'2027-03-12',h:'19:00',t:'Biennal de Quartets – Modigliani',s:'Maratka · Debussy · Beethoven: Quartet op.132',c:'Maratka · Debussy · Beethoven',p:'Modigliani Quartet',pr:'25–35€',y:'Biennal de Quartets'},
+{i:'au12',g:'auditori',v:'A',d:'2027-03-20',h:'19:00',t:'Biennal – Quartet Casals (30e aniversari)',s:'Garcia-Tomas · Beethoven: Gran Fuga op.133 · Schubert',c:'Garcia-Tomas · Beethoven · Schubert',p:'Quartet Casals',pr:'25–35€',y:'Biennal de Quartets'},
+{i:'au13',g:'auditori',v:'A',d:'2027-04-03',h:'19:00',t:'Simfonia Italiana',s:'Dallapiccola · Nino Rota · Mendelssohn: Simfonia 4 "Italiana"',c:'Dallapiccola · Rota · Mendelssohn',p:'OBC · Ludovic Morlot dir.',pr:'Des de 25€',y:'OBC'},
+{i:'au14',g:'auditori',v:'A',d:'2027-04-30',h:'19:00',t:'La Vuitena de Xostakovitx',s:'Mozart: Concert pno 20 · Xostakovitx: Simfonia 8',c:'Mozart · Xostakovitx',p:'Alexei Volodin pno · OBC · Michael Sanderling dir.',pr:'Des de 25€',y:'OBC'},
+{i:'au15',g:'auditori',v:'A',d:'2027-05-12',h:'19:00',t:'Bruce Liu',s:'Ligeti · Beethoven: "Clar de lluna" i "Waldstein" · Chopin · Ravel',c:'Ligeti · Beethoven · Chopin · Ravel · Mompou',p:'Bruce Liu pno',pr:'15–25€',y:'Cambra i Recitals'},
+{i:'au16',g:'auditori',v:'A',d:'2027-05-14',h:'19:00',t:'Zaratustra de Strauss',s:'M. Vila · E. Casals · R. Strauss: Aixi parla Zaratustra',c:'Vila · E. Casals · R. Strauss',p:'OBC · Christian Blex dir.',pr:'Des de 20€',y:'OBC'},
+{i:'au17',g:'auditori',v:'A',d:'2027-05-20',h:'19:00',t:'Sabine Devieilhe',s:'Mendelssohn · Mahler · Liszt · Debussy',c:'Mendelssohn · Mahler · Liszt · Debussy',p:'Sabine Devieilhe sop · Alexander Krichel pno',pr:'25–35€',y:'Cambra i Recitals'},
+{i:'au18',g:'auditori',v:'A',d:'2027-04-25',h:'19:00',t:'Els nostres classics',s:'Albeniz · Morera · Manen: Concert per a violi',c:'Albeniz · Morera · Manen',p:'Orquestra de Cambra',pr:'25–30€',y:'Cambra i Recitals'},
+];
+
+// ── STATE ──
+let currentUser = localStorage.getItem('rituals-user') || null;
+let votes = {};
+let filterText = '';
+
+// ── API ──
+const API = 'api/votes.php';
+let apiOk = true;
+
+async function loadVotes() {
+    try {
+        const r = await fetch(API);
+        if (r.ok) votes = await r.json();
+        else throw new Error();
+    } catch {
+        apiOk = false;
+        const saved = localStorage.getItem('rituals-votes');
+        if (saved) votes = JSON.parse(saved);
+    }
+    renderVotes();
+}
+
+async function saveVote(id, user, vote) {
+    if (!votes[id]) votes[id] = {};
+    if (vote === 0) delete votes[id][user];
+    else votes[id][user] = vote;
+    localStorage.setItem('rituals-votes', JSON.stringify(votes));
+    if (apiOk) {
+        try {
+            await fetch(API, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({id, user, vote})
+            });
+        } catch { apiOk = false; }
+    }
+    renderVotes();
+    updateStats();
+}
+
+// ── HELPERS ──
+const MONTHS = ['gen','feb','mar','abr','mai','jun','jul','ago','set','oct','nov','des'];
+const MONTHS_FULL = ['gener','febrer','març','abril','maig','juny','juliol','agost','setembre','octubre','novembre','desembre'];
+const DAYS = ['diumenge','dilluns','dimarts','dimecres','dijous','divendres','dissabte'];
+
+function fmtDate(ds) {
+    const d = new Date(ds + 'T12:00:00');
+    const day = d.getDate();
+    const mon = MONTHS_FULL[d.getMonth()];
+    const yr = d.getFullYear();
+    const wd = DAYS[d.getDay()];
+    return `${day} de ${mon} de ${yr}`;
+}
+
+function fmtDateShort(ds) {
+    const d = new Date(ds + 'T12:00:00');
+    return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+function dayName(ds) {
+    const d = new Date(ds + 'T12:00:00');
+    return DAYS[d.getDay()].charAt(0).toUpperCase() + DAYS[d.getDay()].slice(1);
+}
+
+function isPast(ds) {
+    return new Date(ds + 'T23:59:59') < new Date();
+}
+
+function matchesFilter(concert) {
+    if (!filterText) return true;
+    const q = filterText.toLowerCase();
+    return [concert.t, concert.s, concert.c, concert.p, concert.y, concert.pr]
+        .filter(Boolean).join(' ').toLowerCase().includes(q);
+}
+
+// ── RENDER ──
+function render() {
+    renderUserBar();
+    renderNav();
+    renderSections();
+    loadVotes();
+    updateStats();
+}
+
+function renderUserBar() {
+    const container = document.getElementById('userAvatars');
+    container.innerHTML = USERS.map(u => {
+        const active = currentUser === u.id ? ' active' : '';
+        return `<button class="user-avatar${active}" style="background:${u.color}" onclick="selectUser('${u.id}')" title="${u.name}">${u.ini}</button>`;
+    }).join('');
+}
+
+function renderNav() {
+    const nav = document.getElementById('sectionNav');
+    nav.innerHTML = SECTIONS.map(s => {
+        const count = C.filter(c => c.g === s.id).length;
+        return `<a href="#${s.id}">${s.title} (${count})</a>`;
+    }).join('');
+}
+
+function renderSections() {
+    const app = document.getElementById('app');
+    const sorted = [...C].sort((a, b) => a.d.localeCompare(b.d));
+    let nextFound = false;
     const today = new Date();
     today.setHours(0,0,0,0);
-    const concerts = document.querySelectorAll('.concert[data-date]');
-    let nextFound = false;
 
-    concerts.forEach(c => {
-        const d = new Date(c.dataset.date + 'T00:00:00');
-        if (d < today) {
-            c.classList.add('past');
-        } else if (!nextFound) {
-            nextFound = true;
-            const title = c.querySelector('.concert-title');
-            title.innerHTML += '<span class="badge-next">Pròxim</span>';
+    let html = '';
+    for (const sec of SECTIONS) {
+        const concerts = sorted.filter(c => c.g === sec.id);
+        const visible = concerts.filter(matchesFilter);
+        if (visible.length === 0 && filterText) continue;
+
+        html += `<section class="section" id="${sec.id}">`;
+        html += `<div class="section-header">`;
+        html += `<h2>${sec.title}</h2>`;
+        html += `<div class="sub">${sec.sub}</div>`;
+        html += `<div class="count">${concerts.length} concerts</div>`;
+        html += `<div class="accent-line"></div>`;
+        html += `</div></section>`;
+        html += `<div class="concert-list">`;
+
+        for (const c of visible) {
+            const past = isPast(c.d);
+            const isNext = !past && !nextFound;
+            if (isNext) nextFound = true;
+
+            html += `<div class="card${past ? ' past' : ''}" id="c-${c.i}">`;
+            html += `<div class="card-top">`;
+            html += `<div class="card-date">${fmtDate(c.d)} <span class="day-name">· ${dayName(c.d)}</span> · ${c.h}h</div>`;
+            html += `<div>`;
+            html += `<span class="card-badge ${c.v === 'P' ? 'badge-palau' : 'badge-auditori'}">${c.v === 'P' ? 'Palau' : 'Auditori'}</span>`;
+            if (isNext) html += `<span class="card-badge badge-next">Proxim</span>`;
+            html += `</div></div>`;
+            html += `<div class="card-title">${c.t}</div>`;
+            if (c.s) html += `<div class="card-subtitle">${c.s}</div>`;
+            html += `<div class="card-composers">${c.c}</div>`;
+            html += `<div class="card-performers">${c.p}</div>`;
+            if (c.y) html += `<div class="card-cycle">${c.y}</div>`;
+            html += `<div class="card-price">${c.pr}</div>`;
+            html += `<div class="vote-row" id="vr-${c.i}"></div>`;
+            html += `</div>`;
         }
-    });
-})();
+        if (visible.length === 0 && filterText) {
+            html += `<div class="no-results">Cap resultat per "${filterText}"</div>`;
+        }
+        html += `</div>`;
+    }
+    app.innerHTML = html;
+}
+
+function renderVotes() {
+    for (const c of C) {
+        const row = document.getElementById('vr-' + c.i);
+        if (!row) continue;
+        const cv = votes[c.i] || {};
+        let yesCount = 0, maybeCount = 0;
+
+        let html = USERS.map(u => {
+            const v = cv[u.id] || 0;
+            if (v === 1) yesCount++;
+            if (v === 2) maybeCount++;
+            const mine = currentUser === u.id ? ' mine' : '';
+            const state = v === 1 ? ' yes' : v === 2 ? ' maybe' : ' empty';
+            const click = currentUser === u.id ? ` onclick="toggleVote('${c.i}')"` : '';
+            return `<button class="vote-btn${state}${mine}" style="background:${u.color}" title="${u.name}"${click}>${u.ini}</button>`;
+        }).join('');
+
+        if (yesCount > 0 || maybeCount > 0) {
+            html += `<span class="vote-count">`;
+            if (yesCount > 0) html += `<span class="vc-yes">${yesCount}♥</span> `;
+            if (maybeCount > 0) html += `<span class="vc-maybe">${maybeCount}?</span>`;
+            html += `</span>`;
+        }
+        row.innerHTML = html;
+    }
+}
+
+function updateStats() {
+    const el = document.getElementById('userStats');
+    if (!currentUser) { el.innerHTML = ''; return; }
+    const myVotes = Object.values(votes).filter(v => v[currentUser]).length;
+    const yesVotes = Object.values(votes).filter(v => v[currentUser] === 1).length;
+    el.innerHTML = `<strong>${yesVotes}</strong>♥ <strong>${myVotes - yesVotes}</strong>?`;
+}
+
+// ── EVENTS ──
+function selectUser(id) {
+    currentUser = currentUser === id ? null : id;
+    localStorage.setItem('rituals-user', currentUser || '');
+    renderUserBar();
+    renderVotes();
+    updateStats();
+    if (currentUser) showToast('Hola, ' + USERS.find(u => u.id === id).name + '!');
+}
+
+function toggleVote(concertId) {
+    if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
+    const cv = votes[concertId] || {};
+    const current = cv[currentUser] || 0;
+    const next = current === 0 ? 1 : current === 1 ? 2 : 0;
+    saveVote(concertId, currentUser, next);
+}
 
 function showToast(msg) {
     const t = document.getElementById('toast');
@@ -541,52 +528,72 @@ function showToast(msg) {
 
 function shareApp() {
     const url = window.location.href;
-    const title = 'Rituals al Palau 26-27';
-    const text = 'Programa de concerts al Palau de la Música Catalana - Temporada 2026-2027';
-
     if (navigator.share) {
-        navigator.share({ title, text, url }).catch(() => {});
+        navigator.share({title: 'Rituals al Palau 26-27', text: 'Programa de concerts - Temporada 2026-2027', url}).catch(() => {});
     } else if (navigator.clipboard) {
-        navigator.clipboard.writeText(url).then(() => showToast('Enllaç copiat!'));
-    } else {
-        showToast(url);
+        navigator.clipboard.writeText(url).then(() => showToast('Enllac copiat!'));
     }
 }
 
-function addToCalendar() {
-    const concerts = document.querySelectorAll('.concert[data-date]:not(.past)');
-    if (concerts.length === 0) {
-        showToast('No hi ha concerts futurs');
-        return;
-    }
-
-    let ics = 'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Rituals al Palau//CA\nCALSCALE:GREGORIAN\n';
-
-    concerts.forEach(c => {
-        const date = c.dataset.date.replace(/-/g, '');
-        const title = c.querySelector('.concert-title').textContent.replace('Pròxim', '').trim();
-        const program = Array.from(c.querySelectorAll('.concert-program li'))
-            .map(li => li.textContent.trim()).join('\\n');
-
-        ics += 'BEGIN:VEVENT\n';
-        ics += 'DTSTART:' + date + 'T180000\n';
-        ics += 'DTEND:' + date + 'T210000\n';
-        ics += 'SUMMARY:Rituals al Palau - ' + title + '\n';
-        ics += 'DESCRIPTION:' + program + '\n';
-        ics += 'LOCATION:Palau de la Música Catalana\\, Barcelona\n';
-        ics += 'END:VEVENT\n';
+function downloadCalendar() {
+    const yes = C.filter(c => {
+        const cv = votes[c.i] || {};
+        const yesCount = Object.values(cv).filter(v => v === 1).length;
+        return yesCount >= 2 && !isPast(c.d);
     });
+    if (yes.length === 0) { showToast('Cap concert amb 2+ vots'); return; }
 
+    let ics = 'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Rituals al Palau//CA\n';
+    yes.forEach(c => {
+        const dt = c.d.replace(/-/g, '');
+        const hm = (c.h || '20:00').replace(':', '') + '00';
+        const venue = c.v === 'P' ? 'Palau de la Musica Catalana' : "L'Auditori de Barcelona";
+        ics += `BEGIN:VEVENT\nDTSTART:${dt}T${hm}\nDURATION:PT2H30M\nSUMMARY:${c.t}\nDESCRIPTION:${(c.s||'').replace(/\n/g,'\\n')} - ${c.c}\nLOCATION:${venue}\\, Barcelona\nEND:VEVENT\n`;
+    });
     ics += 'END:VCALENDAR';
 
-    const blob = new Blob([ics], { type: 'text/calendar' });
+    const blob = new Blob([ics], {type: 'text/calendar'});
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'rituals-palau-26-27.ics';
     a.click();
     URL.revokeObjectURL(a.href);
-    showToast('Calendari descarregat!');
+    showToast(`${yes.length} concerts descarregats`);
 }
+
+// ── FILTER ──
+document.getElementById('filterInput').addEventListener('input', function() {
+    filterText = this.value.trim();
+    renderSections();
+    renderVotes();
+});
+
+// ── SCROLL SPY ──
+const navLinks = () => document.querySelectorAll('.section-nav a');
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            navLinks().forEach(a => a.classList.remove('active'));
+            const link = document.querySelector(`.section-nav a[href="#${e.target.id}"]`);
+            if (link) { link.classList.add('active'); link.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'}); }
+        }
+    });
+}, {rootMargin: '-120px 0px -70% 0px'});
+
+// ── INIT ──
+render();
+setTimeout(() => {
+    document.querySelectorAll('.section').forEach(s => observer.observe(s));
+}, 100);
+
+// Periodic refresh
+setInterval(async () => {
+    if (!apiOk) return;
+    try {
+        const r = await fetch(API);
+        if (r.ok) { votes = await r.json(); renderVotes(); updateStats(); }
+    } catch {}
+}, 30000);
 </script>
 
 </body>
