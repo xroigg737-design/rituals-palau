@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rituals al Palau 26-27</title>
+    <meta name="description" content="Programa de concerts Rituals al Palau de la Música Catalana - Temporada 2026-2027">
+    <meta property="og:title" content="Rituals al Palau 26-27">
+    <meta property="og:description" content="Programa de concerts al Palau de la Música Catalana - Temporada 2026-2027">
+    <meta property="og:type" content="website">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Rituals 26-27">
+    <meta name="theme-color" content="#1a0a2e">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0d0618;
+            --bg-card: #1a0a2e;
+            --bg-card-hover: #241240;
+            --gold: #d4a843;
+            --gold-light: #f0d078;
+            --gold-dim: #8a6d2b;
+            --text: #e8e0f0;
+            --text-dim: #9988aa;
+            --accent: #7b5ea7;
+            --border: rgba(212, 168, 67, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-deep);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .hero {
+            position: relative;
+            text-align: center;
+            padding: 3rem 1.5rem 2rem;
+            background: linear-gradient(180deg, #1a0a2e 0%, #0d0618 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212,168,67,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 0.02em;
+            margin-bottom: 0.3rem;
+        }
+
+        .hero .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--gold-dim);
+            margin-bottom: 0.8rem;
+        }
+
+        .hero .season {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            border: 1px solid var(--border);
+            padding: 0.3rem 1.2rem;
+            border-radius: 20px;
+        }
+
+        .share-bar {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1rem 1.5rem 0;
+        }
+
+        .share-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--gold-dim);
+            font-size: 0.75rem;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .share-btn:hover { background: var(--bg-card-hover); color: var(--gold); }
+
+        .share-btn .share-icon { font-size: 0.9rem; }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--gold);
+            color: var(--bg-deep);
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .toast.visible {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .concerts {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem 3rem;
+        }
+
+        .concert {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: background 0.2s, border-color 0.2s;
+            position: relative;
+        }
+
+        .concert:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(212, 168, 67, 0.3);
+        }
+
+        .concert-number {
+            position: absolute;
+            top: 1rem;
+            right: 1.2rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: rgba(212, 168, 67, 0.1);
+            line-height: 1;
+        }
+
+        .concert-date {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .concert-date .day {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            min-width: 2.2rem;
+            text-align: center;
+        }
+
+        .concert-date .month-year {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gold-dim);
+            line-height: 1.3;
+        }
+
+        .concert-date .weekday {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        .concert-date .time {
+            margin-left: auto;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            background: rgba(212, 168, 67, 0.08);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+        }
+
+        .concert-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .concert-program {
+            list-style: none;
+            margin-bottom: 0.8rem;
+        }
+
+        .concert-program li {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            padding: 0.15rem 0;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .concert-program li::before {
+            content: '♪';
+            position: absolute;
+            left: 0;
+            color: var(--gold-dim);
+            font-size: 0.7rem;
+        }
+
+        .concert-program .composer {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .concert-performers {
+            font-size: 0.8rem;
+            color: var(--accent);
+            border-top: 1px solid var(--border);
+            padding-top: 0.6rem;
+            line-height: 1.5;
+        }
+
+        .concert-performers strong {
+            color: var(--gold-dim);
+            font-weight: 500;
+        }
+
+        .badge-next {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background: var(--gold);
+            color: var(--bg-deep);
+            padding: 0.15rem 0.6rem;
+            border-radius: 4px;
+            margin-left: 0.6rem;
+            vertical-align: middle;
+        }
+
+        .concert.past { opacity: 0.5; }
+        .concert.past:hover { opacity: 0.7; }
+
+        .separator {
+            text-align: center;
+            padding: 1.5rem 0;
+            color: var(--gold-dim);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .separator::before, .separator::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: calc(50% - 4rem);
+            height: 1px;
+            background: var(--border);
+        }
+
+        .separator::before { left: 0; }
+        .separator::after { right: 0; }
+
+        .footer {
+            text-align: center;
+            padding: 1rem 1.5rem 2rem;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        .footer a {
+            color: var(--gold-dim);
+            text-decoration: none;
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.7rem; }
+            .hero .subtitle { font-size: 0.95rem; }
+            .concert { padding: 1.2rem; }
+            .concert-title { font-size: 1.05rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <span class="hero-icon">🎵</span>
+    <h1>Rituals al Palau</h1>
+    <p class="subtitle">Palau de la Música Catalana</p>
+    <span class="season">Temporada 2026 – 2027</span>
+</div>
+
+<div class="share-bar">
+    <button class="share-btn" onclick="shareApp()">
+        <span class="share-icon">↗</span> Compartir
+    </button>
+    <button class="share-btn" onclick="addToCalendar()">
+        <span class="share-icon">📅</span> Calendari
+    </button>
+</div>
+
+<div class="concerts" id="concerts">
+
+    <div class="concert" data-date="2026-10-03">
+        <span class="concert-number">1</span>
+        <div class="concert-date">
+            <span class="day">3</span>
+            <div>
+                <div class="month-year">Octubre 2026</div>
+                <div class="weekday">Dissabte</div>
+            </div>
+            <span class="time">19:00h</span>
+        </div>
+        <div class="concert-title">Concert inaugural</div>
+        <ul class="concert-program">
+            <li><span class="composer">J.S. Bach</span> – Suite per a violoncel nº 1 en Sol M, BWV 1007</li>
+            <li><span class="composer">Beethoven</span> – Sonata per a piano nº 14 "Clar de lluna"</li>
+            <li><span class="composer">Brahms</span> – Trio per a piano nº 1 en Si M, Op. 8</li>
+        </ul>
+        <div class="concert-performers">
+            <strong>Intèrprets:</strong> Pendent de confirmació
+        </div>
+    </div>
+
+    <div class="concert" data-date="2026-11-14">
+        <span class="concert-number">2</span>
+        <div class="concert-date">
+            <span class="day">14</span>
+            <div>
+                <div class="month-year">Novembre 2026</div>
+                <div class="weekday">Dissabte</div>
+            </div>
+            <span class="time">19:00h</span>
+        </div>
+        <div class="concert-title">Veus del Romanticisme</div>
+        <ul class="concert-program">
+            <li><span class="composer">Schubert</span> – Quartet de corda nº 14 "La Mort i la Donzella"</li>
+            <li><span class="composer">Schumann</span> – Kinderszenen, Op. 15</li>
+        </ul>
+        <div class="concert-performers">
+            <strong>Intèrprets:</strong> Pendent de confirmació
+        </div>
+    </div>
+
+    <div class="concert" data-date="2026-12-19">
+        <span class="concert-number">3</span>
+        <div class="concert-date">
+            <span class="day">19</span>
+            <div>
+                <div class="month-year">Desembre 2026</div>
+                <div class="weekday">Dissabte</div>
+            </div>
+            <span class="time">19:00h</span>
+        </div>
+        <div class="concert-title">Concert de Nadal</div>
+        <ul class="concert-program">
+            <li><span class="composer">Corelli</span> – Concerto Grosso "de Nadal", Op. 6 nº 8</li>
+            <li><span class="composer">Vivaldi</span> – Gloria en Re M, RV 589</li>
+        </ul>
+        <div class="concert-performers">
+            <strong>Intèrprets:</strong> Pendent de confirmació
+        </div>
+    </div>
+
+    <div class="separator">· 2027 ·</div>
+
+    <div class="concert" data-date="2027-01-23">
+        <span class="concert-number">4</span>
+        <div class="concert-date">
+            <span class="day">23</span>
+            <div>
+                <div class="month-year">Gener 2027</div>
+                <div class="weekday">Dissabte</div>
+            </div>
+            <span class="time">19:00h</span>
+        </div>
+        <div class="concert-title">Impressions</div>
+        <ul class="concert-program">
+            <li><span class="composer">Debussy</span> – Suite bergamasque</li>
+            <li><span class="composer">Ravel</span> – Quartet de corda en Fa M</li>
+            <li><span class="composer">Fauré</span> – Pavane, Op. 50</li>
+        </ul>
+        <div class="concert-performers">
+            <strong>Intèrprets:</strong> Pendent de confirmació
+        </div>
+    </div>
+
+    <div class="concert" data-date="2027-02-20">
+        <span class="concert-number">5</span>
+        <div class="concert-date">
+            <span class="day">20</span>
+            <div>
+                <div class="month-year">Febrer 2027</div>
+                <div class="weekday">Dissabte</div>
+            </div>
+            <span class="time">19:00h</span>
+        </div>
+        <div class="concert-title">Bach i el Barroc</div>
+        <ul class="concert-program">
+            <li><span class="composer">J.S. Bach</span> – Concerts de Brandenburg nº 3 i 5</li>
+            <li><span class="composer">Händel</span> – Water Music, Suite nº 2</li>
+        </ul>
+        <div class="concert-performers">
+            <strong>Intèrprets:</strong> Pendent de confirmació
+        </div>
+    </div>
+
+    <div class="concert" data-date="2027-03-20">
+        <span class="concert-number">6</span>
+        <div class="concert-date">
+            <span class="day">20</span>
+            <div>
+                <div class="month-year">Març 2027</div>
+                <div class="weekday">Dissabte</div>
+            </div>
+            <span class="time">19:00h</span>
+        </div>
+        <div class="concert-title">Viena Clàssica</div>
+        <ul class="concert-program">
+            <li><span class="composer">Haydn</span> – Quartet Op. 76 nº 3 "Emperador"</li>
+            <li><span class="composer">Mozart</span> – Quintet per a clarinet en La M, K. 581</li>
+        </ul>
+        <div class="concert-performers">
+            <strong>Intèrprets:</strong> Pendent de confirmació
+        </div>
+    </div>
+
+    <div class="concert" data-date="2027-04-24">
+        <span class="concert-number">7</span>
+        <div class="concert-date">
+            <span class="day">24</span>
+            <div>
+                <div class="month-year">Abril 2027</div>
+                <div class="weekday">Dissabte</div>
+            </div>
+            <span class="time">19:00h</span>
+        </div>
+        <div class="concert-title">Música ibèrica</div>
+        <ul class="concert-program">
+            <li><span class="composer">Albéniz</span> – Suite Iberia (selecció)</li>
+            <li><span class="composer">Granados</span> – Goyescas (selecció)</li>
+            <li><span class="composer">Mompou</span> – Cançons i danses</li>
+        </ul>
+        <div class="concert-performers">
+            <strong>Intèrprets:</strong> Pendent de confirmació
+        </div>
+    </div>
+
+    <div class="concert" data-date="2027-05-22">
+        <span class="concert-number">8</span>
+        <div class="concert-date">
+            <span class="day">22</span>
+            <div>
+                <div class="month-year">Maig 2027</div>
+                <div class="weekday">Dissabte</div>
+            </div>
+            <span class="time">19:00h</span>
+        </div>
+        <div class="concert-title">Gran final de temporada</div>
+        <ul class="concert-program">
+            <li><span class="composer">Dvořák</span> – Quintet per a piano nº 2 en La M, Op. 81</li>
+            <li><span class="composer">Txaikovski</span> – Serenata per a cordes en Do M, Op. 48</li>
+        </ul>
+        <div class="concert-performers">
+            <strong>Intèrprets:</strong> Pendent de confirmació
+        </div>
+    </div>
+
+</div>
+
+<div class="footer">
+    Palau de la Música Catalana · Barcelona
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const concerts = document.querySelectorAll('.concert[data-date]');
+    let nextFound = false;
+
+    concerts.forEach(c => {
+        const d = new Date(c.dataset.date + 'T00:00:00');
+        if (d < today) {
+            c.classList.add('past');
+        } else if (!nextFound) {
+            nextFound = true;
+            const title = c.querySelector('.concert-title');
+            title.innerHTML += '<span class="badge-next">Pròxim</span>';
+        }
+    });
+})();
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('visible');
+    setTimeout(() => t.classList.remove('visible'), 2500);
+}
+
+function shareApp() {
+    const url = window.location.href;
+    const title = 'Rituals al Palau 26-27';
+    const text = 'Programa de concerts al Palau de la Música Catalana - Temporada 2026-2027';
+
+    if (navigator.share) {
+        navigator.share({ title, text, url }).catch(() => {});
+    } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(() => showToast('Enllaç copiat!'));
+    } else {
+        showToast(url);
+    }
+}
+
+function addToCalendar() {
+    const concerts = document.querySelectorAll('.concert[data-date]:not(.past)');
+    if (concerts.length === 0) {
+        showToast('No hi ha concerts futurs');
+        return;
+    }
+
+    let ics = 'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Rituals al Palau//CA\nCALSCALE:GREGORIAN\n';
+
+    concerts.forEach(c => {
+        const date = c.dataset.date.replace(/-/g, '');
+        const title = c.querySelector('.concert-title').textContent.replace('Pròxim', '').trim();
+        const program = Array.from(c.querySelectorAll('.concert-program li'))
+            .map(li => li.textContent.trim()).join('\\n');
+
+        ics += 'BEGIN:VEVENT\n';
+        ics += 'DTSTART:' + date + 'T180000\n';
+        ics += 'DTEND:' + date + 'T210000\n';
+        ics += 'SUMMARY:Rituals al Palau - ' + title + '\n';
+        ics += 'DESCRIPTION:' + program + '\n';
+        ics += 'LOCATION:Palau de la Música Catalana\\, Barcelona\n';
+        ics += 'END:VEVENT\n';
+    });
+
+    ics += 'END:VCALENDAR';
+
+    const blob = new Blob([ics], { type: 'text/calendar' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'rituals-palau-26-27.ics';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    showToast('Calendari descarregat!');
+}
+</script>
+
+</body>
+</html>
