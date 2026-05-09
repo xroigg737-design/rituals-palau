@@ -27,11 +27,11 @@
     --yes:#2d7d46;--maybe:#c98d1a;
 }
 html{scroll-behavior:smooth;scroll-padding-top:110px}
-body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
+body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;color:var(--text);background:var(--bg) url('img/palau-bg.jpg') no-repeat center top;background-size:100% auto;background-attachment:fixed;-webkit-font-smoothing:antialiased}
 
-.hero{position:relative;height:70vh;min-height:380px;max-height:600px;overflow:hidden}
-.hero-img{width:100%;height:100%;object-fit:cover;object-position:center 25%}
-.hero-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:3rem 2rem 2.5rem;background:linear-gradient(0deg,rgba(0,0,0,.75) 0%,rgba(0,0,0,.15) 50%,rgba(0,0,0,.3) 100%);text-align:center;color:#fff}
+.hero{position:relative;height:auto;overflow:hidden;background:#0a0a12}
+.hero-img{width:100%;height:auto;display:block;max-height:85vh}
+.hero-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:3rem 2rem 2.5rem;background:linear-gradient(0deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.05) 35%,rgba(0,0,0,.25) 100%);text-align:center;color:#fff}
 .hero h1{font-family:var(--serif);font-size:3.8rem;font-weight:300;letter-spacing:.08em;line-height:1;margin-bottom:.4rem;text-shadow:0 2px 30px rgba(0,0,0,.5)}
 .hero-sub{font-family:var(--sans);font-size:.8rem;font-weight:300;letter-spacing:.25em;text-transform:uppercase;opacity:.75}
 .hero-venue{font-family:var(--serif);font-size:1.15rem;font-weight:400;font-style:italic;opacity:.65;margin-bottom:.5rem}
@@ -111,7 +111,8 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .no-results{text-align:center;padding:3rem 1rem;font-family:var(--serif);font-size:1.1rem;color:var(--text3);font-style:italic}
 
 @media(max-width:600px){
-    .hero{height:50vh;min-height:300px}
+    body{background-size:cover}
+    .hero-img{max-height:70vh}
     .hero h1{font-size:2.6rem;letter-spacing:.05em}
     .hero-venue{font-size:1rem}
     .section-header h2{font-size:1.6rem;letter-spacing:.08em}
