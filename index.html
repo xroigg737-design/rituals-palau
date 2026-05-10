@@ -153,6 +153,17 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .footer-frame{border:1px solid var(--border);border-radius:12px;padding:.8rem .6rem;margin:0 auto .6rem;max-width:400px;display:flex;gap:.4rem;justify-content:center;flex-wrap:wrap}
 .share-btn{font-family:var(--sans);font-weight:400;text-transform:uppercase;letter-spacing:.12em;border:1.5px solid var(--text);background:none;color:var(--text);padding:.5rem 2rem;border-radius:28px;font-size:.75rem;cursor:pointer;transition:all .5s;margin:0 .3rem;text-decoration:none;display:inline-block;text-align:center}
 .share-btn:hover{background:var(--text);color:#fff}
+.prog-label{font-family:var(--sans);font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:var(--text3);margin:1.2rem 0 .5rem}
+.prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;max-width:400px;margin:0 auto .6rem}
+.prog-card{display:flex;flex-direction:column;align-items:center;padding:.7rem .4rem;border-radius:12px;text-decoration:none;transition:all .3s;border:1px solid var(--border)}
+.prog-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.prog-icon{font-size:1.4rem;margin-bottom:.2rem}
+.prog-name{font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.05em}
+.prog-sub{font-family:var(--sans);font-size:.55rem;opacity:.6;margin-top:.1rem}
+.prog-palau{background:linear-gradient(135deg,rgba(180,83,9,.08),rgba(180,83,9,.02));color:#92400e}
+.prog-auditori{background:linear-gradient(135deg,rgba(29,78,216,.08),rgba(29,78,216,.02));color:#1e40af}
+.prog-bcn{background:linear-gradient(135deg,rgba(22,163,106,.08),rgba(22,163,106,.02));color:#166534}
+.prog-fsf{background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(124,58,237,.02));color:#5b21b6}
 
 @keyframes vote-pulse{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1.15)}}
 .vote-btn.mine.vote-pop{animation:vote-pulse .3s ease-out}
@@ -381,14 +392,31 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="share-btn" onclick="showCal()">Calendari</button>
         <button class="share-btn" onclick="downloadCalendar()">Fitxer calendari</button>
     </div>
-    <div class="footer-frame">
-        <a class="share-btn" href="https://www.palaumusica.cat/ca/llibre-de-la-temporada-2026-27_1624620" target="_blank" rel="noopener">Programa Palau</a>
-        <a class="share-btn" href="https://www.auditori.cat/ca/programacio" target="_blank" rel="noopener">Programa Auditori</a>
-        <a class="share-btn" href="https://www.bcnclassics.cat/ca/programacio/21/4" target="_blank" rel="noopener">BCN Classics</a>
-        <a class="share-btn" href="https://franzschubertfilh.com/en/" target="_blank" rel="noopener">Franz Schubert Filh.</a>
+    <div class="prog-label">Programes 2026–27</div>
+    <div class="prog-grid">
+        <a class="prog-card prog-palau" href="https://www.palaumusica.cat/ca/llibre-de-la-temporada-2026-27_1624620" target="_blank" rel="noopener">
+            <span class="prog-icon">&#127963;</span>
+            <span class="prog-name">Palau</span>
+            <span class="prog-sub">Llibre temporada</span>
+        </a>
+        <a class="prog-card prog-auditori" href="https://www.auditori.cat/ca/programacio" target="_blank" rel="noopener">
+            <span class="prog-icon">&#127926;</span>
+            <span class="prog-name">L'Auditori</span>
+            <span class="prog-sub">Programació</span>
+        </a>
+        <a class="prog-card prog-bcn" href="https://www.bcnclassics.cat/ca/programacio/21/4" target="_blank" rel="noopener">
+            <span class="prog-icon">&#127931;</span>
+            <span class="prog-name">BCN Classics</span>
+            <span class="prog-sub">Temporada</span>
+        </a>
+        <a class="prog-card prog-fsf" href="https://franzschubertfilh.com/en/" target="_blank" rel="noopener">
+            <span class="prog-icon">&#127932;</span>
+            <span class="prog-name">Franz Schubert</span>
+            <span class="prog-sub">Filharmonia</span>
+        </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.74</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.75</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1622,7 +1650,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.74';
+const APP_VERSION = '2.75';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
