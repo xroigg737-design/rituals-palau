@@ -79,6 +79,15 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .section-header .toggle-arrow{font-size:.7rem;color:var(--text3);margin-top:.4rem;transition:transform .3s}
 .section.collapsed .concert-list{display:none}
 .section.collapsed .toggle-arrow{transform:rotate(-90deg)}
+.cycle-group{margin-bottom:.3rem}
+.cycle-header{display:flex;align-items:center;gap:.5rem;padding:.6rem 1rem;cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:10px;margin:.4rem .5rem;transition:all .3s}
+.cycle-header:hover{background:rgba(0,0,0,.03)}
+.cycle-header .cycle-title{font-family:var(--serif);font-size:.85rem;font-weight:600;color:var(--text);flex:1}
+.cycle-header .cycle-count{font-family:var(--sans);font-size:.6rem;color:var(--text3);letter-spacing:.03em}
+.cycle-header .cycle-arrow{font-size:.55rem;color:var(--text3);transition:transform .3s}
+.cycle-group.collapsed .cycle-concerts{display:none}
+.cycle-group.collapsed .cycle-arrow{transform:rotate(-90deg)}
+.cycle-concerts .list-header{margin-top:0}
 .section-header.has-bg{background-size:cover;background-position:center 20%;border-radius:12px;padding:0;margin-left:-.5rem;margin-right:-.5rem;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;min-height:14rem}
 .section-header.has-bg.has-sig{min-height:22rem}
 .section-header.has-bg::before,.section-header.has-bg::after{display:none}
@@ -277,7 +286,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     <button class="share-btn" onclick="shareApp()">Compartir</button>
     <button class="share-btn" onclick="downloadCalendar()">Calendari</button>
     <button class="share-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="margin-top:.8rem">&#8593; Tornar a dalt</button>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.33</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.34</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -606,6 +615,29 @@ function scrollToSection(e, id) {
     window.scrollTo({top, behavior:'smooth'});
 }
 
+function renderConcertRow(c, nf) {
+    const past = isPast(c.d);
+    const isNext = !past && !nf;
+    const d = new Date(c.d + 'T12:00:00');
+    const cls = past ? ' past' : isNext ? ' next' : '';
+    let h = `<div class="row${cls}" id="c-${c.i}" onclick="this.classList.toggle('open')">`;
+    h += `<div class="row-date"><span class="rd-day">${d.getDate()} ${MONTHS[d.getMonth()]}</span>${dayName(c.d)} · ${c.h}h<br><span class="rd-time">${d.getFullYear()}</span></div>`;
+    h += `<div class="row-info">`;
+    h += `<div class="row-title">${c.t}${isPianoSolo(c) ? ' '+PIANO_SVG : ''} <span class="badge ${c.v === 'P' ? 'bp' : 'ba'}">${c.v === 'P' ? 'Palau' : 'Auditori'}</span>`;
+    if (isNext) h += ` <span class="badge bn">Proper</span>`;
+    h += `</div>`;
+    if (c.s) h += `<div class="row-sub">${c.s}</div>`;
+    h += `<div class="row-detail">${c.c}${c.y ? ' · <span class="row-cycle">'+c.y+'</span>' : ''}</div>`;
+    h += `</div>`;
+    h += `<div class="row-price">${c.pr}</div>`;
+    h += `<div class="vote-row" id="vr-${c.i}"></div>`;
+    h += `<div class="row-expand"><strong>${c.p}</strong>`;
+    if (c.y) h += `<br><em>${c.y}</em>`;
+    h += `<br>${fmtDate(c.d)}, ${c.h}h — ${c.v === 'P' ? 'Palau de la Música' : "L'Auditori"}</div>`;
+    h += `</div>`;
+    return h;
+}
+
 function renderSections() {
     const app = document.getElementById('app');
     const sorted = [...C].sort((a, b) => a.d.localeCompare(b.d));
@@ -636,32 +668,41 @@ function renderSections() {
             html += `<div class="toggle-arrow">&#9660;</div>`;
         }
         html += `</div>`;
-        html += `<div class="concert-list">`;
-        html += `<div class="list-header"><span>Data</span><span>Concert</span><span>Preu</span><span>Vots</span></div>`;
 
-        for (const c of visible) {
-            const past = isPast(c.d);
-            const isNext = !past && !nextFound;
-            if (isNext) nextFound = true;
-            const d = new Date(c.d + 'T12:00:00');
-            const cls = past ? ' past' : isNext ? ' next' : '';
+        const useCycles = (sec.id === 'palau' || sec.id === 'auditori');
 
-            html += `<div class="row${cls}" id="c-${c.i}" onclick="this.classList.toggle('open')">`;
-            html += `<div class="row-date"><span class="rd-day">${d.getDate()} ${MONTHS[d.getMonth()]}</span>${dayName(c.d)} · ${c.h}h<br><span class="rd-time">${d.getFullYear()}</span></div>`;
-            html += `<div class="row-info">`;
-            html += `<div class="row-title">${c.t}${isPianoSolo(c) ? ' '+PIANO_SVG : ''} <span class="badge ${c.v === 'P' ? 'bp' : 'ba'}">${c.v === 'P' ? 'Palau' : 'Auditori'}</span>`;
-            if (isNext) html += ` <span class="badge bn">Proper</span>`;
-            html += `</div>`;
-            if (c.s) html += `<div class="row-sub">${c.s}</div>`;
-            html += `<div class="row-detail">${c.c}${c.y ? ' · <span class="row-cycle">'+c.y+'</span>' : ''}</div>`;
-            html += `</div>`;
-            html += `<div class="row-price">${c.pr}</div>`;
-            html += `<div class="vote-row" id="vr-${c.i}"></div>`;
-            html += `<div class="row-expand"><strong>${c.p}</strong>`;
-            if (c.y) html += `<br><em>${c.y}</em>`;
-            html += `<br>${fmtDate(c.d)}, ${c.h}h — ${c.v === 'P' ? 'Palau de la Música' : "L'Auditori"}</div>`;
-            html += `</div>`;
+        if (useCycles && !filterText) {
+            html += `<div class="concert-list">`;
+            const cycles = {};
+            for (const c of visible) {
+                const cy = c.y || 'Altres';
+                if (!cycles[cy]) cycles[cy] = [];
+                cycles[cy].push(c);
+            }
+            for (const [cyName, cyConc] of Object.entries(cycles)) {
+                html += `<div class="cycle-group collapsed">`;
+                html += `<div class="cycle-header" onclick="event.stopPropagation();this.closest('.cycle-group').classList.toggle('collapsed')">`;
+                html += `<span class="cycle-arrow">&#9660;</span>`;
+                html += `<span class="cycle-title">${cyName}</span>`;
+                html += `<span class="cycle-count">${cyConc.length} concerts</span>`;
+                html += `</div>`;
+                html += `<div class="cycle-concerts">`;
+                html += `<div class="list-header"><span>Data</span><span>Concert</span><span>Preu</span><span>Vots</span></div>`;
+                for (const c of cyConc) {
+                    html += renderConcertRow(c, nextFound);
+                    if (!isPast(c.d) && !nextFound) nextFound = true;
+                }
+                html += `</div></div>`;
+            }
+        } else {
+            html += `<div class="concert-list">`;
+            html += `<div class="list-header"><span>Data</span><span>Concert</span><span>Preu</span><span>Vots</span></div>`;
+            for (const c of visible) {
+                html += renderConcertRow(c, nextFound);
+                if (!isPast(c.d) && !nextFound) nextFound = true;
+            }
         }
+
         if (visible.length === 0 && filterText) {
             html += `<div class="no-results">Cap resultat per "${filterText}"</div>`;
         }
@@ -915,7 +956,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.33';
+const APP_VERSION = '2.34';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
