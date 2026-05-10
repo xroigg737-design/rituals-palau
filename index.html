@@ -72,6 +72,10 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .section-header .sub{font-family:var(--serif);font-size:1rem;font-style:italic;color:var(--text2);margin-bottom:.3rem}
 .section-header .count{font-family:var(--sans);font-size:.7rem;color:var(--text3);letter-spacing:.05em}
 .section-header .accent-line{width:40px;height:2px;background:var(--text);margin:.8rem auto 0;opacity:.2}
+.section-header{cursor:pointer}
+.section-header .toggle-arrow{font-size:.7rem;color:var(--text3);margin-top:.4rem;transition:transform .3s}
+.section.collapsed .concert-list{display:none}
+.section.collapsed .toggle-arrow{transform:rotate(-90deg)}
 .section-header.has-bg{background-size:cover;background-position:center 15%;border-radius:12px;padding:0;margin-left:-.5rem;margin-right:-.5rem;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;min-height:22rem}
 .section-header.has-bg::before,.section-header.has-bg::after{display:none}
 .section-header.has-bg .section-bg-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 55%,rgba(0,0,0,.55) 100%)}
@@ -81,6 +85,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .section-header.has-bg .sub{color:#fff;font-weight:500;font-style:normal;text-shadow:0 1px 8px rgba(0,0,0,.5);font-size:1.05rem;letter-spacing:.08em}
 .section-header.has-bg .count{color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.5)}
 .section-header.has-bg .accent-line{background:#fff;opacity:.35}
+.section-header.has-bg .toggle-arrow{color:rgba(255,255,255,.7)}
 
 .concert-list{max-width:960px;margin:0 auto;padding:0 .5rem 1rem}
 
@@ -266,7 +271,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     <button class="share-btn" onclick="shareApp()">Compartir</button>
     <button class="share-btn" onclick="downloadCalendar()">Calendari</button>
     <button class="share-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="margin-top:.8rem">&#8593; Tornar a dalt</button>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.28</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.29</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -606,8 +611,8 @@ function renderSections() {
         const visible = concerts.filter(matchesFilter);
         if (visible.length === 0 && filterText) continue;
 
-        html += `<section class="section" id="${sec.id}">`;
-        html += `<div class="section-header${sec.icon ? ' has-bg" style="background-image:url(\''+sec.icon+'\')' : ''}" >`;
+        html += `<section class="section collapsed" id="${sec.id}">`;
+        html += `<div class="section-header${sec.icon ? ' has-bg" style="background-image:url(\''+sec.icon+'\')' : ''}" onclick="this.closest('.section').classList.toggle('collapsed')">`;
         if (sec.icon) {
             html += `<div class="section-bg-overlay"></div>`;
             html += `<div class="section-bottom">`;
@@ -615,15 +620,15 @@ function renderSections() {
             else html += `<h2>${sec.title}</h2>`;
             html += `<div class="sub">${sec.sub}</div>`;
             html += `<div class="count">${concerts.length} concerts</div>`;
-            html += `<div class="accent-line"></div>`;
+            html += `<div class="toggle-arrow">&#9660;</div>`;
             html += `</div>`;
         } else {
             html += `<h2>${sec.title}</h2>`;
             html += `<div class="sub">${sec.sub}</div>`;
             html += `<div class="count">${concerts.length} concerts</div>`;
-            html += `<div class="accent-line"></div>`;
+            html += `<div class="toggle-arrow">&#9660;</div>`;
         }
-        html += `</div></section>`;
+        html += `</div>`;
         html += `<div class="concert-list">`;
         html += `<div class="list-header"><span>Data</span><span>Concert</span><span>Preu</span><span>Vots</span></div>`;
 
@@ -653,7 +658,7 @@ function renderSections() {
         if (visible.length === 0 && filterText) {
             html += `<div class="no-results">Cap resultat per "${filterText}"</div>`;
         }
-        html += `</div>`;
+        html += `</div></section>`;
     }
     app.innerHTML = html;
 }
