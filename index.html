@@ -287,9 +287,9 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     <button class="share-btn" onclick="showSummary()">Resum seleccio</button>
     <button class="share-btn" onclick="showDashboard()">Resultat votacions</button>
     <button class="share-btn" onclick="shareApp()">Compartir</button>
-    <button class="share-btn" onclick="downloadCalendar()">Calendari</button>
+    <button class="share-btn" onclick="downloadCalendar()">Fitxer calendari</button>
     <button class="share-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="margin-top:.8rem">&#8593; Tornar a dalt</button>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.44</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.45</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1097,7 +1097,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.44';
+const APP_VERSION = '2.45';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
