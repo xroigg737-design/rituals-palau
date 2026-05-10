@@ -146,6 +146,14 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 
 .row-altdate{grid-column:1/-1;text-align:center;padding:.3rem 0 0;font-family:var(--sans);font-size:.6rem;font-weight:600;color:var(--text3);letter-spacing:.03em}
 .row-altdate a{color:#2563eb;text-decoration:none;background:rgba(37,99,235,.06);padding:.15rem .5rem;border-radius:4px}
+.altdate-btn{border:none;background:#2563eb;color:#fff;font-size:.6rem;font-weight:700;width:20px;height:20px;border-radius:50%;cursor:pointer;line-height:1;padding:0;margin-left:.3rem;vertical-align:middle}
+.altdate-btn.added{background:#16a34a}
+.confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:center;justify-content:center}
+.confirm-box{background:#fff;border-radius:12px;padding:1.5rem 2rem;text-align:center;max-width:320px;box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.confirm-box p{font-family:var(--sans);font-size:.85rem;margin-bottom:1rem;color:var(--text)}
+.confirm-box button{font-family:var(--sans);font-size:.8rem;font-weight:600;border:none;border-radius:8px;padding:.5rem 1.2rem;cursor:pointer;margin:0 .3rem}
+.confirm-yes{background:#16a34a;color:#fff}
+.confirm-no{background:#e5e7eb;color:var(--text)}
 .row-expand{display:none;grid-column:1/-1;padding:.4rem 0 .2rem;font-family:var(--serif);font-size:.82rem;color:var(--text);line-height:1.5}
 .row.open .row-expand{display:block}
 .row.open{background:rgba(0,0,0,.015)}
@@ -378,7 +386,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="share-btn" onclick="downloadCalendar()">Fitxer calendari</button>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.61</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.62</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -851,7 +859,10 @@ function renderConcertRow(c, nf) {
         const dd2 = new Date(c.d2 + 'T12:00:00');
         let altTxt = `Tambe ${dayName(c.d2)} ${dd2.getDate()} ${MONTHS[dd2.getMonth()]}`;
         if (c.d3) { const dd3 = new Date(c.d3 + 'T12:00:00'); altTxt += ` i ${dayName(c.d3)} ${dd3.getDate()} ${MONTHS[dd3.getMonth()]}`; }
-        h += `<div class="row-altdate"><a onclick="event.stopPropagation()">${altTxt}</a></div>`;
+        const selected = currentUser && (votes[c.i]||{})[currentUser] === 1;
+        const btnCls = selected ? 'altdate-btn added' : 'altdate-btn';
+        const btnTxt = selected ? '&#10003;' : '+';
+        h += `<div class="row-altdate"><a onclick="event.stopPropagation()">${altTxt}</a> <button class="${btnCls}" onclick="event.stopPropagation();confirmAltDate('${c.i}')" title="Afegir a la seleccio">${btnTxt}</button></div>`;
     }
     h += `<div class="row-expand"><strong>${c.p}</strong>`;
     if (c.y) h += `<br><em>${c.y}</em>`;
@@ -1024,6 +1035,25 @@ function toggleVote(concertId) {
             btn.classList.add('vote-pop');
         }
     }, 50);
+}
+
+function confirmAltDate(concertId) {
+    if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
+    const cv = votes[concertId] || {};
+    const already = cv[currentUser] === 1;
+    const action = already ? 'La traiem de la seleccio?' : "L'afegim a la seleccio?";
+    const overlay = document.createElement('div');
+    overlay.className = 'confirm-overlay';
+    overlay.innerHTML = `<div class="confirm-box"><p>${action}</p><button class="confirm-yes" onclick="resolveAltDate('${concertId}',true)">Si</button><button class="confirm-no" onclick="resolveAltDate('${concertId}',false)">No</button></div>`;
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', e => { if (e.target === overlay) resolveAltDate(concertId, false); });
+}
+
+function resolveAltDate(concertId, accepted) {
+    document.querySelector('.confirm-overlay')?.remove();
+    if (!accepted) return;
+    toggleVote(concertId);
+    renderSections();
 }
 
 function scrollToFooter(e) {
@@ -1450,7 +1480,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.61';
+const APP_VERSION = '2.62';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
