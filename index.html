@@ -144,6 +144,8 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .vote-count{font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-left:.1rem;white-space:nowrap}
 .vote-count .vc-yes{color:var(--yes);font-weight:600}
 
+.row-altdate{grid-column:1/-1;text-align:center;padding:.3rem 0 0;font-family:var(--sans);font-size:.6rem;font-weight:600;color:var(--text3);letter-spacing:.03em}
+.row-altdate a{color:#2563eb;text-decoration:none;background:rgba(37,99,235,.06);padding:.15rem .5rem;border-radius:4px}
 .row-expand{display:none;grid-column:1/-1;padding:.4rem 0 .2rem;font-family:var(--serif);font-size:.82rem;color:var(--text);line-height:1.5}
 .row.open .row-expand{display:block}
 .row.open{background:rgba(0,0,0,.015)}
@@ -376,7 +378,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="share-btn" onclick="downloadCalendar()">Fitxer calendari</button>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.60</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.61</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -447,13 +449,13 @@ const C = [
 // ── BEETHOVEN ──
 {i:'be01',g:'beethoven',v:'P',d:'2026-09-19',h:'20:00',t:"L'Emperador de Beethoven",c:'Beethoven',p:'Alba Ventura pno · OSV · Xavier Salado dir.',pr:'22–68€',y:'Simfonics al Palau'},
 {i:'be02',g:'beethoven',v:'P',d:'2026-09-28',h:'19:00',t:'Concert inaugural – Novena Simfonia',s:'Casals, Vivancos, Schubert i Beethoven',c:'Casals · Vivancos · Schubert · Beethoven',p:'Marta Matheu sop · Gemma Coma-Alabert mez · Roger Padulles ten · Ferran Albrich bar · Pablo Ferrandez vlc · Quartet Casals · Orfeo Catala · Escolania de Montserrat · OSV · Xavier Puig dir.',pr:'20–88€',y:'Concerts Extraordinaris'},
-{i:'be03',g:'beethoven',v:'A',d:'2026-10-02',h:'19:00',t:'La Setena de Beethoven',s:'Gerhard, Chopin i Beethoven: Simfonia 7',c:'Gerhard · Chopin · Beethoven',p:'Jan Lisiecki pno · OBC · Ludovic Morlot dir.',pr:'Des de 20€',y:'OBC'},
+{i:'be03',g:'beethoven',v:'A',d:'2026-10-02',h:'19:00',t:'La Setena de Beethoven',s:'Gerhard, Chopin i Beethoven: Simfonia 7',c:'Gerhard · Chopin · Beethoven',p:'Jan Lisiecki pno · OBC · Ludovic Morlot dir.',pr:'Des de 20€',y:'OBC',d2:'2026-10-04'},
 {i:'be04',g:'beethoven',v:'P',d:'2026-11-22',h:'19:00',t:'Kopatchinskaja & Fazil Say',s:'Szymanowski, Say, Beethoven: Sonata Kreutzer',c:'Szymanowski · Say · Beethoven',p:'Patricia Kopatchinskaja vln · Fazil Say pno',pr:'25 i 38€',y:'Palau Cambra'},
 {i:'be05',g:'beethoven',v:'P',d:'2027-01-13',h:'20:00',t:'Andsnes, Philharmonia & Salonen',s:'Beethoven: Concert pno 3 · Bruckner: Simfonia 6',c:'Beethoven · Bruckner',p:'Leif Ove Andsnes pno · Philharmonia Orchestra · Esa-Pekka Salonen dir.',pr:'38–180€',y:'Palau 100'},
 {i:'be06',g:'beethoven',v:'P',d:'2027-01-28',h:'20:00',t:'Pierre-Laurent Aimard',s:'Beethoven: Bagatelles op.119 i Appassionata · Ligeti · Stockhausen',c:'Beethoven · Ligeti · Stockhausen',p:'Pierre-Laurent Aimard pno',pr:'35 i 45€',y:'Palau Piano'},
 {i:'be07',g:'beethoven',v:'P',d:'2027-01-29',h:'20:00',t:'Missa Solemnis – Savall',s:'Beethoven: Missa Solemnis en Re M op.123',c:'Beethoven',p:'Lina Johnson sop · Olivia Vermeulen mez · Martin Platz ten · Manuel Walser bar · La Capella Reial de Catalunya · Le Concert des Nations · Jordi Savall dir.',pr:'30–150€',y:'Concerts Extraordinaris'},
 {i:'be08',g:'beethoven',v:'P',d:'2027-02-04',h:'20:00',t:'Capucon & Braley',s:'Beethoven: Integral Sonates per a violoncel i piano',c:'Beethoven',p:'Gautier Capucon vlc · Frank Braley pno',pr:'25 i 38€',y:'Palau Cambra'},
-{i:'be09',g:'beethoven',v:'A',d:'2027-02-26',h:'19:00',t:'Simfonia Eroica',s:'Dvorak · Schubert · Beethoven: Simfonia 3',c:'Dvorak · Schubert · Beethoven',p:'OBC · Sebastian Weigle dir.',pr:'Des de 20€',y:'OBC'},
+{i:'be09',g:'beethoven',v:'A',d:'2027-02-26',h:'19:00',t:'Simfonia Eroica',s:'Dvorak · Schubert · Beethoven: Simfonia 3',c:'Dvorak · Schubert · Beethoven',p:'OBC · Sebastian Weigle dir.',pr:'Des de 20€',y:'OBC',d2:'2027-02-28'},
 {i:'be10',g:'beethoven',v:'P',d:'2027-04-08',h:'20:00',t:'Budapest Festival Orchestra & Fischer',s:'Beethoven: Simfonia 9 "Coral"',c:'Beethoven',p:'Eleanor Lyons sop · Olivia Vermeulen mez · Andrew Staples ten · Hanno Muller-Brachmann bx · Budapest Festival Orchestra · Ivan Fischer dir.',pr:'35–170€',y:'Palau 100'},
 {i:'be11',g:'beethoven',v:'P',d:'2027-04-10',h:'20:00',t:'Beethoven i Mezquida',s:'Estrena concert per a piano de Marco Mezquida',c:'Mezquida · Beethoven',p:'Marco Mezquida pno · OSV · Dani Espasa dir.',pr:'22–68€',y:'Simfonics al Palau'},
 {i:'be12',g:'beethoven',v:'P',d:'2027-05-07',h:'20:00',t:'Simfonies de Beethoven I',s:'Simfonies 1, 4 i 5 + estrena Clara Iannotta',c:'Iannotta · Beethoven',p:'Staatskapelle Dresden · Daniele Gatti dir.',pr:'35–170€',y:'Simfonies de Beethoven'},
@@ -463,7 +465,7 @@ const C = [
 {i:'be16',g:'beethoven',v:'P',d:'2027-05-11',h:'20:00',t:'Simfonies de Beethoven IV',s:'Simfonies 8 i 9 "Coral" + estrena Jorg Widmann',c:'Widmann · Beethoven',p:'Sara Blanch sop · Silvia Tro Santafe mez · Bernard Richter ten · Jordan Shanahan bx · Orfeo Catala · Staatskapelle Dresden · Daniele Gatti dir.',pr:'35–220€',y:'Simfonies de Beethoven'},
 {i:'be17',g:'beethoven',v:'P',d:'2027-05-25',h:'20:00',t:'Faust, Queyras, Schiff & Gardiner',s:'Beethoven: Fantasia coral, Missa Do M i Triple Concert',c:'Beethoven',p:'Isabelle Faust vln · Jean-Guihen Queyras vlc · Andras Schiff pno · Constellation Choir & Orch. · John Eliot Gardiner dir.',pr:'35–170€',y:'Palau 100'},
 {i:'be18',g:'beethoven',v:'A',d:'2027-05-29',h:'19:00',t:'Savall – Simfonies 5 i 6',s:'Beethoven: Simfonies 5 i 6 "Pastoral"',c:'Beethoven',p:'Le Concert des Nations · Jordi Savall dir.',pr:'25–55€',y:'El So Original'},
-{i:'be19',g:'beethoven',v:'A',d:'2027-06-11',h:'19:00',t:'Cloenda OBC',s:'Rakhmaninov: Concert pno 3 · Beethoven · Respighi',c:'Rakhmaninov · Beethoven · Respighi',p:'Kirill Gerstein pno · OBC · Ludovic Morlot dir.',pr:'Des de 25€',y:'OBC'},
+{i:'be19',g:'beethoven',v:'A',d:'2027-06-11',h:'19:00',t:'Cloenda OBC',s:'Rakhmaninov: Concert pno 3 · Beethoven · Respighi',c:'Rakhmaninov · Beethoven · Respighi',p:'Kirill Gerstein pno · OBC · Ludovic Morlot dir.',pr:'Des de 25€',y:'OBC',d2:'2027-06-12'},
 {i:'be20',g:'beethoven',v:'P',d:'2027-06-30',h:'20:00',t:'Fidelio – Heras-Casado',s:'Beethoven: Fidelio (versio concert)',c:'Beethoven',p:'David Butt Philip ten · Julia Kleiter sop · Monteverdi Choir · ORR · Pablo Heras-Casado dir.',pr:'35–170€',y:'Palau Opera'},
 
 // ── PAU CASALS ──
@@ -480,7 +482,7 @@ const C = [
 {i:'ba07',g:'baroque',v:'A',d:'2026-12-11',h:'19:00',t:'Les quatre estacions de Vivaldi',s:'Vivaldi i Piazzolla',c:'Vivaldi · Piazzolla',p:'Lina Tur Bonet vln/dir. · Musica Alchemica',pr:'25–32€',y:'Musica Antiga'},
 {i:'ba08',g:'baroque',v:'P',d:'2026-12-16',h:'20:00',t:'El Messies de Handel',s:'RIAS Kammerchor, AKAMUS & Doyle',c:'G.F. Handel',p:'Julia Doyle sop · Tim Mead ct · Thomas Hobbs ten · Roderick Williams bx · RIAS Kammerchor Berlin · Akademie fur Alte Musik Berlin · Justin Doyle dir.',pr:'28–125€',y:'Concerts Extraordinaris'},
 {i:'ba09',g:'baroque',v:'P',d:'2026-12-18',h:'20:00',t:'Oratori de Nadal de Bach',s:'Collegium Vocale Gent & Herreweghe',c:'J.S. Bach',p:'Dorothee Mields sop · Alex Potter ct · Collegium Vocale Gent · Philippe Herreweghe dir.',pr:'28–88€',y:'Palau Bach'},
-{i:'ba10',g:'baroque',v:'A',d:'2026-12-18',h:'19:00',t:'Oratori de Nadal de Bach (OBC)',s:'Bach: Oratori de Nadal BWV 248',c:'J.S. Bach',p:'Elionor Martinez sop · Reinoud van Mechelen ten · Ferran Albrich bar · Cor Jove Orfeo Catala · OBC · Carlos Mena dir.',pr:'Des de 25€',y:'OBC'},
+{i:'ba10',g:'baroque',v:'A',d:'2026-12-18',h:'19:00',t:'Oratori de Nadal de Bach (OBC)',s:'Bach: Oratori de Nadal BWV 248',c:'J.S. Bach',p:'Elionor Martinez sop · Reinoud van Mechelen ten · Ferran Albrich bar · Cor Jove Orfeo Catala · OBC · Carlos Mena dir.',pr:'Des de 25€',y:'OBC',d2:'2026-12-19'},
 {i:'ba11',g:'baroque',v:'P',d:'2026-12-21',h:'20:00',t:'A Nocte Temporis & Van Mechelen',s:'Bach, Handel i Rameau',c:'Bach · Handel · Rameau',p:'Reinoud van Mechelen ten+dir. · A Nocte Temporis',pr:'22 i 35€',y:'Palau Bach'},
 {i:'ba12',g:'baroque',v:'P',d:'2027-01-21',h:'20:00',t:'Diego Ares – Soler al clave',s:'A. Soler: 11 Sonates per a clave, Preludi i fandango',c:'Antoni Soler',p:'Diego Ares clave',pr:'25€',y:'Palau Bach'},
 {i:'ba13',g:'baroque',v:'P',d:'2027-02-13',h:'20:00',t:'Himnes de Handel',s:'Vespres d\'Arnadi & Cor de Cambra del Palau',c:'G.F. Handel',p:'Cor de Cambra del Palau · Vespres d\'Arnadi · Dani Espasa dir.',pr:'22–68€',y:'Simfonics al Palau'},
@@ -497,21 +499,21 @@ const C = [
 {i:'ro01',g:'romantic',v:'P',d:'2026-10-20',h:'20:00',t:'Quasthoff & Amatis Trio',s:'"Humanity in war" – Kreisler, Schubert, Schumann, Shostakovich',c:'Clarke · Korngold · Kreisler · Schubert · Schumann · Shostakovich',p:'Thomas Quasthoff narrador · Amatis Trio',pr:'25 i 38€',y:'Palau Cambra'},
 {i:'ro02',g:'romantic',v:'A',d:'2026-10-21',h:'19:00',t:'Brahms: Un requiem alemany – Savall',c:'Brahms',p:'La Capella Reial de Catalunya · Le Concert des Nations · Jordi Savall dir.',pr:'25–55€',y:'El So Original'},
 {i:'ro03',g:'romantic',v:'P',d:'2026-10-26',h:'20:00',t:'London Philharmonic & Gardner',s:'Brahms: Concert per a violi · Sibelius: Simfonia 5',c:'Casals · Brahms · Sibelius',p:'Julia Fischer vln · London Philharmonic Orchestra · Edward Gardner dir.',pr:'30–150€',y:'Palau 100'},
-{i:'ro04',g:'romantic',v:'A',d:'2026-11-13',h:'19:00',t:'La Segona de Mahler',s:'Mahler: Simfonia 2 "Resurrecccio"',c:'Blai Soler · Mahler',p:'Christiane Karg sop · Helena Rasker contralt · Orfeo Catala · OBC · Ludovic Morlot dir.',pr:'Des de 25€',y:'OBC'},
+{i:'ro04',g:'romantic',v:'A',d:'2026-11-13',h:'19:00',t:'La Segona de Mahler',s:'Mahler: Simfonia 2 "Resurrecccio"',c:'Blai Soler · Mahler',p:'Christiane Karg sop · Helena Rasker contralt · Orfeo Catala · OBC · Ludovic Morlot dir.',pr:'Des de 25€',y:'OBC',d2:'2026-11-14'},
 {i:'ro05',g:'romantic',v:'P',d:'2026-11-23',h:'20:00',t:'Hong Kong Philharmonic & Peltokoski',s:'Mozart: Concert pno 24 · Bruckner: Simfonia 4 "Romantica"',c:'Mozart · Bruckner',p:'Martin Helmchen pno · HK Phil · Tarmo Peltokoski dir.',pr:'18–90€',y:'Palau 100'},
 {i:'ro06',g:'romantic',v:'P',d:'2026-12-01',h:'20:00',t:'Accademia Santa Cecilia & Harding',s:'Txaikovski: Concert pno 1 · Brahms: Simfonia 4',c:'Txaikovski · Brahms',p:'Kirill Gerstein pno · Accademia Naz. di Santa Cecilia · Daniel Harding dir.',pr:'28–125€',y:'Palau 100'},
 {i:'ro07',g:'romantic',v:'P',d:'2027-01-25',h:'20:00',t:'Deutsche Radio Philharmonie & Pons',s:'Wagner: Preludi i mort d\'Isolde · R. Strauss: 4 ultimes cancons i Suite Elektra',c:'Wagner · R. Strauss',p:'Elisabeth Teige sop · Deutsche Radio Philharmonie · Josep Pons dir.',pr:'18–90€',y:'Palau 100'},
-{i:'ro08',g:'romantic',v:'A',d:'2027-01-30',h:'19:00',t:'Romeu i Julieta',s:'Hindemith: Concert per a violi · Prokofiev: Romeu i Julieta',c:'Brichs · Hindemith · Prokofiev',p:'Frank Peter Zimmermann vln · OBC · Jaime Martin dir.',pr:'Des de 20€',y:'OBC'},
+{i:'ro08',g:'romantic',v:'A',d:'2027-01-30',h:'19:00',t:'Romeu i Julieta',s:'Hindemith: Concert per a violi · Prokofiev: Romeu i Julieta',c:'Brichs · Hindemith · Prokofiev',p:'Frank Peter Zimmermann vln · OBC · Jaime Martin dir.',pr:'Des de 20€',y:'OBC',d2:'2027-01-31'},
 {i:'ro09',g:'romantic',v:'P',d:'2027-02-11',h:'20:00',t:'Batiashvili, Royal Concertgebouw & Makela',s:'Schumann · Sibelius: Concert vln · Dvorak: Simfonia 7',c:'Schumann · Sibelius · Dvorak',p:'Lisa Batiashvili vln · Royal Concertgebouw Orchestra · Klaus Makela dir.',pr:'40–210€',y:'Palau 100'},
 {i:'ro10',g:'romantic',v:'P',d:'2027-02-18',h:'20:00',t:'Perianes, Zimmermann & Queyras',s:'Brahms: Trios per a clarinet/piano/violoncel',c:'Brahms',p:'Javier Perianes pno · Antoine Tamestit viola · Jean-Guihen Queyras vlc',pr:'25 i 38€',y:'Palau Cambra'},
-{i:'ro11',g:'romantic',v:'A',d:'2027-02-19',h:'19:00',t:'La Novena de Mahler',s:'Mahler: Simfonia 9',c:'Mahler',p:'OBC · Vasily Petrenko dir.',pr:'Des de 25€',y:'OBC'},
-{i:'ro12',g:'romantic',v:'A',d:'2027-03-12',h:'19:00',t:'La Primera de Brahms',s:'Gabriella Smith · Ravel · Brahms: Simfonia 1',c:'Smith · Ravel · Brahms',p:'OBC · Ludovic Morlot dir.',pr:'Des de 25€',y:'OBC'},
+{i:'ro11',g:'romantic',v:'A',d:'2027-02-19',h:'19:00',t:'La Novena de Mahler',s:'Mahler: Simfonia 9',c:'Mahler',p:'OBC · Vasily Petrenko dir.',pr:'Des de 25€',y:'OBC',d2:'2027-02-20'},
+{i:'ro12',g:'romantic',v:'A',d:'2027-03-12',h:'19:00',t:'La Primera de Brahms',s:'Gabriella Smith · Ravel · Brahms: Simfonia 1',c:'Smith · Ravel · Brahms',p:'OBC · Ludovic Morlot dir.',pr:'Des de 25€',y:'OBC',d2:'2027-03-13'},
 {i:'ro13',g:'romantic',v:'A',d:'2027-03-19',h:'19:00',t:'Simfonia del Nou Mon',s:'Wagner · Mahler · Dvorak: Simfonia 9',c:'Wagner · Mahler · Dvorak',p:'Matthias Goerne bar · OBC · Stanislav Kochanovsky dir.',pr:'Des de 25€',y:'OBC'},
 {i:'ro14',g:'romantic',v:'P',d:'2027-04-07',h:'20:00',t:'Capucon, Nederlands Philharmonic & Viotti',s:'Dvorak: Concert vlc · Txaikovski: Simfonia 6 "Patetica"',c:'Dvorak · Txaikovski',p:'Gautier Capucon vlc · Nederlands Philharmonic · Lorenzo Viotti dir.',pr:'18–90€',y:'Palau 100'},
-{i:'ro15',g:'romantic',v:'A',d:'2027-04-09',h:'19:00',t:'Wagner – Strauss',s:'R. Strauss · Wagner/De Vlieger: Tristan i Isolda sense paraules',c:'R. Strauss · Wagner',p:'Saskia Giorgini pno · OBC · Pietari Inkinen dir.',pr:'Des de 20€',y:'OBC'},
-{i:'ro16',g:'romantic',v:'A',d:'2027-05-21',h:'19:00',t:'Quatre ultimes cancons de Strauss',s:'Wagner · R. Strauss · Brahms: Simfonia 2',c:'Wagner · R. Strauss · Brahms',p:'Ruzan Mantashyan sop · OBC · David Afkham dir.',pr:'Des de 25€',y:'OBC'},
+{i:'ro15',g:'romantic',v:'A',d:'2027-04-09',h:'19:00',t:'Wagner – Strauss',s:'R. Strauss · Wagner/De Vlieger: Tristan i Isolda sense paraules',c:'R. Strauss · Wagner',p:'Saskia Giorgini pno · OBC · Pietari Inkinen dir.',pr:'Des de 20€',y:'OBC',d2:'2027-04-11'},
+{i:'ro16',g:'romantic',v:'A',d:'2027-05-21',h:'19:00',t:'Quatre ultimes cancons de Strauss',s:'Wagner · R. Strauss · Brahms: Simfonia 2',c:'Wagner · R. Strauss · Brahms',p:'Ruzan Mantashyan sop · OBC · David Afkham dir.',pr:'Des de 25€',y:'OBC',d2:'2027-05-22'},
 {i:'ro17',g:'romantic',v:'P',d:'2027-05-30',h:'20:00',t:'Mendelssohn: Elies',s:'Orfeo Catala, Orquestra del Liceu & Puig',c:'Mendelssohn',p:'Emoke Barath sop · Olivia Vermeulen mez · Filip Filipovic ten · Jose Antonio Lopez bar · Orfeo Catala · Cor de Noies · Orquestra del Liceu · Xavier Puig dir.',pr:'18–68€',y:'Palau 100'},
-{i:'ro18',g:'romantic',v:'A',d:'2027-06-05',h:'19:00',t:'Segon concert de Rakhmaninov',s:'Rakhmaninov: Concert pno 2 · Txaikovski: Simfonia 5',c:'Rakhmaninov · Txaikovski',p:'Marc Heredia pno · OBC · Josep Caballe Domenech dir.',pr:'Des de 20€',y:'OBC'},
+{i:'ro18',g:'romantic',v:'A',d:'2027-06-05',h:'19:00',t:'Segon concert de Rakhmaninov',s:'Rakhmaninov: Concert pno 2 · Txaikovski: Simfonia 5',c:'Rakhmaninov · Txaikovski',p:'Marc Heredia pno · OBC · Josep Caballe Domenech dir.',pr:'Des de 20€',y:'OBC',d2:'2027-06-06'},
 
 // ── CINEMA ──
 {i:'ci01',g:'cinema',v:'P',d:'2026-10-11',h:'17:00',t:'Homenatge a Williams i Zimmer',c:'John Williams · Hans Zimmer',p:'OSV',pr:'22–68€',y:'Simfonics al Palau'},
@@ -682,22 +684,22 @@ const C = [
 
 
 // ── AUDITORI (resta) ──
-{i:'au01',g:'auditori',v:'A',d:'2026-10-17',h:'19:00',t:'La Quarta de Xostakovitx',c:'Vasks · Xostakovitx',p:'OBC · Andris Poga dir.',pr:'Des de 20€',y:'OBC'},
-{i:'au02',g:'auditori',v:'A',d:'2026-10-23',h:'19:00',t:'Concert per a piano de Chopin',s:'Smetana · Chopin · Rakhmaninov',c:'Smetana · Chopin · Rakhmaninov',p:'David Khrikuli pno · OBC · Cristian Macelaru dir.',pr:'Des de 25€',y:'OBC'},
-{i:'au03',g:'auditori',v:'A',d:'2026-11-06',h:'19:00',t:'L\'Atlantida de Falla',s:'Debussy · Wagner · Falla/Halffter: L\'Atlantida',c:'Debussy · Wagner · Falla',p:'Nuria Rial sop · J.A. Lopez bar · Kent Nagano dir. · Orq. y Coro Nacionales de Espanya · Barcelona Ars Nova',pr:'Des de 20€',y:'OBC'},
+{i:'au01',g:'auditori',v:'A',d:'2026-10-17',h:'19:00',t:'La Quarta de Xostakovitx',c:'Vasks · Xostakovitx',p:'OBC · Andris Poga dir.',pr:'Des de 20€',y:'OBC',d2:'2026-10-18'},
+{i:'au02',g:'auditori',v:'A',d:'2026-10-23',h:'19:00',t:'Concert per a piano de Chopin',s:'Smetana · Chopin · Rakhmaninov',c:'Smetana · Chopin · Rakhmaninov',p:'David Khrikuli pno · OBC · Cristian Macelaru dir.',pr:'Des de 25€',y:'OBC',d2:'2026-10-24'},
+{i:'au03',g:'auditori',v:'A',d:'2026-11-06',h:'19:00',t:'L\'Atlantida de Falla',s:'Debussy · Wagner · Falla/Halffter: L\'Atlantida',c:'Debussy · Wagner · Falla',p:'Nuria Rial sop · J.A. Lopez bar · Kent Nagano dir. · Orq. y Coro Nacionales de Espanya · Barcelona Ars Nova',pr:'Des de 20€',y:'OBC',d2:'2026-11-07',d3:'2026-11-08'},
 {i:'au04',g:'auditori',v:'A',d:'2026-11-14',h:'19:00',t:'Augustin Hadelich & Seong-Jin Cho',s:'Brahms · Janacek · Beach · Prokofiev',c:'Brahms · Janacek · Beach · Prokofiev',p:'Augustin Hadelich vln · Seong-Jin Cho pno',pr:'25–35€',y:'Cambra i Recitals'},
-{i:'au05',g:'auditori',v:'A',d:'2026-11-21',h:'19:00',t:'Simfonia Domestica de Strauss',s:'Gerhard · R. Strauss',c:'Gerhard · R. Strauss',p:'OBC · Edmon Colomer dir.',pr:'Des de 20€',y:'OBC'},
+{i:'au05',g:'auditori',v:'A',d:'2026-11-21',h:'19:00',t:'Simfonia Domestica de Strauss',s:'Gerhard · R. Strauss',c:'Gerhard · R. Strauss',p:'OBC · Edmon Colomer dir.',pr:'Des de 20€',y:'OBC',d2:'2026-11-22'},
 {i:'au06',g:'auditori',v:'A',d:'2026-12-04',h:'19:00',t:'Yunchan Lim',s:'Mozart: 5 sonates per a piano',c:'Mozart',p:'Yunchan Lim pno',pr:'25–35€',y:'Cambra i Recitals'},
-{i:'au07',g:'auditori',v:'A',d:'2026-12-11',h:'19:00',t:'El trencanous de Txaikovski (OBC)',s:'Glinka · Txaikovski: Concert vln + El trencanous (suite)',c:'Glinka · Txaikovski',p:'James Ehnes vln · OBC · Ludovic Morlot dir.',pr:'Des de 20€',y:'OBC'},
-{i:'au08',g:'auditori',v:'A',d:'2027-01-15',h:'19:00',t:'La Cinquena de Prokofiev',s:'C. Miller · Mozart: Concert pno · Prokofiev: Simfonia 5',c:'Miller · Mozart · Prokofiev',p:'Imogen Cooper pno · OBC · Ludovic Morlot dir.',pr:'Des de 25€',y:'OBC'},
-{i:'au09',g:'auditori',v:'A',d:'2027-01-22',h:'19:00',t:'La Valquiria de Wagner',s:'Gubaidulina · Wagner: Acte 1 de La Valquiria',c:'Gubaidulina · Wagner',p:'Kathleen O\'Mara sop · Joachim Backstrom ten · Stephen Milling bx · OBC · Ludovic Morlot dir.',pr:'Des de 25€',y:'OBC'},
-{i:'au10',g:'auditori',v:'A',d:'2027-02-13',h:'19:00',t:'El Piano de Mozart',s:'Kilar · Mozart: Concert pno · Rakhmaninov',c:'Kilar · Mozart · Rakhmaninov',p:'Saskia Giorgini pno · OBC · Marta Gardolinska dir.',pr:'Des de 20€',y:'OBC'},
+{i:'au07',g:'auditori',v:'A',d:'2026-12-11',h:'19:00',t:'El trencanous de Txaikovski (OBC)',s:'Glinka · Txaikovski: Concert vln + El trencanous (suite)',c:'Glinka · Txaikovski',p:'James Ehnes vln · OBC · Ludovic Morlot dir.',pr:'Des de 20€',y:'OBC',d2:'2026-12-13'},
+{i:'au08',g:'auditori',v:'A',d:'2027-01-15',h:'19:00',t:'La Cinquena de Prokofiev',s:'C. Miller · Mozart: Concert pno · Prokofiev: Simfonia 5',c:'Miller · Mozart · Prokofiev',p:'Imogen Cooper pno · OBC · Ludovic Morlot dir.',pr:'Des de 25€',y:'OBC',d2:'2027-01-16'},
+{i:'au09',g:'auditori',v:'A',d:'2027-01-22',h:'19:00',t:'La Valquiria de Wagner',s:'Gubaidulina · Wagner: Acte 1 de La Valquiria',c:'Gubaidulina · Wagner',p:'Kathleen O\'Mara sop · Joachim Backstrom ten · Stephen Milling bx · OBC · Ludovic Morlot dir.',pr:'Des de 25€',y:'OBC',d2:'2027-01-23'},
+{i:'au10',g:'auditori',v:'A',d:'2027-02-13',h:'19:00',t:'El Piano de Mozart',s:'Kilar · Mozart: Concert pno · Rakhmaninov',c:'Kilar · Mozart · Rakhmaninov',p:'Saskia Giorgini pno · OBC · Marta Gardolinska dir.',pr:'Des de 20€',y:'OBC',d2:'2027-02-14'},
 {i:'au11',g:'auditori',v:'A',d:'2027-03-12',h:'19:00',t:'Biennal de Quartets – Modigliani',s:'Maratka · Debussy · Beethoven: Quartet op.132',c:'Maratka · Debussy · Beethoven',p:'Modigliani Quartet',pr:'25–35€',y:'Biennal de Quartets'},
 {i:'au12',g:'auditori',v:'A',d:'2027-03-20',h:'19:00',t:'Biennal – Quartet Casals (30e aniversari)',s:'Garcia-Tomas · Beethoven: Gran Fuga op.133 · Schubert',c:'Garcia-Tomas · Beethoven · Schubert',p:'Quartet Casals',pr:'25–35€',y:'Biennal de Quartets'},
 {i:'au13',g:'auditori',v:'A',d:'2027-04-03',h:'19:00',t:'Simfonia Italiana',s:'Dallapiccola · Nino Rota · Mendelssohn: Simfonia 4 "Italiana"',c:'Dallapiccola · Rota · Mendelssohn',p:'OBC · Ludovic Morlot dir.',pr:'Des de 25€',y:'OBC'},
-{i:'au14',g:'auditori',v:'A',d:'2027-04-30',h:'19:00',t:'La Vuitena de Xostakovitx',s:'Mozart: Concert pno 20 · Xostakovitx: Simfonia 8',c:'Mozart · Xostakovitx',p:'Alexei Volodin pno · OBC · Michael Sanderling dir.',pr:'Des de 25€',y:'OBC'},
+{i:'au14',g:'auditori',v:'A',d:'2027-04-30',h:'19:00',t:'La Vuitena de Xostakovitx',s:'Mozart: Concert pno 20 · Xostakovitx: Simfonia 8',c:'Mozart · Xostakovitx',p:'Alexei Volodin pno · OBC · Michael Sanderling dir.',pr:'Des de 25€',y:'OBC',d2:'2027-05-01'},
 {i:'au15',g:'auditori',v:'A',d:'2027-05-12',h:'19:00',t:'Bruce Liu',s:'Ligeti · Beethoven: "Clar de lluna" i "Waldstein" · Chopin · Ravel',c:'Ligeti · Beethoven · Chopin · Ravel · Mompou',p:'Bruce Liu pno',pr:'15–25€',y:'Cambra i Recitals'},
-{i:'au16',g:'auditori',v:'A',d:'2027-05-14',h:'19:00',t:'Zaratustra de Strauss',s:'M. Vila · E. Casals · R. Strauss: Aixi parla Zaratustra',c:'Vila · E. Casals · R. Strauss',p:'OBC · Christian Blex dir.',pr:'Des de 20€',y:'OBC'},
+{i:'au16',g:'auditori',v:'A',d:'2027-05-14',h:'19:00',t:'Zaratustra de Strauss',s:'M. Vila · E. Casals · R. Strauss: Aixi parla Zaratustra',c:'Vila · E. Casals · R. Strauss',p:'OBC · Christian Blex dir.',pr:'Des de 20€',y:'OBC',d2:'2027-05-16'},
 {i:'au17',g:'auditori',v:'A',d:'2027-05-20',h:'19:00',t:'Sabine Devieilhe',s:'Mendelssohn · Mahler · Liszt · Debussy',c:'Mendelssohn · Mahler · Liszt · Debussy',p:'Sabine Devieilhe sop · Alexander Krichel pno',pr:'25–35€',y:'Cambra i Recitals'},
 {i:'au18',g:'auditori',v:'A',d:'2027-04-25',h:'19:00',t:'Els nostres classics',s:'Albeniz · Morera · Manen: Concert per a violi',c:'Albeniz · Morera · Manen',p:'Orquestra de Cambra',pr:'25–30€',y:'Cambra i Recitals'},
 {i:'au19',g:'auditori',v:'A',d:'2026-10-12',h:'20:00',t:'Dudamel & New York Philharmonic',s:'Adams · Di Castri (estrena) · Prokofiev: Simfonia 5',c:'Adams · Di Castri · Prokofiev',p:'Orfeo Catala · New York Philharmonic · Gustavo Dudamel dir.',pr:'27–85€',y:'BCN Classics'},
@@ -845,6 +847,12 @@ function renderConcertRow(c, nf) {
     h += `</div>`;
     h += `<div class="row-price">${c.pr}</div>`;
     h += `<div class="vote-row" id="vr-${c.i}"></div>`;
+    if (c.d2) {
+        const dd2 = new Date(c.d2 + 'T12:00:00');
+        let altTxt = `Tambe ${dayName(c.d2)} ${dd2.getDate()} ${MONTHS[dd2.getMonth()]}`;
+        if (c.d3) { const dd3 = new Date(c.d3 + 'T12:00:00'); altTxt += ` i ${dayName(c.d3)} ${dd3.getDate()} ${MONTHS[dd3.getMonth()]}`; }
+        h += `<div class="row-altdate"><a onclick="event.stopPropagation()">${altTxt}</a></div>`;
+    }
     h += `<div class="row-expand"><strong>${c.p}</strong>`;
     if (c.y) h += `<br><em>${c.y}</em>`;
     h += `<br>${fmtDate(c.d)}, ${c.h}h — ${c.v === 'P' ? 'Palau de la Música' : "L'Auditori"}</div>`;
@@ -1442,7 +1450,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.60';
+const APP_VERSION = '2.61';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
