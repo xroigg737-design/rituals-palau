@@ -149,7 +149,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 
 .row-expand{display:none;grid-column:1/-1;padding:.4rem 0 .2rem;font-family:var(--serif);font-size:.82rem;color:var(--text);line-height:1.5}
 .row.open .row-expand{display:block}
-.yt-link{display:inline-flex;align-items:center;gap:.2rem;padding:.15rem .45rem;border-radius:12px;background:rgba(255,0,0,.08);color:#c00;text-decoration:none;transition:all .3s;margin-left:auto;flex-shrink:0;font-family:var(--sans);font-size:.55rem;font-weight:600;white-space:nowrap}
+.yt-link{display:inline-flex;align-items:center;gap:.2rem;padding:.15rem .45rem;border-radius:12px;background:rgba(255,0,0,.08);color:#c00;text-decoration:none;transition:all .3s;margin-left:.5rem;flex-shrink:0;font-family:var(--sans);font-size:.55rem;font-weight:600;white-space:nowrap}
 .yt-link:hover{background:rgba(255,0,0,.2);color:#900}
 .yt-icon{width:11px;height:11px;fill:currentColor;flex-shrink:0}
 .row.open{background:rgba(0,0,0,.015)}
@@ -452,7 +452,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.92</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.93</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1699,7 +1699,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.92';
+const APP_VERSION = '2.93';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
