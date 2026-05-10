@@ -149,6 +149,9 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 
 .row-expand{display:none;grid-column:1/-1;padding:.4rem 0 .2rem;font-family:var(--serif);font-size:.82rem;color:var(--text);line-height:1.5}
 .row.open .row-expand{display:block}
+.yt-link{display:inline-flex;align-items:center;gap:.3rem;margin-top:.5rem;padding:.3rem .7rem;border-radius:16px;background:rgba(255,0,0,.08);color:#c00;font-family:var(--sans);font-size:.65rem;font-weight:600;text-decoration:none;transition:all .3s;letter-spacing:.03em}
+.yt-link:hover{background:rgba(255,0,0,.18);color:#900}
+.yt-icon{width:14px;height:14px;fill:currentColor;flex-shrink:0}
 .row.open{background:rgba(0,0,0,.015)}
 
 .footer{text-align:center;padding:2.5rem 1rem 3rem;border-top:1px solid var(--border);margin-top:1rem}
@@ -449,7 +452,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.86</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.87</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -944,6 +947,8 @@ function renderConcertRow(c, nf) {
     if (c.y) h += `<br><em>${c.y}</em>`;
     h += `<br>${fmtDate(c.d)}, ${c.h}h — ${c.v === 'P' ? 'Palau de la Música' : "L'Auditori"}</div>`;
     if (isPianoConcert(c)) h += `<img class="piano-gif" src="img/piano-animated.gif" alt="piano">`;
+    const ytq = encodeURIComponent([c.s || c.t, c.c].filter(Boolean).join(' '));
+    h += `<a class="yt-link" href="https://www.youtube.com/results?search_query=${ytq}" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg class="yt-icon" viewBox="0 0 24 24"><path d="M23.5 6.2s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.9 2.5 12 2.5 12 2.5s-4.9 0-8.3.4c-.5.1-1.5.1-2.3 1-.7.7-.9 2.3-.9 2.3S0 8.1 0 10v1.8c0 1.9.5 3.8.5 3.8s.2 1.6.9 2.3c.9.9 2 .9 2.5 1 1.8.2 7.1.2 7.1.2s4.9 0 8.3-.4c.5-.1 1.5-.1 2.3-1 .7-.7.9-2.3.9-2.3s.5-1.9.5-3.8V10c0-1.9-.5-3.8-.5-3.8zM9.5 15.5V8l6.3 3.7-6.3 3.8z"/></svg> Com sona?</a>`;
     h += `</div>`;
     return h;
 }
@@ -1693,7 +1698,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.86';
+const APP_VERSION = '2.87';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
