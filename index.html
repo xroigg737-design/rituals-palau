@@ -109,7 +109,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .list-header span:nth-child(3){text-align:right}
 
 .row{display:grid;grid-template-columns:78px 1fr 52px 115px;gap:0 .6rem;padding:.55rem .8rem;border-bottom:1px solid var(--border2);transition:background .2s;align-items:start;position:relative}
-.piano-gif{position:absolute;bottom:4px;right:6px;height:32px;opacity:.35;pointer-events:none}
+.piano-gif{position:absolute;bottom:4px;right:6px;height:44px;opacity:.6;pointer-events:none}
 .row:hover{background:rgba(0,0,0,.02)}
 .row.past{opacity:.35}.row.past:hover{opacity:.5}
 .row.next{background:rgba(12,74,74,.03)}
@@ -288,7 +288,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     <button class="share-btn" onclick="shareApp()">Compartir</button>
     <button class="share-btn" onclick="downloadCalendar()">Calendari</button>
     <button class="share-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="margin-top:.8rem">&#8593; Tornar a dalt</button>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.42</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.43</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1077,7 +1077,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.42';
+const APP_VERSION = '2.43';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
