@@ -446,7 +446,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.79</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.80</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1135,15 +1135,15 @@ function shareApp() {
 }
 
 function downloadCalendar() {
-    const yes = C.filter(c => {
+    if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
+    const selected = C.filter(c => {
         const cv = votes[c.i] || {};
-        const yesCount = Object.values(cv).filter(v => v === 1).length;
-        return yesCount >= 2 && !isPast(c.d);
+        return cv[currentUser] === 1 && !isPast(c.d);
     });
-    if (yes.length === 0) { showToast('Cap concert amb 2+ vots'); return; }
+    if (selected.length === 0) { showToast('No tens cap concert seleccionat'); return; }
 
     let ics = 'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Rituals al Palau//CA\n';
-    yes.forEach(c => {
+    selected.forEach(c => {
         const dt = c.d.replace(/-/g, '');
         const hm = (c.h || '20:00').replace(':', '') + '00';
         const venue = c.v === 'P' ? 'Palau de la Musica Catalana' : "L'Auditori de Barcelona";
@@ -1157,7 +1157,7 @@ function downloadCalendar() {
     a.download = 'rituals-palau-26-27.ics';
     a.click();
     URL.revokeObjectURL(a.href);
-    showToast(`${yes.length} concerts descarregats`);
+    showToast(`${selected.length} concerts exportats al calendari`);
 }
 
 // ── ABONAMENT A LA CARTA ──
@@ -1684,7 +1684,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.79';
+const APP_VERSION = '2.80';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
