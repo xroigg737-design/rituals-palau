@@ -43,6 +43,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .hero-title-bar{background:linear-gradient(135deg,#0c4a4a 0%,#0a3a3a 100%);padding:1.8rem 2rem;text-align:center;color:#fff}
 .hero h1{font-family:var(--serif);font-size:3.2rem;font-weight:300;letter-spacing:.08em;line-height:1;margin-bottom:.3rem;text-shadow:0 2px 20px rgba(0,0,0,.3)}
 .hero-sub{font-family:var(--sans);font-size:.75rem;font-weight:300;letter-spacing:.25em;text-transform:uppercase;opacity:.7}
+.hero-count{font-family:var(--sans);font-size:.7rem;font-weight:700;color:#facc15;letter-spacing:.08em;margin-top:.5rem}
 .hero-venue{font-family:var(--serif);font-size:1rem;font-weight:400;font-style:italic;opacity:.6;margin-bottom:.4rem}
 
 .sticky-bar{position:sticky;top:0;z-index:100;background:rgba(250,249,247,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
@@ -343,6 +344,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <p class="hero-venue">Palau de la Musica Catalana &middot; L'Auditori de Barcelona</p>
         <h1>Rituals al Palau</h1>
         <p class="hero-sub">Temporada 2026 &ndash; 2027</p>
+        <p class="hero-count" id="heroCount"></p>
     </div>
 </header>
 
@@ -374,7 +376,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="share-btn" onclick="downloadCalendar()">Fitxer calendari</button>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.58</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.59</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1415,6 +1417,7 @@ const observer = new IntersectionObserver(entries => {
 }, {rootMargin: '-120px 0px -70% 0px'});
 
 // ── INIT ──
+document.getElementById('heroCount').textContent = C.length + ' concerts';
 render();
 setTimeout(() => {
     document.querySelectorAll('.section').forEach(s => observer.observe(s));
@@ -1439,7 +1442,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.58';
+const APP_VERSION = '2.59';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
