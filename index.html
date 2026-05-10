@@ -376,7 +376,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="share-btn" onclick="downloadCalendar()">Fitxer calendari</button>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.59</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.60</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -585,7 +585,7 @@ const C = [
 {i:'pl63',g:'palau',v:'P',d:'2027-04-15',h:'19:00',t:'Kebyart & friends',s:'Mozart, Charles, Schubert, Franck, Pesson i Ligeti',c:'Mozart · Schubert · Franck · Ligeti',p:'Kebyart saxos · Convidats',pr:'18€',y:'BCN Classics'},
 {i:'pl64',g:'cinema',v:'P',d:'2027-05-23',h:'17:30',t:'Star Wars 50th anniversary',s:'Franz Schubert Filharmonia & Gonzalez-Granados',c:'John Williams',p:'Franz Schubert Filharmonia · Lina Gonzalez-Granados dir.',pr:'18–56€',y:'Simfonics al Palau'},
 {i:'pl65',g:'palau',v:'P',d:'2027-06-07',h:'19:00',t:'Jornada Joan Guinjoan',c:'Guinjoan',p:'Quartet Gerhard · Ensemble ESMUC · Ernest Martinez Izquierdo dir.',pr:'18€',y:'BCN Classics'},
-{i:'pl66',g:'palau',v:'P',d:'2027-06-15',h:'19:00',t:'Bach amb marimba',s:'Barbican Quartet & David Moliner',c:'J.S. Bach',p:'David Moliner marimba · Barbican Quartet',pr:'18€',y:'BCN Classics'},
+{i:'pl66',g:'baroque',v:'P',d:'2027-06-15',h:'19:00',t:'Bach amb marimba',s:'Barbican Quartet & David Moliner',c:'J.S. Bach',p:'David Moliner marimba · Barbican Quartet',pr:'18€',y:'BCN Classics'},
 {i:'pl67',g:'palau',v:'P',d:'2027-06-17',h:'19:00',t:'The Rest Project',s:'Equilibrium',c:'Repertori variat',p:'Maria Florea vln · Lara Fernandez viola · Daniel Claret vlc',pr:'18€',y:'BCN Classics'},
 {i:'pl68',g:'palau',v:'P',d:'2027-06-30',h:'19:30',t:'Petar Pejcic',s:'Joves talents internacionals',c:'Repertori variat',p:'Petar Pejcic vlc',pr:'18€',y:'BCN Classics'},
 {i:'pl69',g:'palau',v:'P',d:'2026-10-05',h:'19:00',t:'Helena Ressurreiçao & Mar Compte',s:'Lied',c:'Repertori variat',p:'Helena Ressurreiçao sop · Mar Compte pno',pr:'18€',y:'Petit Palau Cambra'},
@@ -668,11 +668,11 @@ const C = [
 {i:'pl146',g:'palau',v:'P',d:'2026-11-28',h:'21:00',t:'Ramon Mirabet All-Star Jazz',c:'Jazz',p:'Ramon Mirabet',pr:'30–58€',y:'Concerts externs'},
 {i:'pl147',g:'baroque',v:'P',d:'2026-12-09',h:'20:00',t:'Emmanuelle Haim & Le Concert d\'Astree',s:'El Messies de Handel',c:'G.F. Handel',p:'Le Concert d\'Astree · Emmanuelle Haim dir.',pr:'27–85€',y:'BCN Classics'},
 {i:'pl148',g:'palau',v:'P',d:'2026-12-14',h:'20:00',t:'Homenatge Pavarotti amb OSV',s:'Nit ARA',c:'Opera italiana',p:'Solistes · OSV',pr:'17–72€',y:'Concerts externs'},
-{i:'pl149',g:'palau',v:'P',d:'2026-12-17',h:'20:00',t:'ADDA Simfonica – Romeu i Julieta',s:'Txaikovski · Bernstein · Prokofiev: Romeu i Julieta',c:'Txaikovski · Bernstein · Prokofiev',p:'ADDA Simfonica Alacant · Josep Vicent dir.',pr:'27–85€',y:'BCN Classics'},
+{i:'pl149',g:'romantic',v:'P',d:'2026-12-17',h:'20:00',t:'ADDA Simfonica – Romeu i Julieta',s:'Txaikovski · Bernstein · Prokofiev: Romeu i Julieta',c:'Txaikovski · Bernstein · Prokofiev',p:'ADDA Simfonica Alacant · Josep Vicent dir.',pr:'27–85€',y:'BCN Classics'},
 {i:'pl150',g:'casals',v:'P',d:'2027-01-11',h:'20:00',t:'Ferrandez – Concert vlc d\'Elgar',s:'Dubugnon (estrena) · Elgar: Concert vlc · Mendelssohn: Simfonia 5 "Reforma"',c:'Dubugnon · Elgar · Mendelssohn',p:'Pablo Ferrandez vlc · Musikkollegium Winterthur · Roberto Gonzalez-Monjas dir.',pr:'27–85€',y:'BCN Classics'},
 {i:'pl151',g:'palau',v:'P',d:'2027-01-22',h:'20:00',t:'Daniil Trifonov',c:'Repertori variat',p:'Daniil Trifonov pno',pr:'30–96€',y:'Ibercamera'},
 {i:'pl152',g:'romantic',v:'P',d:'2027-02-10',h:'20:00',t:'Anne-Sophie Mutter & Munchner Philharmoniker',s:'Brahms: Concert vln · Schubert: Simfonia 9 "La Gran"',c:'Brahms · Schubert',p:'Anne-Sophie Mutter vln · Munchner Philharmoniker · Lahav Shani dir.',pr:'35–190€',y:'BCN Classics'},
-{i:'pl153',g:'palau',v:'P',d:'2027-03-02',h:'20:00',t:'Hadelich & Antwerp Symphony',s:'De Vocht (estrena) · Bruch: Concert vln 1 · R. Strauss: Don Juan, Till Eulenspiegel, Dansa Salome',c:'De Vocht · Bruch · R. Strauss',p:'Augustin Hadelich vln · Antwerp Symphony Orchestra · Marc Albrecht dir.',pr:'27–85€',y:'BCN Classics'},
+{i:'pl153',g:'romantic',v:'P',d:'2027-03-02',h:'20:00',t:'Hadelich & Antwerp Symphony',s:'De Vocht (estrena) · Bruch: Concert vln 1 · R. Strauss: Don Juan, Till Eulenspiegel, Dansa Salome',c:'De Vocht · Bruch · R. Strauss',p:'Augustin Hadelich vln · Antwerp Symphony Orchestra · Marc Albrecht dir.',pr:'27–85€',y:'BCN Classics'},
 {i:'pl154',g:'palau',v:'P',d:'2027-03-08',h:'20:00',t:'Orquestra Orfeus de Nova York & Marsalis',c:'Repertori variat',p:'Branford Marsalis sax · Orpheus Chamber Orchestra',pr:'30–96€',y:'Ibercamera'},
 {i:'pl155',g:'romantic',v:'P',d:'2027-04-09',h:'20:00',t:'La Novena de Mahler – Yamada',s:'Mahler: Simfonia 9',c:'Mahler',p:'Orchestre national du Capitole de Toulouse · Kazuki Yamada dir.',pr:'27–85€',y:'BCN Classics'},
 {i:'pl156',g:'palau',v:'P',d:'2027-05-04',h:'19:00',t:'Alba Ventura – BCN Classics',c:'Repertori variat',p:'Alba Ventura pno',pr:'15€',y:'BCN Classics'},
@@ -701,11 +701,11 @@ const C = [
 {i:'au17',g:'auditori',v:'A',d:'2027-05-20',h:'19:00',t:'Sabine Devieilhe',s:'Mendelssohn · Mahler · Liszt · Debussy',c:'Mendelssohn · Mahler · Liszt · Debussy',p:'Sabine Devieilhe sop · Alexander Krichel pno',pr:'25–35€',y:'Cambra i Recitals'},
 {i:'au18',g:'auditori',v:'A',d:'2027-04-25',h:'19:00',t:'Els nostres classics',s:'Albeniz · Morera · Manen: Concert per a violi',c:'Albeniz · Morera · Manen',p:'Orquestra de Cambra',pr:'25–30€',y:'Cambra i Recitals'},
 {i:'au19',g:'auditori',v:'A',d:'2026-10-12',h:'20:00',t:'Dudamel & New York Philharmonic',s:'Adams · Di Castri (estrena) · Prokofiev: Simfonia 5',c:'Adams · Di Castri · Prokofiev',p:'Orfeo Catala · New York Philharmonic · Gustavo Dudamel dir.',pr:'27–85€',y:'BCN Classics'},
-{i:'au20',g:'auditori',v:'A',d:'2026-11-10',h:'20:00',t:'Bychkov & Czech Philharmonic',s:'Rakhmaninov: Concert pno 3 · Smetana: Ma Vlast',c:'Rakhmaninov · Smetana',p:'Behzod Abduraimov pno · Czech Philharmonic · Semyon Bychkov dir.',pr:'27–85€',y:'BCN Classics'},
+{i:'au20',g:'romantic',v:'A',d:'2026-11-10',h:'20:00',t:'Bychkov & Czech Philharmonic',s:'Rakhmaninov: Concert pno 3 · Smetana: Ma Vlast',c:'Rakhmaninov · Smetana',p:'Behzod Abduraimov pno · Czech Philharmonic · Semyon Bychkov dir.',pr:'27–85€',y:'BCN Classics'},
 {i:'au21',g:'auditori',v:'A',d:'2027-01-26',h:'20:00',t:'Khatia Buniatishvili',s:'Recital de piano',c:'Programa per determinar',p:'Khatia Buniatishvili pno',pr:'27–85€',y:'BCN Classics'},
-{i:'au22',g:'auditori',v:'A',d:'2027-02-12',h:'20:00',t:'Royal Concertgebouw & Klaus Makela',s:'Schumann: Simfonia 1 "Primavera" · Berlioz: Symphonie fantastique',c:'Schumann · Berlioz',p:'Royal Concertgebouw Orchestra · Klaus Makela dir.',pr:'27–85€',y:'BCN Classics'},
+{i:'au22',g:'romantic',v:'A',d:'2027-02-12',h:'20:00',t:'Royal Concertgebouw & Klaus Makela',s:'Schumann: Simfonia 1 "Primavera" · Berlioz: Symphonie fantastique',c:'Schumann · Berlioz',p:'Royal Concertgebouw Orchestra · Klaus Makela dir.',pr:'27–85€',y:'BCN Classics'},
 {i:'au23',g:'auditori',v:'A',d:'2027-02-28',h:'20:00',t:'Wiener Sangerknaben',s:'Cors de nens de Viena',c:'Programa per determinar',p:'Wiener Sangerknaben',pr:'27–85€',y:'BCN Classics'},
-{i:'au24',g:'auditori',v:'A',d:'2027-04-22',h:'20:00',t:'Sol Gabetta & L\'ocell de foc',s:'Mussorgski · Xostakovitx: Concert vlc 1 · Stravinski: L\'ocell de foc',c:'Mussorgski · Xostakovitx · Stravinski',p:'Sol Gabetta vlc · Berner Symphonieorchester · Krzysztof Urbanski dir.',pr:'27–85€',y:'BCN Classics'},
+{i:'au24',g:'romantic',v:'A',d:'2027-04-22',h:'20:00',t:'Sol Gabetta & L\'ocell de foc',s:'Mussorgski · Xostakovitx: Concert vlc 1 · Stravinski: L\'ocell de foc',c:'Mussorgski · Xostakovitx · Stravinski',p:'Sol Gabetta vlc · Berner Symphonieorchester · Krzysztof Urbanski dir.',pr:'27–85€',y:'BCN Classics'},
 ];
 
 // ── STATE ──
@@ -1442,7 +1442,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.59';
+const APP_VERSION = '2.60';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
