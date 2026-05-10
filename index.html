@@ -96,6 +96,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .ico-piano{display:inline-block;width:14px;height:10px;vertical-align:middle;margin-left:.3rem;position:relative;top:-1px;opacity:.45}
 .row-sub{font-family:var(--serif);font-size:.82rem;font-style:italic;color:var(--text2);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .row-detail{font-family:var(--sans);font-size:.68rem;color:var(--text3);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row-cycle{font-family:var(--sans);font-size:.55rem;font-weight:500;color:var(--text3);background:rgba(0,0,0,.04);padding:.1rem .4rem;border-radius:8px;display:inline-block;margin-top:.15rem;letter-spacing:.02em}
 
 .row-price{font-family:var(--sans);font-size:.72rem;color:var(--text2);text-align:right;white-space:nowrap;padding-top:.1rem}
 
@@ -616,7 +617,7 @@ function renderSections() {
             if (isNext) html += ` <span class="badge bn">Proper</span>`;
             html += `</div>`;
             if (c.s) html += `<div class="row-sub">${c.s}</div>`;
-            html += `<div class="row-detail">${c.c}</div>`;
+            html += `<div class="row-detail">${c.c}${c.y ? ' · <span class="row-cycle">'+c.y+'</span>' : ''}</div>`;
             html += `</div>`;
             html += `<div class="row-price">${c.pr}</div>`;
             html += `<div class="vote-row" id="vr-${c.i}"></div>`;
