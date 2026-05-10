@@ -16,6 +16,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Rituals 26-27">
     <meta name="theme-color" content="#0c4a4a">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -274,7 +277,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     <button class="share-btn" onclick="shareApp()">Compartir</button>
     <button class="share-btn" onclick="downloadCalendar()">Calendari</button>
     <button class="share-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="margin-top:.8rem">&#8593; Tornar a dalt</button>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.32</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.33</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -910,6 +913,18 @@ setInterval(async () => {
         }
     } catch {}
 }, 10000);
+
+// Auto-update: check VERSION file and reload if newer
+const APP_VERSION = '2.33';
+setInterval(async () => {
+    try {
+        const r = await fetch('VERSION?t=' + Date.now());
+        if (r.ok) {
+            const v = (await r.text()).trim();
+            if (v !== APP_VERSION) location.reload();
+        }
+    } catch {}
+}, 30000);
 </script>
 
 </body>
