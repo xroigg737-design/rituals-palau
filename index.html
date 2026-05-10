@@ -386,7 +386,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="share-btn" onclick="downloadCalendar()">Fitxer calendari</button>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.63</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.64</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -859,10 +859,10 @@ function renderConcertRow(c, nf) {
         const dd2 = new Date(c.d2 + 'T12:00:00');
         let altTxt = `Tambe ${dayName(c.d2)} ${dd2.getDate()} ${MONTHS[dd2.getMonth()]}`;
         if (c.d3) { const dd3 = new Date(c.d3 + 'T12:00:00'); altTxt += ` i ${dayName(c.d3)} ${dd3.getDate()} ${MONTHS[dd3.getMonth()]}`; }
-        const selected = currentUser && (votes[c.i]||{})[currentUser] === 1;
-        const btnCls = selected ? 'altdate-btn added' : 'altdate-btn';
-        const btnTxt = selected ? '&#10003;' : '+';
-        h += `<div class="row-altdate"><a onclick="event.stopPropagation()">${altTxt}</a> <button class="${btnCls}" onclick="event.stopPropagation();confirmAltDate('${c.i}')" title="Afegir a la seleccio">${btnTxt}</button></div>`;
+        const selD2 = currentUser && (votes[c.i+'_d2']||{})[currentUser] === 1;
+        const btn2Cls = selD2 ? 'altdate-btn added' : 'altdate-btn';
+        const btn2Txt = selD2 ? '&#10003;' : '+';
+        h += `<div class="row-altdate"><a onclick="event.stopPropagation()">${altTxt}</a> <button class="${btn2Cls}" onclick="event.stopPropagation();confirmAltDate('${c.i}_d2','${c.d2}')" title="Afegir a la selecció">${btn2Txt}</button></div>`;
     }
     h += `<div class="row-expand"><strong>${c.p}</strong>`;
     if (c.y) h += `<br><em>${c.y}</em>`;
@@ -1037,25 +1037,27 @@ function toggleVote(concertId) {
     }, 50);
 }
 
-function confirmAltDate(concertId) {
+function confirmAltDate(voteId, altDate) {
     if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
-    const cv = votes[concertId] || {};
+    const cv = votes[voteId] || {};
     const already = cv[currentUser] === 1;
-    const action = already ? 'La traiem de la selecció?' : "L'afegim a la selecció?";
+    const dd = new Date(altDate + 'T12:00:00');
+    const dateStr = `${dayName(altDate)} ${dd.getDate()} ${MONTHS[dd.getMonth()]}`;
+    const action = already ? `Traiem la sessió del ${dateStr}?` : `Afegim la sessió del ${dateStr}?`;
     const overlay = document.createElement('div');
     overlay.className = 'confirm-overlay';
-    overlay.innerHTML = `<div class="confirm-box"><p>${action}</p><button class="confirm-yes" onclick="resolveAltDate('${concertId}',true)">Sí</button><button class="confirm-no" onclick="resolveAltDate('${concertId}',false)">No</button></div>`;
+    overlay.innerHTML = `<div class="confirm-box"><p>${action}</p><button class="confirm-yes" onclick="resolveAltDate('${voteId}',true)">Sí</button><button class="confirm-no" onclick="resolveAltDate('${voteId}',false)">No</button></div>`;
     document.body.appendChild(overlay);
-    overlay.addEventListener('click', e => { if (e.target === overlay) resolveAltDate(concertId, false); });
+    overlay.addEventListener('click', e => { if (e.target === overlay) resolveAltDate(voteId, false); });
 }
 
-async function resolveAltDate(concertId, accepted) {
+async function resolveAltDate(voteId, accepted) {
     document.querySelector('.confirm-overlay')?.remove();
     if (!accepted) return;
-    const cv = votes[concertId] || {};
+    const cv = votes[voteId] || {};
     const current = cv[currentUser] || 0;
     const next = current === 1 ? 0 : 1;
-    await saveVote(concertId, currentUser, next);
+    await saveVote(voteId, currentUser, next);
     renderSections();
     renderVotes();
     updateStats();
@@ -1333,13 +1335,20 @@ function calEventHtml(c) {
 }
 
 // ── SUMMARY ──
+function getSummaryEntries() {
+    const entries = [];
+    for (const c of C) {
+        if ((votes[c.i]||{})[currentUser] === 1) entries.push({...c, _date: c.d, _voteId: c.i});
+        if (c.d2 && (votes[c.i+'_d2']||{})[currentUser] === 1) entries.push({...c, _date: c.d2, _voteId: c.i+'_d2', _alt: true});
+        if (c.d3 && (votes[c.i+'_d3']||{})[currentUser] === 1) entries.push({...c, _date: c.d3, _voteId: c.i+'_d3', _alt: true});
+    }
+    return entries.sort((a,b) => a._date.localeCompare(b._date) || a.h.localeCompare(b.h));
+}
+
 function showSummary() {
     if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
     document.querySelector('.summary-top h3').textContent = 'Resum selecció';
-    const selected = C.filter(c => {
-        const cv = votes[c.i] || {};
-        return cv[currentUser] === 1;
-    }).sort((a, b) => a.d.localeCompare(b.d) || a.h.localeCompare(b.h));
+    const selected = getSummaryEntries();
 
     const el = document.getElementById('summaryContent');
     if (selected.length === 0) {
@@ -1348,19 +1357,21 @@ function showSummary() {
         let totalMin = 0, totalMax = 0;
         selected.forEach(c => { const r = parsePriceRange(c.pr); totalMin += r.min; totalMax += r.max; });
         const costStr = totalMin === totalMax ? `${totalMax}€` : `${totalMin}–${totalMax}€`;
-        const alcCount = selected.filter(isAlaCarta).length;
+        const alcCount = selected.filter(c => !c._alt && isAlaCarta(c)).length;
         const alcOk = alcCount >= ALACARTA_MIN;
         let html = `<div class="summary-total">${selected.length} concerts · cost estimat: <strong>${costStr}</strong></div>`;
         for (const c of selected) {
             const venue = c.v === 'P' ? 'Palau de la Musica' : "L'Auditori";
-            const d = new Date(c.d + 'T12:00:00');
+            const d = new Date(c._date + 'T12:00:00');
             html += `<div class="sum-row" onclick="goToConcert('${c.i}','${c.g}')">`;
-            html += `<div class="sum-date"><strong>${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}</strong>${dayName(c.d)} · ${c.h}h</div>`;
+            html += `<div class="sum-date"><strong>${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}</strong>${dayName(c._date)} · ${c.h}h`;
+            if (c._alt) html += `<br><span style="font-size:.55rem;color:#2563eb">2a sessió</span>`;
+            html += `</div>`;
             html += `<div class="sum-info"><div class="sum-title">${c.t}</div>`;
             html += `<div class="sum-detail">${c.c} · ${c.p}</div>`;
             html += `<div class="sum-venue">${venue} · ${c.y || ''}</div></div>`;
             html += `<div class="sum-price-col"><div class="sum-price">${c.pr}</div>`;
-            if (isAlaCarta(c)) {
+            if (!c._alt && isAlaCarta(c)) {
                 if (alcOk) html += `<div class="sum-alc-badge ok">Abon. a la carta</div><div class="sum-alc-discount">-15%</div>`;
                 else html += `<div class="sum-alc-badge candidate">Candidat 15% dte.<br>si minim 6 concerts<br>Abon. a la carta</div>`;
             }
@@ -1396,17 +1407,26 @@ function goToConcert(id, group) {
 }
 
 function showDashboard() {
-    const ranked = C.map(c => {
+    const allEntries = [];
+    for (const c of C) {
         const cv = votes[c.i] || {};
         let yes = 0;
-        const details = USERS.map(u => {
-            const v = cv[u.id] || 0;
-            if (v === 1) yes++;
-            return {u, v};
-        });
-        return {c, yes, details};
-    }).filter(r => r.yes > 1)
-      .sort((a, b) => b.yes - a.yes || a.c.d.localeCompare(b.c.d));
+        const details = USERS.map(u => { const v = cv[u.id]||0; if (v===1) yes++; return {u,v}; });
+        if (yes > 0) allEntries.push({c, yes, details, _date: c.d, _alt: false});
+        if (c.d2) {
+            const cv2 = votes[c.i+'_d2'] || {};
+            let yes2 = 0;
+            const det2 = USERS.map(u => { const v = cv2[u.id]||0; if (v===1) yes2++; return {u,v}; });
+            if (yes2 > 0) allEntries.push({c, yes: yes2, details: det2, _date: c.d2, _alt: true});
+        }
+        if (c.d3) {
+            const cv3 = votes[c.i+'_d3'] || {};
+            let yes3 = 0;
+            const det3 = USERS.map(u => { const v = cv3[u.id]||0; if (v===1) yes3++; return {u,v}; });
+            if (yes3 > 0) allEntries.push({c, yes: yes3, details: det3, _date: c.d3, _alt: true});
+        }
+    }
+    const ranked = allEntries.filter(r => r.yes > 1).sort((a,b) => b.yes - a.yes || a._date.localeCompare(b._date));
 
     const el = document.getElementById('summaryContent');
     const top = document.querySelector('.summary-top h3');
@@ -1419,7 +1439,7 @@ function showDashboard() {
         let pos = 0;
         for (const r of ranked) {
             pos++;
-            const d = new Date(r.c.d + 'T12:00:00');
+            const d = new Date(r._date + 'T12:00:00');
             const dots = r.details.map(({u, v}) => {
                 const st = v === 1 ? 'v-yes' : 'v-no';
                 return `<span class="dash-dot ${st}" style="background:${u.color}" title="${u.name}"></span>`;
@@ -1427,8 +1447,8 @@ function showDashboard() {
             html += `<div class="dash-row">`;
             html += `<span class="dash-rank">${pos}</span>`;
             html += `<div class="dash-votes">${dots}</div>`;
-            html += `<div class="dash-info"><div class="dash-title">${r.c.t}</div>`;
-            html += `<div class="dash-date">${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()} · ${dayName(r.c.d)} · ${r.c.h}h</div></div>`;
+            html += `<div class="dash-info"><div class="dash-title">${r.c.t}${r._alt ? ' <span style="font-size:.55rem;color:#2563eb">(2a sessió)</span>' : ''}</div>`;
+            html += `<div class="dash-date">${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()} · ${dayName(r._date)} · ${r.c.h}h</div></div>`;
             html += `</div>`;
         }
         el.innerHTML = html;
@@ -1486,7 +1506,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.63';
+const APP_VERSION = '2.64';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
