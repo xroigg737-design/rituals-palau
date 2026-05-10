@@ -66,7 +66,10 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 
 .filter-bar{padding:.8rem 1rem;max-width:960px;margin:0 auto}
 .filter-input{width:100%;padding:.55rem 1rem .55rem 2.2rem;border:1px solid var(--border);border-radius:24px;font-family:var(--sans);font-size:.8rem;background:var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23999' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242.656a5 5 0 1 1 0-10 5 5 0 0 1 0 10z'/%3E%3C/svg%3E") no-repeat .7rem center;color:var(--text);outline:none;transition:border-color .3s}
+.filter-wrap{position:relative;display:flex;align-items:center}
 .filter-input:focus{border-color:rgba(0,0,0,.3)}
+.filter-clear{position:absolute;right:.6rem;border:none;background:rgba(0,0,0,.12);color:#fff;width:1.4rem;height:1.4rem;border-radius:50%;font-size:.9rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.filter-clear:hover{background:rgba(0,0,0,.3)}
 
 .section{padding:2.5rem 1rem .5rem;max-width:960px;margin:0 auto}
 .section-header{text-align:center;margin-bottom:1.8rem;position:relative}
@@ -191,6 +194,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .toast.visible{transform:translateX(-50%) translateY(0);opacity:1}
 
 .no-results{text-align:center;padding:3rem 1rem;font-family:var(--serif);font-size:1.1rem;color:var(--text3);font-style:italic}
+.no-results-global{text-align:center;padding:4rem 1.5rem;font-family:var(--serif);font-size:1.2rem;color:var(--text3);font-style:italic;line-height:1.8}
 
 .cal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.5);display:none;align-items:flex-end;justify-content:center}
 .cal-overlay.visible{display:flex}
@@ -396,7 +400,10 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 </div>
 
 <div class="filter-bar">
-    <input type="text" class="filter-input" id="filterInput" placeholder="Cerca per compositor, interpret, obra...">
+    <div class="filter-wrap">
+        <input type="text" class="filter-input" id="filterInput" placeholder="Cerca per compositor, interpret, obra...">
+        <button class="filter-clear" id="filterClear" onclick="document.getElementById('filterInput').value='';filterText='';renderSections();renderVotes();this.style.display='none'" style="display:none">&times;</button>
+    </div>
 </div>
 
 <main id="app"></main>
@@ -439,7 +446,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.78</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.79</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1027,6 +1034,9 @@ function renderSections() {
             html += `<div class="no-results">Cap resultat per "${filterText}"</div>`;
         }
         html += `</div></section>`;
+    }
+    if (filterText && !html) {
+        html = `<div class="no-results-global">Cap concert trobat per «${filterText}»</div>`;
     }
     app.innerHTML = html;
 }
@@ -1624,6 +1634,7 @@ function showDashboard() {
 // ── FILTER ──
 document.getElementById('filterInput').addEventListener('input', function() {
     filterText = this.value.trim();
+    document.getElementById('filterClear').style.display = filterText ? 'flex' : 'none';
     renderSections();
     renderVotes();
 });
@@ -1673,7 +1684,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.78';
+const APP_VERSION = '2.79';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
