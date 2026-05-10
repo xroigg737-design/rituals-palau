@@ -240,6 +240,9 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .sum-alc-badge.candidate{background:rgba(217,119,6,.12);color:#b45309;font-weight:600;white-space:normal;line-height:1.3}
 .sum-alc-discount{font-family:var(--sans);font-size:.65rem;font-weight:800;color:#16a34a;text-align:center}
 .sum-empty{text-align:center;padding:2rem 1rem;font-family:var(--serif);font-size:1rem;color:var(--text3);font-style:italic}
+.sum-venue-filter{display:flex;justify-content:center;gap:.6rem;margin:.6rem 0 .2rem;font-family:var(--sans);font-size:.75rem}
+.sum-venue-radio{display:flex;align-items:center;gap:.25rem;cursor:pointer;color:var(--text2);font-weight:500}
+.sum-venue-radio input{accent-color:var(--text);margin:0}
 .alc-status{text-align:center;padding:1rem;border-radius:10px;margin-bottom:1rem}
 .alc-status.ok{background:rgba(45,125,70,.08);border:1px solid rgba(45,125,70,.2)}
 .alc-status.pending{background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.2)}
@@ -385,7 +388,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <a class="share-btn" href="https://franzschubertfilh.com/en/" target="_blank" rel="noopener">Franz Schubert Filh.</a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.69</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.70</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1320,52 +1323,68 @@ function calEventHtml(c) {
 }
 
 // ── SUMMARY ──
-function showSummary() {
-    if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
-    document.querySelector('.summary-top h3').textContent = 'Resum selecció';
-    const selected = C.filter(c => {
+let summaryVenueFilter = 'all';
+
+function renderSummaryList() {
+    const allSelected = C.filter(c => {
         const cv = votes[c.i] || {};
         return cv[currentUser] === 1;
     }).sort((a, b) => a.d.localeCompare(b.d) || a.h.localeCompare(b.h));
 
+    const filtered = summaryVenueFilter === 'all' ? allSelected
+        : allSelected.filter(c => c.v === summaryVenueFilter);
+
     const el = document.getElementById('summaryContent');
-    if (selected.length === 0) {
+    if (allSelected.length === 0) {
         el.innerHTML = `<div class="sum-empty">No tens cap concert seleccionat</div>`;
-    } else {
-        let totalMin = 0, totalMax = 0, dteMin = 0, dteMax = 0;
-        selected.forEach(c => {
-            const r = parsePriceRange(c.pr);
-            totalMin += r.min; totalMax += r.max;
-            if (isAlaCarta(c)) { dteMin += Math.round(r.min * 0.20); dteMax += Math.round(r.max * 0.20); }
-        });
-        const costStr = totalMin === totalMax ? `${totalMax}€` : `${totalMin}–${totalMax}€`;
-        const afterMin = totalMin - dteMin, afterMax = totalMax - dteMax;
-        const netStr = afterMin === afterMax ? `${afterMax}€` : `${afterMin}–${afterMax}€`;
-        const savStr = dteMin === dteMax ? `${dteMax}€` : `${dteMin}–${dteMax}€`;
-        let html = `<div class="summary-total" style="line-height:1.8">`;
-        html += `<div>${selected.length} concerts seleccionats</div>`;
-        html += `<div>Cost estimat: <strong>${costStr}</strong></div>`;
-        if (dteMin > 0) {
-            html += `<div style="color:#16a34a">Amb Soci Orfeó (-20%): <strong>${netStr}</strong> <span style="font-size:.65rem;opacity:.8">(estalvi ${savStr})</span></div>`;
+        return;
+    }
+
+    let totalMin = 0, totalMax = 0, dteMin = 0, dteMax = 0;
+    filtered.forEach(c => {
+        const r = parsePriceRange(c.pr);
+        totalMin += r.min; totalMax += r.max;
+        if (isAlaCarta(c)) { dteMin += Math.round(r.min * 0.20); dteMax += Math.round(r.max * 0.20); }
+    });
+    const costStr = totalMin === totalMax ? `${totalMax}€` : `${totalMin}–${totalMax}€`;
+    const afterMin = totalMin - dteMin, afterMax = totalMax - dteMax;
+    const netStr = afterMin === afterMax ? `${afterMax}€` : `${afterMin}–${afterMax}€`;
+    const savStr = dteMin === dteMax ? `${dteMax}€` : `${dteMin}–${dteMax}€`;
+
+    let html = `<div class="summary-total" style="line-height:1.8">`;
+    html += `<div>${filtered.length} concerts seleccionats</div>`;
+    html += `<div>Cost estimat: <strong>${costStr}</strong></div>`;
+    if (dteMin > 0) {
+        html += `<div style="color:#16a34a">Amb Soci Orfeó (-20%): <strong>${netStr}</strong> <span style="font-size:.65rem;opacity:.8">(estalvi ${savStr})</span></div>`;
+    }
+    html += `</div>`;
+
+    const mk = (v, lab) => `<label class="sum-venue-radio"><input type="radio" name="sumVenue" value="${v}"${summaryVenueFilter === v ? ' checked' : ''} onchange="summaryVenueFilter=this.value;renderSummaryList()">${lab}</label>`;
+    html += `<div class="sum-venue-filter">${mk('all','Tots')}${mk('P','Palau')}${mk('A','Auditori')}</div>`;
+
+    for (const c of filtered) {
+        const venue = c.v === 'P' ? 'Palau de la Musica' : "L'Auditori";
+        const d = new Date(c.d + 'T12:00:00');
+        html += `<div class="sum-row" onclick="goToConcert('${c.i}','${c.g}')">`;
+        html += `<div class="sum-date"><strong>${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}</strong>${dayName(c.d)} · ${c.h}h</div>`;
+        html += `<div class="sum-info"><div class="sum-title">${c.t}</div>`;
+        html += `<div class="sum-detail">${c.c} · ${c.p}</div>`;
+        html += `<div class="sum-venue">${venue} · ${c.y || ''}</div></div>`;
+        html += `<div class="sum-price-col"><div class="sum-price">${c.pr}</div>`;
+        if (isAlaCarta(c)) {
+            html += `<div class="sum-alc-badge ok">Soci Orfeó -20% dte.</div>`;
         }
         html += `</div>`;
-        for (const c of selected) {
-            const venue = c.v === 'P' ? 'Palau de la Musica' : "L'Auditori";
-            const d = new Date(c.d + 'T12:00:00');
-            html += `<div class="sum-row" onclick="goToConcert('${c.i}','${c.g}')">`;
-            html += `<div class="sum-date"><strong>${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}</strong>${dayName(c.d)} · ${c.h}h</div>`;
-            html += `<div class="sum-info"><div class="sum-title">${c.t}</div>`;
-            html += `<div class="sum-detail">${c.c} · ${c.p}</div>`;
-            html += `<div class="sum-venue">${venue} · ${c.y || ''}</div></div>`;
-            html += `<div class="sum-price-col"><div class="sum-price">${c.pr}</div>`;
-            if (isAlaCarta(c)) {
-                html += `<div class="sum-alc-badge ok">Soci Orfeó -20% dte.</div>`;
-            }
-            html += `</div>`;
-            html += `</div>`;
-        }
-        el.innerHTML = html;
+        html += `</div>`;
     }
+    el.innerHTML = html;
+}
+
+function showSummary() {
+    if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
+    document.querySelector('.summary-top h3').textContent = 'Resum selecció';
+    summaryVenueFilter = 'all';
+    renderSummaryList();
     document.getElementById('summaryOverlay').classList.add('visible');
 }
 
@@ -1577,14 +1596,14 @@ setInterval(async () => {
                 if (title === 'Resultat votacions') showDashboard();
                 else if (title === 'Abonament a la carta') showAlaCarta();
                 else if (title === 'Descomptes Palau') { /* no refrescar */ }
-                else showSummary();
+                else renderSummaryList();
             }
         }
     } catch {}
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.69';
+const APP_VERSION = '2.70';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
