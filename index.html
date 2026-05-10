@@ -164,6 +164,13 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .ftr-info-btn{display:flex;align-items:center;gap:.4rem;flex:1;padding:.55rem .7rem;border-radius:10px;cursor:pointer;transition:all .3s;font-family:var(--sans);font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;background:none;border:1.5px solid #b4860922;color:#92400e;background:rgba(180,134,9,.05)}
 .ftr-info-btn:hover{background:rgba(180,134,9,.12);border-color:#b4860944}
 .ftr-info-icon{font-size:.9rem}
+.ftr-cal{display:flex;flex-direction:column;gap:.4rem;max-width:400px;margin:0 auto .8rem}
+.ftr-cal-btn{display:flex;align-items:center;gap:.7rem;padding:.6rem .9rem;border:1px solid rgba(14,116,144,.18);border-radius:10px;background:linear-gradient(135deg,rgba(14,116,144,.06),rgba(14,116,144,.02));cursor:pointer;transition:all .3s;text-align:left}
+.ftr-cal-btn:hover{background:linear-gradient(135deg,rgba(14,116,144,.12),rgba(14,116,144,.05));border-color:rgba(14,116,144,.3);transform:translateX(3px)}
+.ftr-cal-icon{font-size:1.3rem;flex-shrink:0}
+.ftr-cal-text{display:flex;flex-direction:column}
+.ftr-cal-title{font-family:var(--sans);font-size:.7rem;font-weight:700;color:#0e7490;letter-spacing:.05em;text-transform:uppercase}
+.ftr-cal-sub{font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:.1rem}
 .prog-label{font-family:var(--sans);font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:var(--text3);margin:1.2rem 0 .5rem}
 .prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;max-width:400px;margin:0 auto .6rem}
 .prog-card{display:flex;flex-direction:column;align-items:center;padding:.7rem .4rem;border-radius:12px;text-decoration:none;transition:all .3s;border:1px solid var(--border)}
@@ -404,9 +411,9 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="ftr-info-btn" onclick="showAlaCarta()"><span class="ftr-info-icon">&#127915;</span>Abon. a la carta</button>
         <button class="ftr-info-btn" onclick="showDescomptes()"><span class="ftr-info-icon">&#128176;</span>Info descomptes</button>
     </div>
-    <div class="footer-frame">
-        <button class="share-btn" onclick="showCal()">Calendari</button>
-        <button class="share-btn" onclick="downloadCalendar()">Fitxer calendari</button>
+    <div class="ftr-cal">
+        <button class="ftr-cal-btn" onclick="showCal()"><span class="ftr-cal-icon">&#128197;</span><span class="ftr-cal-text"><span class="ftr-cal-title">Calendari</span><span class="ftr-cal-sub">Visualitza per mes</span></span></button>
+        <button class="ftr-cal-btn" onclick="downloadCalendar()"><span class="ftr-cal-icon">&#128229;</span><span class="ftr-cal-text"><span class="ftr-cal-title">Fitxer calendari</span><span class="ftr-cal-sub">Exporta .ics</span></span></button>
     </div>
     <div class="prog-label">Programes 2026–27</div>
     <div class="prog-grid">
@@ -432,7 +439,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.77</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.78</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1666,7 +1673,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.77';
+const APP_VERSION = '2.78';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
