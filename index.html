@@ -286,7 +286,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     <button class="share-btn" onclick="shareApp()">Compartir</button>
     <button class="share-btn" onclick="downloadCalendar()">Calendari</button>
     <button class="share-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="margin-top:.8rem">&#8593; Tornar a dalt</button>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.37</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.38</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -463,7 +463,7 @@ const C = [
 {i:'pl51',g:'palau',v:'P',d:'2026-11-14',h:'20:30',t:'Buhos',s:'Gira exclusiva 20e aniversari',c:'Repertori propi',p:'Buhos',pr:'32€',y:'Concerts externs'},
 {i:'pl52',g:'palau',v:'P',d:'2026-12-08',h:'17:30',t:'Pop-rock simfonic (desembre)',s:'OSV & Rubio',c:'Pop · Rock',p:'OSV · Isabel Rubio dir. · Cantants',pr:'47–76€',y:'Simfonics al Palau'},
 {i:'pl53',g:'palau',v:'P',d:'2026-12-12',h:'21:00',t:'Asi Canta Jerez en Navidad',s:'Gira 15e aniversari',c:'Flamenc',p:'Artistes de Jerez',pr:'36-64€',y:'Concerts externs'},
-{i:'pl54',g:'palau',v:'P',d:'2026-12-13',h:'17:30',t:'Anna Fedorova',s:'Appassionata de Beethoven',c:'Beethoven',p:'Anna Fedorova pno',pr:'18–48€',y:'Simfonics al Palau'},
+{i:'pl54',g:'beethoven',v:'P',d:'2026-12-13',h:'17:30',t:'Anna Fedorova',s:'Appassionata de Beethoven',c:'Beethoven',p:'Anna Fedorova pno',pr:'18–48€',y:'Simfonics al Palau'},
 {i:'pl55',g:'palau',v:'P',d:'2026-12-23',h:'20:30',t:'Sant Andreu Jazz Band',s:'20 anys, 20 Big bands',c:'Jazz',p:'Sant Andreu Jazz Band · Joan Chamorro dir.',pr:'26-52€',y:'Concerts externs'},
 {i:'pl56',g:'palau',v:'P',d:'2027-01-18',h:'20:00',t:'RumBach',s:'Leticia Moreno, Edicson Ruiz & Gonzalo Grau',c:'Bach',p:'Leticia Moreno vln · Edicson Ruiz contrabaix · Gonzalo Grau percussio',pr:'25 i 35€',y:'Palau Bach'},
 {i:'pl57',g:'palau',v:'P',d:'2027-01-23',h:'18:30',t:'Pop-rock simfonic (gener)',s:'OSV & Rubio',c:'Pop · Rock',p:'OSV · Isabel Rubio dir. · Cantants',pr:'25–76€',y:'Simfonics al Palau'},
@@ -473,7 +473,7 @@ const C = [
 {i:'pl61',g:'palau',v:'P',d:'2027-03-09',h:'19:00',t:'De profundis – Integral orgue Bach VI',s:'Musica de Quaresma i Passio',c:'J.S. Bach',p:'Juan de la Rubia orgue',pr:'22€',y:'Palau Bach'},
 {i:'pl62',g:'palau',v:'P',d:'2027-04-01',h:'19:30',t:'Naruhiko Kawaguchi',s:'Fortepiano romantic espanyol',c:'Granados · Albeniz · Falla · Pedrell',p:'Naruhiko Kawaguchi fortepiano',pr:'15€',y:'BCN Classics'},
 {i:'pl63',g:'palau',v:'P',d:'2027-04-15',h:'19:00',t:'Kebyart & friends',s:'Mozart, Charles, Schubert, Franck, Pesson i Ligeti',c:'Mozart · Schubert · Franck · Ligeti',p:'Kebyart saxos · Convidats',pr:'18€',y:'BCN Classics'},
-{i:'pl64',g:'palau',v:'P',d:'2027-05-23',h:'17:30',t:'Star Wars 50th anniversary',s:'Franz Schubert Filharmonia & Gonzalez-Granados',c:'John Williams',p:'Franz Schubert Filharmonia · Lina Gonzalez-Granados dir.',pr:'18–56€',y:'Simfonics al Palau'},
+{i:'pl64',g:'cinema',v:'P',d:'2027-05-23',h:'17:30',t:'Star Wars 50th anniversary',s:'Franz Schubert Filharmonia & Gonzalez-Granados',c:'John Williams',p:'Franz Schubert Filharmonia · Lina Gonzalez-Granados dir.',pr:'18–56€',y:'Simfonics al Palau'},
 {i:'pl65',g:'palau',v:'P',d:'2027-06-07',h:'19:00',t:'Jornada Joan Guinjoan',c:'Guinjoan',p:'Quartet Gerhard · Ensemble ESMUC · Ernest Martinez Izquierdo dir.',pr:'18€',y:'BCN Classics'},
 {i:'pl66',g:'palau',v:'P',d:'2027-06-15',h:'19:00',t:'Bach amb marimba',s:'Barbican Quartet & David Moliner',c:'J.S. Bach',p:'David Moliner marimba · Barbican Quartet',pr:'18€',y:'BCN Classics'},
 {i:'pl67',g:'palau',v:'P',d:'2027-06-17',h:'19:00',t:'The Rest Project',s:'Equilibrium',c:'Repertori variat',p:'Maria Florea vln · Lara Fernandez viola · Daniel Claret vlc',pr:'18€',y:'BCN Classics'},
@@ -497,13 +497,13 @@ const C = [
 {i:'pl85',g:'palau',v:'P',d:'2027-06-14',h:'19:00',t:'Irene Mas & Albert Nieto',s:'Homenatge Rosa Sabater',c:'Repertori variat',p:'Irene Mas pno · Albert Nieto pno',pr:'18€',y:'Petit Palau Cambra'},
 {i:'pl86',g:'palau',v:'P',d:'2027-07-08',h:'19:00',t:'Cobla Sant Jordi & Amargos',c:'Repertori de cobla',p:'Cobla Sant Jordi · Joan Albert Amargos dir.',pr:'18€',y:'Petit Palau Cambra'},
 {i:'pl87',g:'palau',v:'P',d:'2026-10-04',h:'19:00',t:'Valsos amorosos de Brahms',c:'Brahms',p:'Cor de Cambra del Palau · Xavier Puig dir.',pr:'25€',y:'La Casa dels Cants'},
-{i:'pl88',g:'palau',v:'P',d:'2026-10-17',h:'19:00',t:'Dido i Enees de Purcell',c:'Purcell',p:'Cor Jove Orfeo Catala · Emilio Larraz dir.',pr:'25€',y:'La Casa dels Cants'},
+{i:'pl88',g:'baroque',v:'P',d:'2026-10-17',h:'19:00',t:'Dido i Enees de Purcell',c:'Purcell',p:'Cor Jove Orfeo Catala · Emilio Larraz dir.',pr:'25€',y:'La Casa dels Cants'},
 {i:'pl89',g:'palau',v:'P',d:'2026-10-18',h:'19:00',t:'Musica Reservata Barcelona',s:'Allegri i Scarlatti',c:'Allegri · Scarlatti',p:'Musica Reservata Barcelona',pr:'18€',y:'La Casa dels Cants'},
 {i:'pl90',g:'palau',v:'P',d:'2026-10-23',h:'19:00',t:'El somni d\'una nit d\'estiu',c:'Mendelssohn',p:'Cor Aglepta · Elena Borrani dir.',pr:'25€',y:'La Casa dels Cants'},
 {i:'pl91',g:'palau',v:'P',d:'2026-12-03',h:'19:00',t:'Canturia Cantada Carles Santos',c:'Carles Santos',p:'Cor de Cambra del Palau · Jordi Sese dir.',pr:'25€',y:'La Casa dels Cants'},
 {i:'pl92',g:'palau',v:'P',d:'2027-02-07',h:'19:00',t:'Cor Jove Orfeo & Maitrise de Toulouse',c:'Repertori coral',p:'Cor Jove Orfeo Catala · Maitrise de Toulouse',pr:'25€',y:'La Casa dels Cants'},
 {i:'pl93',g:'palau',v:'P',d:'2027-03-11',h:'19:00',t:'La Grande Chapelle & Recasens',s:'Antoni Soler',c:'Antoni Soler',p:'La Grande Chapelle · Albert Recasens dir.',pr:'25–35€',y:'La Casa dels Cants'},
-{i:'pl94',g:'palau',v:'P',d:'2027-03-13',h:'19:00',t:'Beethoven i fantasmes',c:'Beethoven i altres',p:'Marian Marquez pno',pr:'18€',y:'La Casa dels Cants'},
+{i:'pl94',g:'beethoven',v:'P',d:'2027-03-13',h:'19:00',t:'Beethoven i fantasmes',c:'Beethoven i altres',p:'Marian Marquez pno',pr:'18€',y:'La Casa dels Cants'},
 {i:'pl95',g:'palau',v:'P',d:'2027-03-14',h:'19:00',t:'Xarxa Coral – Diada de l\'Antic Cantaire',c:'Repertori coral',p:'Xarxa Coral',pr:'20€',y:'La Casa dels Cants'},
 {i:'pl96',g:'palau',v:'P',d:'2027-03-19',h:'19:00',t:'Latvian Radio Choir & Klava',s:'Vivancos',c:'Vivancos',p:'Latvian Radio Choir · Sigvards Klava dir.',pr:'22€',y:'La Casa dels Cants'},
 {i:'pl97',g:'palau',v:'P',d:'2027-04-10',h:'19:00',t:'The Sacred Veil de Whitacre',c:'Whitacre',p:'Cor de Cambra del Palau',pr:'25€',y:'La Casa dels Cants'},
@@ -520,10 +520,10 @@ const C = [
 {i:'pl108',g:'palau',v:'P',d:'2026-12-20',h:'20:00',t:'Nit de Nadal Lamote de Grignon',c:'Lamote de Grignon',p:'OSV · Pasquina dir.',pr:'25–58€',y:'Simfonics al Palau'},
 {i:'pl109',g:'palau',v:'P',d:'2027-04-11',h:'20:00',t:'Luisa Fernanda i Bohemios',s:'Sarsuela',c:'Moreno Torroba · Vives',p:'Solistes · Cor Madrigal · OSV · Isabel Rubio dir.',pr:'22–68€',y:'Simfonics al Palau'},
 {i:'pl110',g:'palau',v:'P',d:'2027-07-11',h:'20:00',t:'Jove OSV & Puig',c:'Repertori simfonic',p:'Jove OSV · Xavier Puig dir.',pr:'15€',y:'Simfonics al Palau'},
-{i:'pl111',g:'palau',v:'P',d:'2027-01-06',h:'19:00',t:'Homenatge Williams & Zimmer (gener)',s:'Concert de Reis',c:'John Williams · Hans Zimmer',p:'OSV · Xavier Salado dir.',pr:'45–68€',y:'Nadal al Palau'},
-{i:'pl112',g:'palau',v:'P',d:'2027-01-03',h:'19:00',t:'El Messies de Handel – Vespres & Puig',s:'Handel: El Messies',c:'G.F. Handel',p:'Vespres d\'Arnadi · Cor de Granollers · Xavier Puig dir.',pr:'38–62€',y:'Nadal al Palau'},
+{i:'pl111',g:'cinema',v:'P',d:'2027-01-06',h:'19:00',t:'Homenatge Williams & Zimmer (gener)',s:'Concert de Reis',c:'John Williams · Hans Zimmer',p:'OSV · Xavier Salado dir.',pr:'45–68€',y:'Nadal al Palau'},
+{i:'pl112',g:'baroque',v:'P',d:'2027-01-03',h:'19:00',t:'El Messies de Handel – Vespres & Puig',s:'Handel: El Messies',c:'G.F. Handel',p:'Vespres d\'Arnadi · Cor de Granollers · Xavier Puig dir.',pr:'38–62€',y:'Nadal al Palau'},
 {i:'pl113',g:'palau',v:'P',d:'2027-01-09',h:'19:00',t:'Concert d\'Any Nou (9 gener)',c:'Valsos i polkes',p:'OSV · Isabel Rubio dir.',pr:'45–68€',y:'Nadal al Palau'},
-{i:'pl114',g:'palau',v:'P',d:'2027-01-10',h:'19:00',t:'El Messies de Handel – Vespres & Puig (II)',s:'Handel: El Messies',c:'G.F. Handel',p:'Vespres d\'Arnadi · Cor de Granollers · Xavier Puig dir.',pr:'38–62€',y:'Nadal al Palau'},
+{i:'pl114',g:'baroque',v:'P',d:'2027-01-10',h:'19:00',t:'El Messies de Handel – Vespres & Puig (II)',s:'Handel: El Messies',c:'G.F. Handel',p:'Vespres d\'Arnadi · Cor de Granollers · Xavier Puig dir.',pr:'38–62€',y:'Nadal al Palau'},
 {i:'pl115',g:'palau',v:'P',d:'2026-10-13',h:'19:00',t:'Maria Hinojosa & Marc Charles',c:'Repertori variat',p:'Maria Hinojosa sop · Marc Charles pno',pr:'18€',y:'Palau Fronteres'},
 {i:'pl116',g:'palau',v:'P',d:'2027-01-17',h:'19:00',t:'De Monteverdi a Charles',c:'Monteverdi i altres',p:'Cor Cererols',pr:'18€',y:'Palau Fronteres'},
 {i:'pl117',g:'palau',v:'P',d:'2027-02-09',h:'19:00',t:'Rovira 100',c:'Repertori variat',p:'Sonico',pr:'18€',y:'Palau Fronteres'},
@@ -536,14 +536,14 @@ const C = [
 {i:'pl124',g:'palau',v:'P',d:'2027-04-01',h:'17:00',t:'El misteri de sant Pere Urseol',c:'Repertori de cobla',p:'Cobla Marinada',pr:'25€',y:'Tardes al Palau'},
 {i:'pl125',g:'palau',v:'P',d:'2027-06-08',h:'17:00',t:'Cobla Sant Jordi & Massana (estrena Marquez)',c:'Marquez',p:'Cobla Sant Jordi · Marina Massana sop',pr:'25€',y:'Tardes al Palau'},
 {i:'pl126',g:'palau',v:'P',d:'2027-07-01',h:'17:00',t:'Banda Municipal de Barcelona',c:'Repertori per a banda',p:'Banda Municipal de Barcelona · Pascual-Vilaplana dir.',pr:'25€',y:'Tardes al Palau'},
-{i:'pl127',g:'palau',v:'P',d:'2026-10-13',h:'19:00',t:'Integral orgue Bach I – Inici del cami',c:'J.S. Bach',p:'Juan de la Rubia orgue',pr:'22€',y:'Palau Bach'},
-{i:'pl128',g:'palau',v:'P',d:'2026-11-10',h:'19:00',t:'Integral orgue Bach II – Manllevat i transformat',c:'J.S. Bach',p:'Juan de la Rubia orgue',pr:'22€',y:'Palau Bach'},
-{i:'pl129',g:'palau',v:'P',d:'2026-12-15',h:'19:00',t:'Integral orgue Bach III – Llum naixent',s:'Advent i Nadal',c:'J.S. Bach',p:'Juan de la Rubia orgue',pr:'22€',y:'Palau Bach'},
-{i:'pl130',g:'palau',v:'P',d:'2027-01-12',h:'19:00',t:'Integral orgue Bach IV – Constel-lacions',c:'J.S. Bach',p:'Juan de la Rubia orgue',pr:'22€',y:'Palau Bach'},
-{i:'pl131',g:'palau',v:'P',d:'2027-02-09',h:'19:00',t:'Integral orgue Bach V – Vents del Nord',c:'J.S. Bach',p:'Juan de la Rubia orgue',pr:'22€',y:'Palau Bach'},
-{i:'pl132',g:'palau',v:'P',d:'2027-04-13',h:'19:00',t:'Integral orgue Bach VII – El dia sense ocas',s:'Pasqua',c:'J.S. Bach',p:'Juan de la Rubia orgue',pr:'22€',y:'Palau Bach'},
-{i:'pl133',g:'palau',v:'P',d:'2027-05-11',h:'19:00',t:'Integral orgue Bach VIII – Vent i foc',s:'Pentecosta',c:'J.S. Bach',p:'Juan de la Rubia orgue',pr:'22€',y:'Palau Bach'},
-{i:'pl134',g:'palau',v:'P',d:'2027-06-08',h:'19:00',t:'Integral orgue Bach IX – El Banquet Celestial',c:'J.S. Bach',p:'Juan de la Rubia orgue',pr:'22€',y:'Palau Bach'},
+{i:'pl127',g:'baroque',v:'P',d:'2026-10-13',h:'19:00',t:'Integral orgue Bach I – Inici del cami',c:'J.S. Bach',p:'Juan de la Rubia orgue',pr:'22€',y:'Palau Bach'},
+{i:'pl128',g:'baroque',v:'P',d:'2026-11-10',h:'19:00',t:'Integral orgue Bach II – Manllevat i transformat',c:'J.S. Bach',p:'Juan de la Rubia orgue',pr:'22€',y:'Palau Bach'},
+{i:'pl129',g:'baroque',v:'P',d:'2026-12-15',h:'19:00',t:'Integral orgue Bach III – Llum naixent',s:'Advent i Nadal',c:'J.S. Bach',p:'Juan de la Rubia orgue',pr:'22€',y:'Palau Bach'},
+{i:'pl130',g:'baroque',v:'P',d:'2027-01-12',h:'19:00',t:'Integral orgue Bach IV – Constel-lacions',c:'J.S. Bach',p:'Juan de la Rubia orgue',pr:'22€',y:'Palau Bach'},
+{i:'pl131',g:'baroque',v:'P',d:'2027-02-09',h:'19:00',t:'Integral orgue Bach V – Vents del Nord',c:'J.S. Bach',p:'Juan de la Rubia orgue',pr:'22€',y:'Palau Bach'},
+{i:'pl132',g:'baroque',v:'P',d:'2027-04-13',h:'19:00',t:'Integral orgue Bach VII – El dia sense ocas',s:'Pasqua',c:'J.S. Bach',p:'Juan de la Rubia orgue',pr:'22€',y:'Palau Bach'},
+{i:'pl133',g:'baroque',v:'P',d:'2027-05-11',h:'19:00',t:'Integral orgue Bach VIII – Vent i foc',s:'Pentecosta',c:'J.S. Bach',p:'Juan de la Rubia orgue',pr:'22€',y:'Palau Bach'},
+{i:'pl134',g:'baroque',v:'P',d:'2027-06-08',h:'19:00',t:'Integral orgue Bach IX – El Banquet Celestial',c:'J.S. Bach',p:'Juan de la Rubia orgue',pr:'22€',y:'Palau Bach'},
 {i:'pl135',g:'palau',v:'P',d:'2026-10-03',h:'12:00',t:'Marato El Primer Palau',c:'Repertori variat',p:'Joves talents',pr:'22€',y:'El Primer Palau'},
 {i:'pl136',g:'palau',v:'P',d:'2026-11-26',h:'20:00',t:'Cloenda El Primer Palau 2026',s:'Karen Kuronuma piano',c:'Repertori variat',p:'Karen Kuronuma pno',pr:'20€',y:'El Primer Palau'},
 {i:'pl137',g:'palau',v:'P',d:'2027-07-06',h:'19:00',t:'Elionor Martinez – ECHO Rising Stars',c:'Repertori variat',p:'Elionor Martinez sop',pr:'18€',y:'ECHO Rising Stars'},
@@ -556,7 +556,7 @@ const C = [
 {i:'pl144',g:'palau',v:'P',d:'2026-11-16',h:'20:00',t:'Orquestra Da Camera & Nuria Rial',s:'Requiem de Faure',c:'Faure',p:'Nuria Rial sop · Orquestra Da Camera · Ibercamera',pr:'28–88€',y:'Ibercamera'},
 {i:'pl145',g:'palau',v:'P',d:'2026-11-16',h:'19:00',t:'Cosmos Quartet',c:'Repertori variat',p:'Cosmos Quartet',pr:'15€',y:'BCN Classics'},
 {i:'pl146',g:'palau',v:'P',d:'2026-11-28',h:'21:00',t:'Ramon Mirabet All-Star Jazz',c:'Jazz',p:'Ramon Mirabet',pr:'30–58€',y:'Concerts externs'},
-{i:'pl147',g:'palau',v:'P',d:'2026-12-09',h:'20:00',t:'Emmanuelle Haim & Le Concert d\'Astree',s:'El Messies de Handel',c:'G.F. Handel',p:'Le Concert d\'Astree · Emmanuelle Haim dir.',pr:'27–85€',y:'BCN Classics'},
+{i:'pl147',g:'baroque',v:'P',d:'2026-12-09',h:'20:00',t:'Emmanuelle Haim & Le Concert d\'Astree',s:'El Messies de Handel',c:'G.F. Handel',p:'Le Concert d\'Astree · Emmanuelle Haim dir.',pr:'27–85€',y:'BCN Classics'},
 {i:'pl148',g:'palau',v:'P',d:'2026-12-14',h:'20:00',t:'Homenatge Pavarotti amb OSV',s:'Nit ARA',c:'Opera italiana',p:'Solistes · OSV',pr:'17–72€',y:'Concerts externs'},
 {i:'pl149',g:'palau',v:'P',d:'2026-12-17',h:'20:00',t:'ADDA Simfonica – Romeu i Julieta',c:'Prokofiev',p:'ADDA Simfonica',pr:'27–85€',y:'BCN Classics'},
 {i:'pl150',g:'palau',v:'P',d:'2027-01-11',h:'20:00',t:'Ferrandez, Gonzalez-Monjas & Musikkollegium',c:'Repertori variat',p:'Pablo Ferrandez vlc · Maria Gonzalez-Monjas vln · Musikkollegium Winterthur',pr:'27–85€',y:'BCN Classics'},
@@ -1068,7 +1068,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.37';
+const APP_VERSION = '2.38';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
