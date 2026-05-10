@@ -374,7 +374,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="share-btn" onclick="downloadCalendar()">Fitxer calendari</button>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.57</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.58</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -676,8 +676,6 @@ const C = [
 {i:'pl156',g:'palau',v:'P',d:'2027-05-04',h:'19:00',t:'Alba Ventura – BCN Classics',c:'Repertori variat',p:'Alba Ventura pno',pr:'15€',y:'BCN Classics'},
 {i:'pl157',g:'palau',v:'P',d:'2027-05-12',h:'20:00',t:'Leonidas Kavakos & Enrico Pace',c:'Repertori variat',p:'Leonidas Kavakos vln · Enrico Pace pno',pr:'30–92€',y:'Ibercamera'},
 {i:'pl158',g:'palau',v:'P',d:'2027-05-18',h:'20:00',t:'Helene Grimaud',s:'Beethoven: Sonata op.111 · Schubert: Sonata D.960',c:'Beethoven · Schubert',p:'Helene Grimaud pno',pr:'27–85€',y:'BCN Classics'},
-{i:'pl160',g:'beethoven',v:'P',d:'2027-05-07',h:'20:00',t:'Staatskapelle Dresden I – Beethoven 1, 4 i 5',s:'Beethoven: Simfonies 1, 4 i 5 · Iannotta (estrena)',c:'Beethoven · Iannotta',p:'Staatskapelle Dresden · Daniele Gatti dir.',pr:'27–85€',y:'BCN Classics'},
-{i:'pl161',g:'beethoven',v:'P',d:'2027-05-11',h:'20:00',t:'Staatskapelle Dresden II – Beethoven 8 i 9',s:'Beethoven: Simfonies 8 i 9 "Coral" · Widmann',c:'Beethoven · Widmann',p:'Sara Blanch sop · Silvia Tro Santafe mez · Bernard Richter ten · Jordan Shanahan bx · Orfeo Catala · Staatskapelle Dresden · Daniele Gatti dir.',pr:'27–85€',y:'BCN Classics'},
 {i:'pl159',g:'palau',v:'P',d:'2026-10-16',h:'20:00',t:'Barcelona Guitar Trio & Dance',s:'Homenatge Paco de Lucia',c:'Paco de Lucia',p:'Barcelona Guitar Trio & Dance',pr:'39–75€',y:'Concerts externs'},
 
 
@@ -1441,7 +1439,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.57';
+const APP_VERSION = '2.58';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
