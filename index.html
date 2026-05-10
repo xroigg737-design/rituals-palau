@@ -388,7 +388,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <a class="share-btn" href="https://franzschubertfilh.com/en/" target="_blank" rel="noopener">Franz Schubert Filh.</a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.73</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.74</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1513,8 +1513,10 @@ function goToConcert(id, group) {
     }, 100);
 }
 
-function showDashboard() {
-    const ranked = C.map(c => {
+let dashVenueFilter = 'all';
+
+function renderDashboardList() {
+    const allRanked = C.map(c => {
         const cv = votes[c.i] || {};
         let yes = 0;
         const details = USERS.map(u => {
@@ -1526,31 +1528,45 @@ function showDashboard() {
     }).filter(r => r.yes > 1)
       .sort((a, b) => b.yes - a.yes || a.c.d.localeCompare(b.c.d));
 
-    const el = document.getElementById('summaryContent');
-    const top = document.querySelector('.summary-top h3');
-    top.textContent = 'Resultat votacions';
+    const filtered = dashVenueFilter === 'all' ? allRanked
+        : allRanked.filter(r => r.c.v === dashVenueFilter);
 
-    if (ranked.length === 0) {
+    const el = document.getElementById('summaryContent');
+
+    if (allRanked.length === 0) {
         el.innerHTML = `<div class="sum-empty">Cap concert amb mes d'un vot</div>`;
-    } else {
-        let html = `<div class="summary-total">${ranked.length} concerts amb 2+ vots</div>`;
-        let pos = 0;
-        for (const r of ranked) {
-            pos++;
-            const d = new Date(r.c.d + 'T12:00:00');
-            const dots = r.details.map(({u, v}) => {
-                const st = v === 1 ? 'v-yes' : 'v-no';
-                return `<span class="dash-dot ${st}" style="background:${u.color}" title="${u.name}"></span>`;
-            }).join('');
-            html += `<div class="dash-row">`;
-            html += `<span class="dash-rank">${pos}</span>`;
-            html += `<div class="dash-votes">${dots}</div>`;
-            html += `<div class="dash-info"><div class="dash-title">${r.c.t}</div>`;
-            html += `<div class="dash-date">${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()} · ${dayName(r.c.d)} · ${r.c.h}h</div></div>`;
-            html += `</div>`;
-        }
-        el.innerHTML = html;
+        return;
     }
+
+    const nP = filtered.filter(r => r.c.v === 'P').length;
+    const nA = filtered.filter(r => r.c.v === 'A').length;
+    let html = `<div class="summary-total">${filtered.length} concerts amb 2+ vots <span style="font-size:.7rem;opacity:.75">(${nP} Palau, ${nA} Auditori)</span></div>`;
+
+    const mk = (v, lab) => `<label class="sum-venue-radio"><input type="radio" name="dashVenue" value="${v}"${dashVenueFilter === v ? ' checked' : ''} onchange="dashVenueFilter=this.value;renderDashboardList()">${lab}</label>`;
+    html += `<div class="sum-venue-filter">${mk('all','Tots')}${mk('P','Palau')}${mk('A','Auditori')}</div>`;
+
+    let pos = 0;
+    for (const r of filtered) {
+        pos++;
+        const d = new Date(r.c.d + 'T12:00:00');
+        const dots = r.details.map(({u, v}) => {
+            const st = v === 1 ? 'v-yes' : 'v-no';
+            return `<span class="dash-dot ${st}" style="background:${u.color}" title="${u.name}"></span>`;
+        }).join('');
+        html += `<div class="dash-row">`;
+        html += `<span class="dash-rank">${pos}</span>`;
+        html += `<div class="dash-votes">${dots}</div>`;
+        html += `<div class="dash-info"><div class="dash-title">${r.c.t}</div>`;
+        html += `<div class="dash-date">${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()} · ${dayName(r.c.d)} · ${r.c.h}h</div></div>`;
+        html += `</div>`;
+    }
+    el.innerHTML = html;
+}
+
+function showDashboard() {
+    document.querySelector('.summary-top h3').textContent = 'Resultat votacions';
+    dashVenueFilter = 'all';
+    renderDashboardList();
     document.getElementById('summaryOverlay').classList.add('visible');
 }
 
@@ -1596,7 +1612,7 @@ setInterval(async () => {
             renderVotes(); updateStats();
             if (document.getElementById('summaryOverlay').classList.contains('visible')) {
                 const title = document.querySelector('.summary-top h3').textContent;
-                if (title === 'Resultat votacions') showDashboard();
+                if (title === 'Resultat votacions') renderDashboardList();
                 else if (title === 'Abonament a la carta') showAlaCarta();
                 else if (title === 'Descomptes Palau') { /* no refrescar */ }
                 else renderSummaryList();
@@ -1606,7 +1622,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.73';
+const APP_VERSION = '2.74';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
