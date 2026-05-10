@@ -72,6 +72,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .section-header .sub{font-family:var(--serif);font-size:1rem;font-style:italic;color:var(--text2);margin-bottom:.3rem}
 .section-header .count{font-family:var(--sans);font-size:.7rem;color:var(--text3);letter-spacing:.05em}
 .section-header .accent-line{width:40px;height:2px;background:var(--text);margin:.8rem auto 0;opacity:.2}
+.section-icon{width:60px;height:60px;border-radius:50%;object-fit:cover;object-position:center 15%;margin-bottom:.5rem;box-shadow:0 2px 8px rgba(0,0,0,.15);border:2px solid rgba(0,0,0,.08)}
 
 .concert-list{max-width:960px;margin:0 auto;padding:0 .5rem 1rem}
 
@@ -292,7 +293,7 @@ const USERS = [
 ];
 
 const SECTIONS = [
-    {id:'beethoven',title:'BEETHOVEN',sub:'Bicentenari 1827–2027'},
+    {id:'beethoven',title:'BEETHOVEN',sub:'Bicentenari 1827–2027',icon:'img/beethoven.jpg'},
     {id:'casals',title:'PAU CASALS',sub:'El mestre catala'},
     {id:'baroque',title:'BARROQUES',sub:'Bach · Handel · Vivaldi'},
     {id:'romantic',title:'ROMANTICISME',sub:'Brahms · Mahler · Strauss'},
@@ -596,6 +597,7 @@ function renderSections() {
 
         html += `<section class="section" id="${sec.id}">`;
         html += `<div class="section-header">`;
+        if (sec.icon) html += `<img class="section-icon" src="${sec.icon}" alt="${sec.title}">`;
         html += `<h2>${sec.title}</h2>`;
         html += `<div class="sub">${sec.sub}</div>`;
         html += `<div class="count">${concerts.length} concerts</div>`;
