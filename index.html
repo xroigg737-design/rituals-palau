@@ -160,6 +160,61 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 
 .no-results{text-align:center;padding:3rem 1rem;font-family:var(--serif);font-size:1.1rem;color:var(--text3);font-style:italic}
 
+.cal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.5);display:none;align-items:flex-end;justify-content:center}
+.cal-overlay.visible{display:flex}
+.cal-panel{background:var(--bg);width:100%;max-width:500px;max-height:92vh;border-radius:16px 16px 0 0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 -4px 30px rgba(0,0,0,.2)}
+.cal-top{display:flex;align-items:center;padding:.7rem 1rem;border-bottom:1px solid var(--border);gap:.5rem}
+.cal-top h3{font-family:var(--serif);font-size:1.2rem;font-weight:600;white-space:nowrap}
+.cal-zoom{display:flex;gap:.15rem;background:rgba(0,0,0,.06);border-radius:20px;padding:.15rem;margin-left:auto}
+.cal-zoom button{font-family:var(--sans);font-size:.58rem;font-weight:500;padding:.25rem .55rem;border:none;border-radius:16px;background:none;color:var(--text2);cursor:pointer;transition:all .2s}
+.cal-zoom button.active{background:var(--card);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.12);font-weight:600}
+.cal-close{background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text3);padding:.2rem .5rem;line-height:1;margin-left:.3rem}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;padding:.4rem 1rem}
+.cal-nav button{background:none;border:1px solid var(--border);border-radius:50%;width:30px;height:30px;font-size:1.1rem;cursor:pointer;color:var(--text2);display:flex;align-items:center;justify-content:center;transition:background .2s}
+.cal-nav button:hover{background:rgba(0,0,0,.05)}
+.cal-nav-title{font-family:var(--serif);font-size:1rem;font-weight:600;text-transform:capitalize}
+.cal-body{flex:1;overflow-y:auto;padding:0 .8rem .8rem}
+.cal-mgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px}
+.cal-mhdr{font-family:var(--sans);font-size:.55rem;font-weight:600;color:var(--text3);text-align:center;padding:.3rem 0;text-transform:uppercase}
+.cal-mday{min-height:48px;display:flex;flex-direction:column;align-items:center;padding:.15rem .1rem;cursor:pointer;border-radius:6px;transition:background .15s}
+.cal-mday:hover{background:rgba(0,0,0,.04)}
+.cal-mday.empty{pointer-events:none}
+.cal-mday-num{font-family:var(--sans);font-size:.7rem;font-weight:500;color:var(--text);width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:50%}
+.cal-mday.today .cal-mday-num{background:var(--palau);color:#fff;font-weight:700}
+.cal-mday.selected{background:rgba(12,74,74,.1)}
+.cal-dots{display:flex;gap:2px;margin-top:1px;flex-wrap:wrap;justify-content:center}
+.cal-dot{width:6px;height:6px;border-radius:50%}
+.cal-dot.sel-p{background:var(--palau)}
+.cal-dot.sel-a{background:var(--auditori)}
+.cal-dot.avail{background:var(--text3);opacity:.25}
+.cal-detail{margin-top:.6rem;border-top:1px solid var(--border);padding-top:.5rem}
+.cal-detail-title{font-family:var(--sans);font-size:.7rem;font-weight:600;color:var(--text3);text-transform:capitalize;margin-bottom:.5rem}
+.cal-ev{display:flex;align-items:start;gap:.5rem;padding:.45rem .5rem;border-radius:8px;margin-bottom:.25rem;cursor:pointer;transition:background .15s;border-left:3px solid transparent}
+.cal-ev:hover{background:rgba(0,0,0,.04)}
+.cal-ev.sel{border-left-color:var(--yes);background:rgba(45,125,70,.04)}
+.cal-ev.avail{opacity:.4;border-left-color:var(--text3)}
+.cal-ev-time{font-family:var(--sans);font-size:.68rem;font-weight:500;color:var(--text2);min-width:36px}
+.cal-ev-info{flex:1;min-width:0}
+.cal-ev-title{font-family:var(--serif);font-size:.88rem;font-weight:600;line-height:1.2}
+.cal-ev-sub{font-family:var(--sans);font-size:.62rem;color:var(--text2);margin-top:.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cal-ev-venue{font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:.1rem}
+.cal-ygrid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+@media(max-width:400px){.cal-ygrid{grid-template-columns:repeat(2,1fr)}}
+.cal-ymini{padding:.4rem;border-radius:8px;border:1px solid var(--border2);cursor:pointer;transition:background .15s}
+.cal-ymini:hover{background:rgba(0,0,0,.04)}
+.cal-ymini-title{font-family:var(--sans);font-size:.55rem;font-weight:600;text-align:center;margin-bottom:.2rem;text-transform:capitalize;color:var(--text2)}
+.cal-ymini-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:0}
+.cal-ymini-hdr{font-family:var(--sans);font-size:.35rem;text-align:center;color:var(--text3)}
+.cal-ymini-day{font-family:var(--sans);font-size:.4rem;text-align:center;padding:1px 0;color:var(--text3);line-height:1.6;border-radius:2px}
+.cal-ymini-day.sel{background:var(--yes);color:#fff;font-weight:700}
+.cal-ymini-day.avail{background:rgba(0,0,0,.06)}
+.cal-wday{border-bottom:1px solid var(--border2);padding:.5rem 0}
+.cal-wday-hdr{display:flex;align-items:baseline;gap:.4rem;margin-bottom:.3rem}
+.cal-wday-name{font-family:var(--sans);font-size:.6rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.04em}
+.cal-wday-date{font-family:var(--serif);font-size:.9rem;font-weight:600}
+.cal-wday.today .cal-wday-date{color:var(--palau)}
+.cal-wday-empty{font-family:var(--sans);font-size:.6rem;color:var(--text3);font-style:italic;padding:.1rem 0}
+
 .summary-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.5);display:none;align-items:flex-end;justify-content:center}
 .summary-overlay.visible{display:flex}
 .summary-panel{background:var(--bg);width:100%;max-width:700px;max-height:85vh;border-radius:16px 16px 0 0;overflow-y:auto;padding:1.5rem 1rem 2rem;box-shadow:0 -4px 30px rgba(0,0,0,.2)}
@@ -288,14 +343,35 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     <button class="share-btn" onclick="showDashboard()">Resultat votacions</button>
     <button class="share-btn" onclick="shareApp()">Compartir</button>
     <button class="share-btn" onclick="downloadCalendar()">Fitxer calendari</button>
+    <button class="share-btn" onclick="showCal()">Calendari</button>
     <button class="share-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="margin-top:.8rem">&#8593; Tornar a dalt</button>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.45</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.46</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
     <div class="summary-panel">
         <div class="summary-top"><h3>Resum seleccio</h3><button class="summary-close" onclick="closeSummary()">&times;</button></div>
         <div id="summaryContent"></div>
+    </div>
+</div>
+
+<div class="cal-overlay" id="calOverlay" onclick="if(event.target===this)closeCal()">
+    <div class="cal-panel">
+        <div class="cal-top">
+            <h3>Calendari</h3>
+            <div class="cal-zoom">
+                <button data-v="year" onclick="calSetView('year')">Any</button>
+                <button data-v="month" onclick="calSetView('month')">Mes</button>
+                <button data-v="week" onclick="calSetView('week')">Setmana</button>
+            </div>
+            <button class="cal-close" onclick="closeCal()">&times;</button>
+        </div>
+        <div class="cal-nav">
+            <button onclick="calNav(-1)">&#8249;</button>
+            <span class="cal-nav-title" id="calNavTitle"></span>
+            <button onclick="calNav(1)">&#8250;</button>
+        </div>
+        <div class="cal-body" id="calContent"></div>
     </div>
 </div>
 
@@ -952,6 +1028,150 @@ function downloadCalendar() {
     showToast(`${yes.length} concerts descarregats`);
 }
 
+// ── CALENDAR VIEW ──
+let calView = 'month', calYear = 2026, calMonth = 8, calSelDay = null, calWeekStart = null;
+
+function showCal() {
+    if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
+    const now = new Date();
+    if (now >= new Date('2026-09-01') && now <= new Date('2027-07-31')) {
+        calYear = now.getFullYear(); calMonth = now.getMonth();
+    } else { calYear = 2026; calMonth = 8; }
+    calSelDay = null; calWeekStart = null; calView = 'month';
+    renderCal();
+    document.getElementById('calOverlay').classList.add('visible');
+}
+function closeCal() { document.getElementById('calOverlay').classList.remove('visible'); }
+
+function calConcertMap() {
+    const map = {};
+    for (const c of C) {
+        const sel = (votes[c.i] || {})[currentUser] === 1;
+        if (!map[c.d]) map[c.d] = [];
+        map[c.d].push({...c, _sel: sel});
+    }
+    return map;
+}
+
+function renderCal() {
+    document.querySelectorAll('.cal-zoom button').forEach(b => b.classList.toggle('active', b.dataset.v === calView));
+    const el = document.getElementById('calContent');
+    const nav = document.getElementById('calNavTitle');
+    const map = calConcertMap();
+    if (calView === 'year') { nav.textContent = `${calYear}–${calYear+1}`; renderCalYear(el, map); }
+    else if (calView === 'month') { nav.textContent = `${MONTHS_FULL[calMonth].charAt(0).toUpperCase()+MONTHS_FULL[calMonth].slice(1)} ${calYear}`; renderCalMonth(el, map); }
+    else { renderCalWeek(el, map, nav); }
+}
+
+function calNav(dir) {
+    if (calView === 'year') calYear += dir;
+    else if (calView === 'month') { calMonth += dir; if (calMonth > 11) { calMonth = 0; calYear++; } if (calMonth < 0) { calMonth = 11; calYear--; } calSelDay = null; }
+    else { calWeekStart = new Date(calWeekStart); calWeekStart.setDate(calWeekStart.getDate() + dir * 7); }
+    renderCal();
+}
+
+function calSetView(v) {
+    calView = v;
+    if (v === 'week' && !calWeekStart) {
+        calWeekStart = new Date(calYear, calMonth, 1);
+        const dow = calWeekStart.getDay() || 7;
+        calWeekStart.setDate(calWeekStart.getDate() - dow + 1);
+    }
+    renderCal();
+}
+
+function calDayClick(ds) { calSelDay = (calSelDay === ds) ? null : ds; renderCal(); }
+
+function renderCalYear(el, map) {
+    const months = [];
+    for (let m = 8; m < 12; m++) months.push({m, y: calYear});
+    for (let m = 0; m <= 6; m++) months.push({m, y: calYear+1});
+    let h = '<div class="cal-ygrid">';
+    for (const {m, y} of months) {
+        h += `<div class="cal-ymini" onclick="calYear=${y};calMonth=${m};calSetView('month')">`;
+        h += `<div class="cal-ymini-title">${MONTHS_FULL[m]} ${y}</div><div class="cal-ymini-grid">`;
+        const hdrs = ['dl','dt','dc','dj','dv','ds','dg'];
+        for (const hd of hdrs) h += `<div class="cal-ymini-hdr">${hd}</div>`;
+        const last = new Date(y, m+1, 0).getDate();
+        let dow = new Date(y, m, 1).getDay() || 7;
+        for (let i = 1; i < dow; i++) h += '<div class="cal-ymini-day"></div>';
+        for (let d = 1; d <= last; d++) {
+            const ds = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+            const cc = map[ds] || [];
+            const hasSel = cc.some(c => c._sel);
+            h += `<div class="cal-ymini-day${hasSel ? ' sel' : cc.length ? ' avail' : ''}">${d}</div>`;
+        }
+        h += '</div></div>';
+    }
+    h += '</div>';
+    el.innerHTML = h;
+}
+
+function renderCalMonth(el, map) {
+    const todayStr = new Date().toISOString().slice(0,10);
+    const hdrs = ['Dl','Dt','Dc','Dj','Dv','Ds','Dg'];
+    let h = '<div class="cal-mgrid">';
+    for (const hd of hdrs) h += `<div class="cal-mhdr">${hd}</div>`;
+    const last = new Date(calYear, calMonth+1, 0).getDate();
+    let dow = new Date(calYear, calMonth, 1).getDay() || 7;
+    for (let i = 1; i < dow; i++) h += '<div class="cal-mday empty"></div>';
+    for (let d = 1; d <= last; d++) {
+        const ds = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const cc = map[ds] || [];
+        let cls = 'cal-mday';
+        if (ds === todayStr) cls += ' today';
+        if (ds === calSelDay) cls += ' selected';
+        h += `<div class="${cls}" onclick="calDayClick('${ds}')"><span class="cal-mday-num">${d}</span>`;
+        if (cc.length) {
+            h += '<div class="cal-dots">';
+            for (const c of cc) h += `<div class="cal-dot ${c._sel ? (c.v==='P'?'sel-p':'sel-a') : 'avail'}"></div>`;
+            h += '</div>';
+        }
+        h += '</div>';
+    }
+    h += '</div>';
+    if (calSelDay && map[calSelDay]) {
+        const dd = new Date(calSelDay+'T12:00:00');
+        h += `<div class="cal-detail"><div class="cal-detail-title">${DAYS[dd.getDay()]} ${dd.getDate()} ${MONTHS_FULL[dd.getMonth()]} ${dd.getFullYear()}</div>`;
+        for (const c of map[calSelDay].sort((a,b) => a.h.localeCompare(b.h))) {
+            h += calEventHtml(c);
+        }
+        h += '</div>';
+    } else if (calSelDay) {
+        h += '<div class="cal-detail"><div class="cal-detail-title" style="text-align:center;padding:1rem 0;font-style:italic">Cap concert aquest dia</div></div>';
+    }
+    el.innerHTML = h;
+}
+
+function renderCalWeek(el, map, nav) {
+    if (!calWeekStart) { calWeekStart = new Date(calYear, calMonth, 1); const dow = calWeekStart.getDay()||7; calWeekStart.setDate(calWeekStart.getDate()-dow+1); }
+    const end = new Date(calWeekStart); end.setDate(end.getDate()+6);
+    nav.textContent = `${calWeekStart.getDate()} ${MONTHS[calWeekStart.getMonth()]} – ${end.getDate()} ${MONTHS[end.getMonth()]} ${end.getFullYear()}`;
+    const todayStr = new Date().toISOString().slice(0,10);
+    let h = '';
+    for (let i = 0; i < 7; i++) {
+        const d = new Date(calWeekStart); d.setDate(d.getDate()+i);
+        const ds = d.toISOString().slice(0,10);
+        const cc = (map[ds]||[]).sort((a,b) => a.h.localeCompare(b.h));
+        h += `<div class="cal-wday${ds===todayStr?' today':''}"><div class="cal-wday-hdr"><span class="cal-wday-name">${DAYS[d.getDay()].slice(0,2)}</span><span class="cal-wday-date">${d.getDate()} ${MONTHS_FULL[d.getMonth()]}</span></div>`;
+        if (cc.length) { for (const c of cc) h += calEventHtml(c); }
+        else h += '<div class="cal-wday-empty">—</div>';
+        h += '</div>';
+    }
+    el.innerHTML = h;
+}
+
+function calEventHtml(c) {
+    const venue = c.v==='P' ? 'Palau' : 'Auditori';
+    let h = `<div class="cal-ev ${c._sel?'sel':'avail'}" onclick="goToConcert('${c.i}','${c.g}')">`;
+    h += `<div class="cal-ev-time">${c.h}h</div><div class="cal-ev-info">`;
+    h += `<div class="cal-ev-title">${c.t}</div>`;
+    if (c.s) h += `<div class="cal-ev-sub">${c.s}</div>`;
+    h += `<div class="cal-ev-venue">${venue}${c.y?' · '+c.y:''} · ${c.pr}</div>`;
+    h += '</div></div>';
+    return h;
+}
+
 // ── SUMMARY ──
 function showSummary() {
     if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
@@ -1097,7 +1317,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.45';
+const APP_VERSION = '2.46';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
