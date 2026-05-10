@@ -345,7 +345,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     <button class="share-btn" onclick="downloadCalendar()">Fitxer calendari</button>
     <button class="share-btn" onclick="showCal()">Calendari</button>
     <button class="share-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="margin-top:.8rem">&#8593; Tornar a dalt</button>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.46</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.47</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1029,7 +1029,7 @@ function downloadCalendar() {
 }
 
 // ── CALENDAR VIEW ──
-let calView = 'month', calYear = 2026, calMonth = 8, calSelDay = null, calWeekStart = null;
+let calView = 'year', calYear = 2026, calMonth = 8, calSelDay = null, calWeekStart = null;
 
 function showCal() {
     if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
@@ -1037,7 +1037,7 @@ function showCal() {
     if (now >= new Date('2026-09-01') && now <= new Date('2027-07-31')) {
         calYear = now.getFullYear(); calMonth = now.getMonth();
     } else { calYear = 2026; calMonth = 8; }
-    calSelDay = null; calWeekStart = null; calView = 'month';
+    calSelDay = null; calWeekStart = null; calView = 'year';
     renderCal();
     document.getElementById('calOverlay').classList.add('visible');
 }
@@ -1317,7 +1317,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.46';
+const APP_VERSION = '2.47';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
