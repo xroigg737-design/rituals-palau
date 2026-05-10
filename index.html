@@ -374,9 +374,10 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     <div class="footer-frame">
         <button class="share-btn" onclick="showCal()">Calendari</button>
         <button class="share-btn" onclick="downloadCalendar()">Fitxer calendari</button>
+        <button class="share-btn" onclick="showDescomptes()">Info descomptes</button>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.65</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.66</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1354,6 +1355,106 @@ function closeSummary() {
     document.getElementById('summaryOverlay').classList.remove('visible');
 }
 
+function showDescomptes() {
+    document.querySelector('.summary-top h3').textContent = 'Descomptes Palau';
+    const el = document.getElementById('summaryContent');
+    el.innerHTML = `
+<div style="font-family:var(--sans);line-height:1.6;color:var(--text);padding:.2rem 0">
+
+<div style="background:linear-gradient(135deg,rgba(37,99,235,.08),rgba(37,99,235,.03));border-radius:10px;padding:1rem;margin-bottom:1rem">
+<div style="font-size:.9rem;font-weight:700;color:#1d4ed8;margin-bottom:.4rem">Soci de l'Orfe&oacute; Catal&agrave;</div>
+<div style="display:flex;align-items:baseline;gap:.4rem;margin-bottom:.5rem">
+<span style="font-size:1.8rem;font-weight:800;color:#1d4ed8">20%</span>
+<span style="font-size:.75rem;color:var(--text2)">de descompte</span>
+</div>
+<div style="font-size:.7rem;color:var(--text2);margin-bottom:.6rem">En <strong>tots</strong> els concerts de programaci&oacute; pr&ograve;pia del Palau</div>
+<div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.5rem">
+<span style="background:#1d4ed8;color:#fff;font-size:.6rem;font-weight:600;padding:.2rem .5rem;border-radius:12px">60&euro;/any</span>
+<span style="background:#16a34a;color:#fff;font-size:.6rem;font-weight:600;padding:.2rem .5rem;border-radius:12px">&lt;35 anys: 10&euro;/any</span>
+</div>
+</div>
+
+<div style="background:rgba(217,119,6,.06);border-radius:10px;padding:1rem;margin-bottom:1rem">
+<div style="font-size:.9rem;font-weight:700;color:#b45309;margin-bottom:.4rem">Abonament a la carta</div>
+<div style="display:flex;align-items:baseline;gap:.4rem;margin-bottom:.5rem">
+<span style="font-size:1.8rem;font-weight:800;color:#b45309">15%</span>
+<span style="font-size:.75rem;color:var(--text2)">de descompte</span>
+</div>
+<div style="font-size:.7rem;color:var(--text2)">M&iacute;nim <strong>6 concerts</strong> de programaci&oacute; pr&ograve;pia del Palau</div>
+</div>
+
+<div style="background:#fef2f2;border-left:3px solid #dc2626;border-radius:0 8px 8px 0;padding:.7rem .8rem;margin-bottom:1rem">
+<div style="font-size:.72rem;font-weight:700;color:#dc2626;margin-bottom:.2rem">&#9888; Els descomptes NO s&oacute;n acumulables</div>
+<div style="font-size:.65rem;color:#991b1b">No es pot combinar el 20% de Soci amb el 15% d'Abonament a la carta. S'aplica nom&eacute;s un dels dos.</div>
+</div>
+
+<div style="background:rgba(22,163,74,.06);border-radius:10px;padding:.8rem;margin-bottom:1rem">
+<div style="font-size:.75rem;font-weight:700;color:#16a34a;margin-bottom:.5rem">&#10003; Recomanaci&oacute;</div>
+<div style="font-size:.65rem;color:var(--text);line-height:1.5">Fer-se <strong>Soci de l'Orfe&oacute;</strong> &eacute;s m&eacute;s avantatj&oacute;s: descompte superior (20% vs 15%), sense m&iacute;nim de concerts, i inclou invitacions gratu&iuml;tes i altres avantatges.</div>
+</div>
+
+<div style="margin-bottom:.8rem">
+<div style="font-size:.72rem;font-weight:700;color:var(--text);margin-bottom:.4rem;border-bottom:1px solid var(--border);padding-bottom:.3rem">Avantatges Soci de l'Orfe&oacute;</div>
+<div style="font-size:.62rem;color:var(--text2);line-height:1.7">
+&#8226; 2 invitacions al cicle <em>La Casa dels Cants</em><br>
+&#8226; 2 invitacions a l'assaig general del Concert de Sant Esteve<br>
+&#8226; 8 visites guiades anuals al Palau<br>
+&#8226; 25% dte. concerts Franz Schubert Filharm&ograve;nia (a taquilles)<br>
+&#8226; 15% a la Botiga del Palau<br>
+&#8226; Preus especials Caf&egrave; Palau i parkings SABA<br>
+&#8226; Prioritat en reserva d'entrades<br>
+&#8226; Canal exclusiu de WhatsApp
+</div>
+</div>
+
+<div style="margin-bottom:.8rem">
+<div style="font-size:.72rem;font-weight:700;color:var(--text);margin-bottom:.4rem;border-bottom:1px solid var(--border);padding-bottom:.3rem">Cicles amb descompte (programaci&oacute; pr&ograve;pia)</div>
+<div style="font-size:.6rem;color:var(--text2);line-height:1.8">
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Palau 100</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Grans Veus</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">&Ograve;pera</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Piano</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Bach</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Cambra</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Petit Palau Cambra</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Beethoven</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">ECHO Rising Stars</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Integral orgue Bach</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Fronteres</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">El Primer Palau</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">La Casa dels Cants</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Simf&ograve;nics</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Nadal</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Gran Simf&ograve;nic F&ograve;rum</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Tardes al Palau</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Orgue al Palau</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Familiars</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Estiu al Palau</span>
+<span style="background:rgba(37,99,235,.08);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">L'Hivernacle</span>
+</div>
+</div>
+
+<div style="margin-bottom:.8rem">
+<div style="font-size:.72rem;font-weight:700;color:var(--text);margin-bottom:.4rem;border-bottom:1px solid var(--border);padding-bottom:.3rem">Cicles SENSE descompte (externs)</div>
+<div style="font-size:.6rem;color:var(--text3);line-height:1.8">
+<span style="background:rgba(0,0,0,.04);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">BCN Classics</span>
+<span style="background:rgba(0,0,0,.04);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Ibercamera</span>
+<span style="background:rgba(0,0,0,.04);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Festival Jazz</span>
+<span style="background:rgba(0,0,0,.04);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Franz Schubert Filharm&ograve;nia</span>
+<span style="background:rgba(0,0,0,.04);padding:.15rem .4rem;border-radius:4px;margin:.1rem;display:inline-block">Concerts externs</span>
+</div>
+</div>
+
+<div style="text-align:center;padding:.8rem 0;border-top:1px solid var(--border)">
+<a href="https://www.palaumusica.cat/ca/fes-te-soci_1199419" target="_blank" style="color:#1d4ed8;font-size:.65rem;font-weight:600;text-decoration:none">&#127917; Fes-te Soci de l'Orfe&oacute; &rarr; palaumusica.cat</a>
+<br>
+<a href="https://www.palaumusica.cat/ca/descomptes_1159146" target="_blank" style="color:var(--text3);font-size:.58rem;text-decoration:none;margin-top:.3rem;display:inline-block">Condicions i descomptes &rarr; palaumusica.cat</a>
+</div>
+
+</div>`;
+    document.getElementById('summaryOverlay').classList.add('visible');
+}
+
 function goToConcert(id, group) {
     closeSummary();
     const sec = document.getElementById(group);
@@ -1457,6 +1558,7 @@ setInterval(async () => {
                 const title = document.querySelector('.summary-top h3').textContent;
                 if (title === 'Resultat votacions') showDashboard();
                 else if (title === 'Abonament a la carta') showAlaCarta();
+                else if (title === 'Descomptes Palau') { /* no refrescar */ }
                 else showSummary();
             }
         }
@@ -1464,7 +1566,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.65';
+const APP_VERSION = '2.66';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
