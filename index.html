@@ -638,21 +638,27 @@ function renderVotes() {
     }
 }
 
-function parsePriceMax(pr) {
-    if (!pr) return 0;
+function parsePriceRange(pr) {
+    if (!pr) return {min:0, max:0};
     const nums = pr.match(/\d+/g);
-    return nums ? parseInt(nums[nums.length - 1]) : 0;
+    if (!nums) return {min:0, max:0};
+    return {min: parseInt(nums[0]), max: parseInt(nums[nums.length - 1])};
 }
+function parsePriceMax(pr) { return parsePriceRange(pr).max; }
 
 function updateStats() {
     const el = document.getElementById('userStats');
     if (!currentUser) { el.innerHTML = ''; return; }
     const yesVotes = Object.entries(votes).filter(([,v]) => v[currentUser] === 1);
     const maybeVotes = Object.entries(votes).filter(([,v]) => v[currentUser] === 2);
-    let totalMax = 0;
-    yesVotes.forEach(([id]) => { const c = C.find(x => x.i === id); if (c) totalMax += parsePriceMax(c.pr); });
-    let html = `<strong>${yesVotes.length}</strong>♥ <strong>${maybeVotes.length}</strong>?`;
-    if (totalMax > 0) html += ` <span class="cost-total">· <strong>${totalMax}€</strong></span>`;
+    let totalMin = 0, totalMax = 0;
+    yesVotes.forEach(([id]) => { const c = C.find(x => x.i === id); if (c) { const r = parsePriceRange(c.pr); totalMin += r.min; totalMax += r.max; } });
+    let html = `<strong>${yesVotes.length}</strong> <span class="vc-yes">Sí</span>`;
+    if (maybeVotes.length > 0) html += ` · <strong>${maybeVotes.length}</strong> <span class="vc-maybe">Potser</span>`;
+    if (totalMax > 0) {
+        const cost = totalMin === totalMax ? `${totalMax}€` : `${totalMin}–${totalMax}€`;
+        html += ` <span class="cost-total">· <strong>${cost}</strong></span>`;
+    }
     el.innerHTML = html;
 }
 
@@ -743,9 +749,12 @@ function showSummary() {
     if (selected.length === 0) {
         el.innerHTML = `<div class="sum-empty">No tens cap concert seleccionat</div>`;
     } else {
-        let totalMax = 0;
-        selected.filter(c => (votes[c.i]||{})[currentUser] === 1).forEach(c => totalMax += parsePriceMax(c.pr));
-        let html = `<div class="summary-total">${selected.length} concerts · cost estimat: <strong>${totalMax}€</strong></div>`;
+        let totalMin = 0, totalMax = 0;
+        const yesSelected = selected.filter(c => (votes[c.i]||{})[currentUser] === 1);
+        const maybeSelected = selected.filter(c => (votes[c.i]||{})[currentUser] === 2);
+        yesSelected.forEach(c => { const r = parsePriceRange(c.pr); totalMin += r.min; totalMax += r.max; });
+        const costStr = totalMin === totalMax ? `${totalMax}€` : `${totalMin}–${totalMax}€`;
+        let html = `<div class="summary-total">${yesSelected.length} Sí + ${maybeSelected.length} Potser · cost estimat (Sí): <strong>${costStr}</strong></div>`;
         for (const c of selected) {
             const st = (votes[c.i]||{})[currentUser];
             const stLabel = st === 1 ? '<span class="sum-state sum-yes">&#9829;</span>' : '<span class="sum-state sum-maybe">?</span>';
