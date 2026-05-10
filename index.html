@@ -446,7 +446,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.81</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.82</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -956,7 +956,8 @@ function renderSections() {
         const visible = concerts.filter(matchesFilter);
         if (visible.length === 0 && filterText) continue;
 
-        html += `<section class="section collapsed" id="${sec.id}">`;
+        const collapseClass = filterText ? '' : ' collapsed';
+        html += `<section class="section${collapseClass}" id="${sec.id}">`;
         const bgCls = sec.icon ? ' has-bg' + (sec.sig ? ' has-sig' : '') : '';
         html += `<div class="section-header${bgCls}"${sec.icon ? ' style="background-image:url(\''+sec.icon+'\')"' : ''} onclick="this.closest('.section').classList.toggle('collapsed')">`;
         if (sec.icon) {
@@ -1446,7 +1447,7 @@ function renderSummaryList() {
 function showSummary() {
     if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
     const userName = USERS.find(u => u.id === currentUser)?.name || '';
-    document.querySelector('.summary-top h3').textContent = `La teva selecció — ${userName}`;
+    document.querySelector('.summary-top h3').textContent = `La teva selecció ${userName}`;
     summaryVenueFilter = 'all';
     renderSummaryList();
     document.getElementById('summaryOverlay').classList.add('visible');
@@ -1685,7 +1686,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.81';
+const APP_VERSION = '2.82';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
