@@ -449,7 +449,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.83</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.84</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -502,7 +502,7 @@ const USERS = [
     {id:'anna',name:'Anna',ini:'A',color:'#dc2626'},
     {id:'albert',name:'Albert',ini:'Al',color:'#059669'},
     {id:'montse',name:'Montse',ini:'M',color:'#d97706'},
-    {id:'elia',name:'Elia',ini:'E',color:'#7c3aed'},
+    {id:'elia',name:'Èlia',ini:'E',color:'#7c3aed'},
     {id:'roger',name:'Roger',ini:'R',color:'#0891b2'}
 ];
 
@@ -1693,7 +1693,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.83';
+const APP_VERSION = '2.84';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
