@@ -449,7 +449,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.85</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.86</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1419,7 +1419,7 @@ function renderSummaryList() {
     let html = `<div class="summary-total" style="line-height:1.8">`;
     const nPalau = filtered.filter(c => c.v === 'P').length;
     const nAud = filtered.filter(c => c.v === 'A').length;
-    html += `<div><strong>${filtered.length} concerts seleccionats</strong> <span style="font-size:.7rem;opacity:.75">(${nPalau} Palau, ${nAud} Auditori)</span></div>`;
+    html += `<div><strong style="color:var(--text)">${filtered.length} concerts seleccionats</strong> <span style="font-size:.7rem;opacity:.75">(${nPalau} Palau, ${nAud} Auditori)</span></div>`;
     html += `<div>Cost estimat: <strong>${costStr}</strong></div>`;
     if (dteMin > 0) {
         html += `<div style="color:#16a34a">Amb Soci Orfeó (-20%): <strong>${netStr}</strong> <span style="font-size:.65rem;opacity:.8">(estalvi ${savStr})</span></div>`;
@@ -1693,7 +1693,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.85';
+const APP_VERSION = '2.86';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
