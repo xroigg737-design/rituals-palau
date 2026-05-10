@@ -286,7 +286,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     <button class="share-btn" onclick="shareApp()">Compartir</button>
     <button class="share-btn" onclick="downloadCalendar()">Calendari</button>
     <button class="share-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="margin-top:.8rem">&#8593; Tornar a dalt</button>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.34</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.35</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -670,6 +670,7 @@ function renderSections() {
         html += `</div>`;
 
         const useCycles = (sec.id === 'palau' || sec.id === 'auditori');
+        const PALAU_CYCLE_ORDER = ['Palau 100','Concerts Extraordinaris','Integral Simfonies Beethoven','Palau Grans Veus','Palau Opera','Palau Cambra','Petit Palau Cambra','Palau Piano','Palau Bach','ECHO Rising Stars','El Primer Palau','La Casa dels Cants','Palau Fronteres','Tardes al Palau','Simfonics al Palau','Nadal al Palau','BCN Classics'];
 
         if (useCycles && !filterText) {
             html += `<div class="concert-list">`;
@@ -679,7 +680,13 @@ function renderSections() {
                 if (!cycles[cy]) cycles[cy] = [];
                 cycles[cy].push(c);
             }
-            for (const [cyName, cyConc] of Object.entries(cycles)) {
+            const orderedCycles = Object.keys(cycles).sort((a, b) => {
+                const ia = PALAU_CYCLE_ORDER.indexOf(a);
+                const ib = PALAU_CYCLE_ORDER.indexOf(b);
+                return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+            });
+            for (const cyName of orderedCycles) {
+                const cyConc = cycles[cyName];
                 html += `<div class="cycle-group collapsed">`;
                 html += `<div class="cycle-header" onclick="event.stopPropagation();this.closest('.cycle-group').classList.toggle('collapsed')">`;
                 html += `<span class="cycle-arrow">&#9660;</span>`;
@@ -956,7 +963,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.34';
+const APP_VERSION = '2.35';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
