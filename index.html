@@ -374,7 +374,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="share-btn" onclick="downloadCalendar()">Fitxer calendari</button>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.53</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.54</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1310,7 +1310,7 @@ function showSummary() {
             html += `<div class="sum-price-col"><div class="sum-price">${c.pr}</div>`;
             if (isAlaCarta(c)) {
                 if (alcOk) html += `<div class="sum-alc-badge ok">Abon. a la carta</div><div class="sum-alc-discount">-15%</div>`;
-                else html += `<div class="sum-alc-badge candidate">Candidat a 15% dte. - A.a.C</div>`;
+                else html += `<div class="sum-alc-badge candidate">Candidat 15% dte. si minim 6 concerts A.a.C</div>`;
             }
             html += `</div>`;
             html += `</div>`;
@@ -1433,7 +1433,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.53';
+const APP_VERSION = '2.54';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
