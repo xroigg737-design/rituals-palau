@@ -377,7 +377,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="share-btn" onclick="showDescomptes()">Info descomptes</button>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.66</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.67</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1324,12 +1324,16 @@ function showSummary() {
     if (selected.length === 0) {
         el.innerHTML = `<div class="sum-empty">No tens cap concert seleccionat</div>`;
     } else {
-        let totalMin = 0, totalMax = 0;
-        selected.forEach(c => { const r = parsePriceRange(c.pr); totalMin += r.min; totalMax += r.max; });
+        let totalMin = 0, totalMax = 0, dteMin = 0, dteMax = 0;
+        selected.forEach(c => {
+            const r = parsePriceRange(c.pr);
+            totalMin += r.min; totalMax += r.max;
+            if (isAlaCarta(c)) { dteMin += Math.round(r.min * 0.20); dteMax += Math.round(r.max * 0.20); }
+        });
         const costStr = totalMin === totalMax ? `${totalMax}€` : `${totalMin}–${totalMax}€`;
-        const alcCount = selected.filter(isAlaCarta).length;
-        const alcOk = alcCount >= ALACARTA_MIN;
-        let html = `<div class="summary-total">${selected.length} concerts · cost estimat: <strong>${costStr}</strong></div>`;
+        const afterMin = totalMin - dteMin, afterMax = totalMax - dteMax;
+        const dteStr = dteMin > 0 ? ` <span style="color:#16a34a;font-size:.7rem">(amb Soci Orfeó: ${afterMin === afterMax ? afterMax + '€' : afterMin + '–' + afterMax + '€'}, estalvi ${dteMin === dteMax ? dteMax : dteMin + '–' + dteMax}€)</span>` : '';
+        let html = `<div class="summary-total">${selected.length} concerts · cost estimat: <strong>${costStr}</strong>${dteStr}</div>`;
         for (const c of selected) {
             const venue = c.v === 'P' ? 'Palau de la Musica' : "L'Auditori";
             const d = new Date(c.d + 'T12:00:00');
@@ -1340,8 +1344,7 @@ function showSummary() {
             html += `<div class="sum-venue">${venue} · ${c.y || ''}</div></div>`;
             html += `<div class="sum-price-col"><div class="sum-price">${c.pr}</div>`;
             if (isAlaCarta(c)) {
-                if (alcOk) html += `<div class="sum-alc-badge ok">Abon. a la carta</div><div class="sum-alc-discount">-15%</div>`;
-                else html += `<div class="sum-alc-badge candidate">Candidat 15% dte.<br>si minim 6 concerts<br>Abon. a la carta</div>`;
+                html += `<div class="sum-alc-badge ok">Soci Orfeó -20% dte.</div>`;
             }
             html += `</div>`;
             html += `</div>`;
@@ -1566,7 +1569,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.66';
+const APP_VERSION = '2.67';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
