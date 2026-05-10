@@ -452,7 +452,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.93</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.94</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1106,7 +1106,7 @@ function selectUser(id) {
 }
 
 function toggleVote(concertId) {
-    if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
+    if (!currentUser) { requireUser(); return; }
     const cv = votes[concertId] || {};
     const current = cv[currentUser] || 0;
     const next = current === 1 ? 0 : 1;
@@ -1135,6 +1135,13 @@ function showToast(msg) {
     setTimeout(() => t.classList.remove('visible'), 2500);
 }
 
+function requireUser() {
+    showToast('Selecciona qui ets al camp de dalt');
+    window.scrollTo({top:0, behavior:'smooth'});
+    setTimeout(() => { const sel = document.getElementById('userSelect'); if (sel) { sel.focus(); sel.style.outline='2px solid #c00'; setTimeout(() => sel.style.outline='', 2000); } }, 400);
+    return false;
+}
+
 function shareApp() {
     const url = window.location.href;
     if (navigator.share) {
@@ -1145,7 +1152,7 @@ function shareApp() {
 }
 
 function downloadCalendar() {
-    if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
+    if (!currentUser) { requireUser(); return; }
     const selected = C.filter(c => {
         const cv = votes[c.i] || {};
         return cv[currentUser] === 1 && !isPast(c.d);
@@ -1179,7 +1186,7 @@ function isAlaCarta(c) {
 }
 
 function showAlaCarta() {
-    if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
+    if (!currentUser) { requireUser(); return; }
     document.querySelector('.summary-top h3').textContent = 'Abonament a la carta';
     const el = document.getElementById('summaryContent');
 
@@ -1253,7 +1260,7 @@ function showAlaCarta() {
 let calView = 'year', calYear = 2026, calMonth = 8, calSelDay = null, calWeekStart = null;
 
 function showCal() {
-    if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
+    if (!currentUser) { requireUser(); return; }
     const now = new Date();
     if (now >= new Date('2026-09-01') && now <= new Date('2027-07-31')) {
         calYear = now.getFullYear(); calMonth = now.getMonth();
@@ -1454,7 +1461,7 @@ function renderSummaryList() {
 }
 
 function showSummary() {
-    if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
+    if (!currentUser) { requireUser(); return; }
     const userName = USERS.find(u => u.id === currentUser)?.name || '';
     document.querySelector('.summary-top h3').textContent = `La teva selecció ${userName}`;
     summaryVenueFilter = 'all';
@@ -1699,7 +1706,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.93';
+const APP_VERSION = '2.94';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
