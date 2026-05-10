@@ -287,7 +287,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     <button class="share-btn" onclick="shareApp()">Compartir</button>
     <button class="share-btn" onclick="downloadCalendar()">Calendari</button>
     <button class="share-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="margin-top:.8rem">&#8593; Tornar a dalt</button>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.39</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.40</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -326,9 +326,9 @@ const USERS = [
 
 const SECTIONS = [
     {id:'beethoven',title:'BEETHOVEN',sub:'Bicentenari 1827–2027',icon:'img/beethoven.jpg',sig:'img/beethoven-signature-crop.png'},
-    {id:'casals',title:'PAU CASALS',sub:'El mestre català',icon:'img/casals.jpg'},
-    {id:'baroque',title:'BARROQUES',sub:'Bach · Handel · Vivaldi',icon:'img/bach.jpg'},
+    {id:'baroque',title:'BARROC',sub:'Bach · Handel · Vivaldi',icon:'img/bach.jpg'},
     {id:'romantic',title:'ROMANTICISME',sub:'Brahms · Mahler · Strauss',icon:'img/brahms.jpg'},
+    {id:'casals',title:'PAU CASALS',sub:'El mestre català',icon:'img/casals.jpg'},
     {id:'cinema',title:'CINEMA',sub:'Bandes sonores',icon:'img/cinema.jpg'},
     {id:'palau',title:'PALAU DE LA MÚSICA',sub:'Resta de la temporada',icon:'img/palau.jpg'},
     {id:'auditori',title:'L\'AUDITORI',sub:'Resta de la temporada',icon:'img/auditori.jpg'}
@@ -1076,7 +1076,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.39';
+const APP_VERSION = '2.40';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
