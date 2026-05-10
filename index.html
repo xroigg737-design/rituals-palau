@@ -149,6 +149,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 
 .footer{text-align:center;padding:2.5rem 1rem 3rem;border-top:1px solid var(--border);margin-top:1rem}
 .footer p{font-family:var(--serif);font-size:.95rem;color:var(--text3);font-style:italic;margin-bottom:1rem}
+.footer-frame{border:1px solid var(--border);border-radius:12px;padding:.8rem .6rem;margin:0 auto .6rem;max-width:400px;display:flex;gap:.4rem;justify-content:center;flex-wrap:wrap}
 .share-btn{font-family:var(--sans);font-weight:400;text-transform:uppercase;letter-spacing:.12em;border:1.5px solid var(--text);background:none;color:var(--text);padding:.5rem 2rem;border-radius:28px;font-size:.75rem;cursor:pointer;transition:all .5s;margin:0 .3rem}
 .share-btn:hover{background:var(--text);color:#fff}
 
@@ -339,15 +340,16 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 
 <footer class="footer" id="footer">
     <p>Palau de la Musica Catalana &middot; L'Auditori de Barcelona</p>
-    <button class="share-btn" onclick="showSummary()">Resum seleccio</button>
-    <button class="share-btn" onclick="showDashboard()">Resultat votacions</button>
-    <button class="share-btn" onclick="showCal()">Calendari</button>
-    <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="margin-top:1rem">
-    <button class="share-btn" onclick="shareApp()">Compartir</button>
-    <button class="share-btn" onclick="downloadCalendar()">Fitxer calendari</button>
+    <div class="footer-frame">
+        <button class="share-btn" onclick="showSummary()">Resum seleccio</button>
+        <button class="share-btn" onclick="showDashboard()">Resultat votacions</button>
     </div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.48</div>
+    <div class="footer-frame">
+        <button class="share-btn" onclick="showCal()">Calendari</button>
+        <button class="share-btn" onclick="downloadCalendar()">Fitxer calendari</button>
+    </div>
+    <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.49</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1319,7 +1321,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.48';
+const APP_VERSION = '2.49';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
