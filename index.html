@@ -377,7 +377,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 <footer class="footer" id="footer">
     <p>Palau de la Musica Catalana &middot; L'Auditori de Barcelona</p>
     <div class="footer-frame">
-        <button class="share-btn" onclick="showSummary()">Resum seleccio</button>
+        <button class="share-btn" onclick="showSummary()">Resum selecció</button>
         <button class="share-btn" onclick="showDashboard()">Resultat votacions</button>
         <button class="share-btn" onclick="showAlaCarta()">Abon. a la carta</button>
     </div>
@@ -386,12 +386,12 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="share-btn" onclick="downloadCalendar()">Fitxer calendari</button>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.62</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.63</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
     <div class="summary-panel">
-        <div class="summary-top"><h3>Resum seleccio</h3><button class="summary-close" onclick="closeSummary()">&times;</button></div>
+        <div class="summary-top"><h3>Resum selecció</h3><button class="summary-close" onclick="closeSummary()">&times;</button></div>
         <div id="summaryContent"></div>
     </div>
 </div>
@@ -1041,19 +1041,25 @@ function confirmAltDate(concertId) {
     if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
     const cv = votes[concertId] || {};
     const already = cv[currentUser] === 1;
-    const action = already ? 'La traiem de la seleccio?' : "L'afegim a la seleccio?";
+    const action = already ? 'La traiem de la selecció?' : "L'afegim a la selecció?";
     const overlay = document.createElement('div');
     overlay.className = 'confirm-overlay';
-    overlay.innerHTML = `<div class="confirm-box"><p>${action}</p><button class="confirm-yes" onclick="resolveAltDate('${concertId}',true)">Si</button><button class="confirm-no" onclick="resolveAltDate('${concertId}',false)">No</button></div>`;
+    overlay.innerHTML = `<div class="confirm-box"><p>${action}</p><button class="confirm-yes" onclick="resolveAltDate('${concertId}',true)">Sí</button><button class="confirm-no" onclick="resolveAltDate('${concertId}',false)">No</button></div>`;
     document.body.appendChild(overlay);
     overlay.addEventListener('click', e => { if (e.target === overlay) resolveAltDate(concertId, false); });
 }
 
-function resolveAltDate(concertId, accepted) {
+async function resolveAltDate(concertId, accepted) {
     document.querySelector('.confirm-overlay')?.remove();
     if (!accepted) return;
-    toggleVote(concertId);
+    const cv = votes[concertId] || {};
+    const current = cv[currentUser] || 0;
+    const next = current === 1 ? 0 : 1;
+    await saveVote(concertId, currentUser, next);
     renderSections();
+    renderVotes();
+    updateStats();
+    showToast(next === 1 ? 'Afegit a la selecció!' : 'Tret de la selecció');
 }
 
 function scrollToFooter(e) {
@@ -1329,7 +1335,7 @@ function calEventHtml(c) {
 // ── SUMMARY ──
 function showSummary() {
     if (!currentUser) { showToast('Selecciona el teu nom primer'); return; }
-    document.querySelector('.summary-top h3').textContent = 'Resum seleccio';
+    document.querySelector('.summary-top h3').textContent = 'Resum selecció';
     const selected = C.filter(c => {
         const cv = votes[c.i] || {};
         return cv[currentUser] === 1;
@@ -1480,7 +1486,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.62';
+const APP_VERSION = '2.63';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
