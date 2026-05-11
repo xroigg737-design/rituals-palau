@@ -375,7 +375,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     <h2>Rituals al Palau</h2>
     <p>Temporada 2026–2027</p>
     <div class="auth-form">
-        <input type="password" class="auth-input" id="authInput" placeholder="Contrasenya" autofocus>
+        <input type="password" class="auth-input" id="authInput" placeholder="Contrasenya" autocomplete="new-password" data-lpignore="true" data-1p-ignore autofocus>
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
@@ -452,7 +452,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.00</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.01</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -498,6 +498,7 @@ function checkAuth() {
     }
 }
 document.getElementById('authInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkAuth(); });
+setTimeout(() => { document.getElementById('authInput').value = ''; }, 50);
 if (localStorage.getItem(AUTH_KEY) === '1') document.getElementById('authWall').style.display = 'none';
 
 const USERS = [
