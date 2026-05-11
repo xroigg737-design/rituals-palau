@@ -452,7 +452,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.98</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v2.99</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -821,6 +821,13 @@ let filterText = '';
 
 // ── API ──
 const API = 'https://i-xr.duckdns.org/rituals-palau/api/votes.php';
+const LOG_API = 'https://i-xr.duckdns.org/rituals-palau/api/log.php';
+
+function track(ev, data = {}) {
+    const body = {ev, ...data};
+    if (currentUser) body.u = currentUser;
+    fetch(LOG_API, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)}).catch(()=>{});
+}
 let apiOk = true;
 
 async function loadVotes() {
@@ -1110,7 +1117,10 @@ function selectUser(id) {
     localStorage.setItem('rituals-user', currentUser || '');
     renderVotes();
     updateStats();
-    if (currentUser) showToast('Hola, ' + USERS.find(u => u.id === id).name + '!');
+    if (currentUser) {
+        showToast('Hola, ' + USERS.find(u => u.id === id).name + '!');
+        track('login');
+    }
 }
 
 function toggleVote(concertId) {
@@ -1119,6 +1129,7 @@ function toggleVote(concertId) {
     const current = cv[currentUser] || 0;
     const next = current === 1 ? 0 : 1;
     saveVote(concertId, currentUser, next);
+    track('vote', {cid: concertId, v: next});
     setTimeout(() => {
         const row = document.getElementById('vr-' + concertId);
         if (!row) return;
@@ -1662,11 +1673,14 @@ function showDashboard() {
 }
 
 // ── FILTER ──
+let _searchTimer;
 document.getElementById('filterInput').addEventListener('input', function() {
     filterText = this.value.trim();
     document.getElementById('filterClear').style.display = filterText ? 'flex' : 'none';
     renderSections();
     renderVotes();
+    clearTimeout(_searchTimer);
+    if (filterText.length >= 2) _searchTimer = setTimeout(() => track('search', {q: filterText}), 1500);
 });
 
 // ── SCROLL SPY ──
@@ -1681,6 +1695,7 @@ const observer = new IntersectionObserver(entries => {
                 link.classList.add('active');
                 const nl = link.offsetLeft - navBar.offsetWidth / 2 + link.offsetWidth / 2;
                 navBar.scrollTo({left: nl, behavior: 'smooth'});
+                track('section_view', {sec: e.target.id});
             }
         }
     });
@@ -1690,6 +1705,7 @@ const observer = new IntersectionObserver(entries => {
 const _nP = C.filter(c => c.v === 'P').length, _nA = C.filter(c => c.v === 'A').length;
 document.getElementById('heroCount').textContent = `${C.length} concerts (${_nP} Palau, ${_nA} Auditori)`;
 render();
+track('page_view');
 setTimeout(() => {
     document.querySelectorAll('.section').forEach(s => observer.observe(s));
 }, 100);
@@ -1714,7 +1730,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '2.96';
+const APP_VERSION = '2.99';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
