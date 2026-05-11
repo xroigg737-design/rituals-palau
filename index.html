@@ -318,7 +318,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .auth-wall h2{font-family:var(--serif);font-size:2.4rem;font-weight:300;letter-spacing:.1em;margin-bottom:.3rem}
 .auth-wall p{font-family:var(--sans);font-size:.75rem;opacity:.5;letter-spacing:.15em;text-transform:uppercase;margin-bottom:2rem}
 .auth-form{display:flex;gap:.5rem;align-items:center}
-.auth-input{font-family:var(--sans);font-size:1rem;padding:.6rem 1.2rem;border:1.5px solid rgba(255,255,255,.25);border-radius:24px;background:rgba(255,255,255,.08);color:#fff;outline:none;width:200px;text-align:center;letter-spacing:.1em;transition:border-color .3s}
+.auth-input{font-family:var(--sans);font-size:1rem;padding:.6rem 1.2rem;border:1.5px solid rgba(255,255,255,.25);border-radius:24px;background:rgba(255,255,255,.08);color:#fff;outline:none;width:200px;text-align:center;letter-spacing:.1em;transition:border-color .3s;-webkit-text-security:disc;-moz-text-security:disc;text-security:disc}
 .auth-input:focus{border-color:rgba(255,255,255,.5)}
 .auth-input::placeholder{color:rgba(255,255,255,.3)}
 .auth-btn{font-family:var(--sans);font-size:.8rem;font-weight:500;padding:.6rem 1.5rem;border:1.5px solid rgba(255,255,255,.4);border-radius:24px;background:none;color:#fff;cursor:pointer;letter-spacing:.08em;transition:all .3s}
@@ -375,7 +375,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     <h2>Rituals al Palau</h2>
     <p>Temporada 2026–2027</p>
     <div class="auth-form">
-        <input type="password" class="auth-input" id="authInput" placeholder="Contrasenya" autocomplete="new-password" data-lpignore="true" data-1p-ignore autofocus>
+        <input type="text" class="auth-input" id="authInput" placeholder="Contrasenya" autocomplete="off" data-lpignore="true" data-1p-ignore autofocus>
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
@@ -452,7 +452,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.01</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.02</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
