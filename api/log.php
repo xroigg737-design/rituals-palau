@@ -132,6 +132,16 @@ function serveDashboard(string $file): void {
         ];
     }
     $recentJson = json_encode($recentActivity, JSON_UNESCAPED_UNICODE);
+
+    $accessLog = [];
+    foreach ($entries as $e) {
+        if (($e->ev ?? '') === 'page_view') {
+            $ts = $e->ts ?? '';
+            $accessLog[] = ['ts' => $ts, 'u' => $e->u ?? 'anon'];
+        }
+    }
+    usort($accessLog, fn($a, $b) => $b['ts'] <=> $a['ts']);
+    $accessJson = json_encode($accessLog, JSON_UNESCAPED_UNICODE);
 ?>
 <!DOCTYPE html>
 <html lang="ca">
@@ -170,6 +180,14 @@ a.back{color:#d4a853;text-decoration:none;font-size:.8rem}
 a.back:hover{text-decoration:underline}
 .refresh{float:right;background:#252530;color:#d4a853;border:none;padding:.4rem .8rem;border-radius:6px;cursor:pointer;font-size:.7rem}
 .refresh:hover{background:#353540}
+.day-group{margin-bottom:1rem}
+.day-header{font-size:.75rem;font-weight:700;color:#d4a853;padding:.5rem .8rem;background:#12121a;border-radius:6px;margin-bottom:.3rem;display:flex;justify-content:space-between;align-items:center}
+.day-header .count{font-size:.65rem;font-weight:400;color:#888;background:#1a1a25;padding:.15rem .5rem;border-radius:4px}
+.access-row{display:flex;align-items:center;gap:.8rem;padding:.35rem .8rem;font-size:.78rem;border-bottom:1px solid #151520}
+.access-row:hover{background:#151520}
+.access-time{color:#d4a853;font-weight:600;font-family:monospace;font-size:.8rem;min-width:50px}
+.access-user{color:#e0ddd5;font-weight:500;min-width:60px}
+.access-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -197,6 +215,11 @@ a.back:hover{text-decoration:underline}
 </div>
 
 <div class="section">
+<h2>Accessos per dia i hora</h2>
+<div id="accessLog"></div>
+</div>
+
+<div class="section">
 <h2>Activitat recent</h2>
 <table id="recentTable"><thead><tr><th>Quan</th><th>Usuari</th><th>Event</th><th>Detall</th></tr></thead><tbody></tbody></table>
 </div>
@@ -204,6 +227,7 @@ a.back:hover{text-decoration:underline}
 <script>
 const S = <?= $json ?>;
 const R = <?= $recentJson ?>;
+const A = <?= $accessJson ?>;
 
 const tagClass = ev => ({page_view:'pv',vote:'vote',section_view:'sec',search:'search',login:'login'}[ev]||'other');
 const tagLabel = ev => ({page_view:'visita',vote:'vot',section_view:'secció',search:'cerca',login:'login'}[ev]||ev);
@@ -250,6 +274,34 @@ Object.entries(S.top_sections).forEach(([s,n]) => {
     stb.innerHTML += '<tr><td>'+s+'</td><td>'+n+'</td></tr>';
 });
 if (!Object.keys(S.top_sections).length) stb.innerHTML = '<tr><td colspan=2 class="empty">Encara no hi ha dades</td></tr>';
+
+// Access log by day & hour
+const userColors = {xavi:'#d4a853',anna:'#e8747c',albert:'#60a5fa',elia:'#4ade80',montse:'#c084fc',roger:'#fb923c'};
+const accessDiv = document.getElementById('accessLog');
+if (A.length) {
+    const grouped = {};
+    A.forEach(a => {
+        const d = new Date(a.ts);
+        const dayKey = d.toLocaleDateString('ca-ES',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+        if (!grouped[dayKey]) grouped[dayKey] = [];
+        grouped[dayKey].push(a);
+    });
+    let html = '';
+    for (const [day, items] of Object.entries(grouped)) {
+        html += '<div class="day-group"><div class="day-header"><span>'+day.charAt(0).toUpperCase()+day.slice(1)+'</span><span class="count">'+items.length+' acces'+(items.length!==1?'os':'')+'</span></div>';
+        items.forEach(a => {
+            const d = new Date(a.ts);
+            const hh = String(d.getHours()).padStart(2,'0');
+            const mm = String(d.getMinutes()).padStart(2,'0');
+            const color = userColors[a.u] || '#888';
+            html += '<div class="access-row"><span class="access-time">'+hh+':'+mm+'</span><span class="access-dot" style="background:'+color+'"></span><span class="access-user">'+a.u+'</span></div>';
+        });
+        html += '</div>';
+    }
+    accessDiv.innerHTML = html;
+} else {
+    accessDiv.innerHTML = '<div class="empty">Encara no hi ha accessos registrats</div>';
+}
 
 // Recent activity
 const rtb = document.querySelector('#recentTable tbody');
