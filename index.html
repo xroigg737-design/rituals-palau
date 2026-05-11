@@ -375,11 +375,11 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     <h2>Rituals al Palau</h2>
     <p>Temporada 2026–2027</p>
     <form class="auth-form" autocomplete="off" onsubmit="return false;">
-        <input type="text" class="auth-input" id="authInput" placeholder="Contrasenya" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" data-lpignore="true" data-1p-ignore data-form-type="other" readonly>
+        <input type="text" class="auth-input" id="authInput" placeholder="Contrasenya" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" data-lpignore="true" data-1p-ignore data-form-type="other">
         <button class="auth-btn" type="button" onclick="checkAuth()">Entrar</button>
     </form>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.04</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.05</div>
 </div>
 
 <header class="hero" id="top">
@@ -453,7 +453,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.04</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.05</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -499,9 +499,8 @@ function checkAuth() {
         authIn.focus();
     }
 }
-authIn.addEventListener('focus', function() { this.removeAttribute('readonly'); });
 authIn.addEventListener('keydown', e => { if (e.key === 'Enter') checkAuth(); });
-setTimeout(() => { authIn.value = ''; authIn.removeAttribute('readonly'); authIn.focus(); }, 100);
+authIn.value = '';
 if (localStorage.getItem(AUTH_KEY) === '1') document.getElementById('authWall').style.display = 'none';
 
 const USERS = [
