@@ -374,10 +374,10 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 <div class="auth-wall" id="authWall">
     <h2>Rituals al Palau</h2>
     <p>Temporada 2026–2027</p>
-    <div class="auth-form">
-        <input type="text" class="auth-input" id="authInput" placeholder="Contrasenya" autocomplete="off" data-lpignore="true" data-1p-ignore autofocus>
-        <button class="auth-btn" onclick="checkAuth()">Entrar</button>
-    </div>
+    <form class="auth-form" autocomplete="off" onsubmit="return false;">
+        <input type="text" class="auth-input" id="authInput" placeholder="Contrasenya" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" data-lpignore="true" data-1p-ignore data-form-type="other" readonly>
+        <button class="auth-btn" type="button" onclick="checkAuth()">Entrar</button>
+    </form>
     <div class="auth-error" id="authError"></div>
 </div>
 
@@ -452,7 +452,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.02</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.03</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -486,19 +486,21 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 
 <script>
 const AUTH_KEY = 'rituals-auth';
+const authIn = document.getElementById('authInput');
 function checkAuth() {
-    const v = document.getElementById('authInput').value;
-    if (v.toLowerCase() === 'palau') {
+    const v = authIn.value.trim().toLowerCase();
+    if (v === 'palau') {
         localStorage.setItem(AUTH_KEY, '1');
         document.getElementById('authWall').style.display = 'none';
     } else {
         document.getElementById('authError').textContent = 'Contrasenya incorrecta';
-        document.getElementById('authInput').value = '';
-        document.getElementById('authInput').focus();
+        authIn.value = '';
+        authIn.focus();
     }
 }
-document.getElementById('authInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkAuth(); });
-setTimeout(() => { document.getElementById('authInput').value = ''; }, 50);
+authIn.addEventListener('focus', function() { this.removeAttribute('readonly'); });
+authIn.addEventListener('keydown', e => { if (e.key === 'Enter') checkAuth(); });
+setTimeout(() => { authIn.value = ''; authIn.removeAttribute('readonly'); authIn.focus(); }, 100);
 if (localStorage.getItem(AUTH_KEY) === '1') document.getElementById('authWall').style.display = 'none';
 
 const USERS = [
