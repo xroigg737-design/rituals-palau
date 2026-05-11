@@ -379,29 +379,8 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" type="button" onclick="checkAuth()">Entrar</button>
     </form>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.07</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.08</div>
 </div>
-<script>
-(function(){
-    var k='rituals-auth';
-    if(localStorage.getItem(k)==='1'){document.getElementById('authWall').style.display='none';return;}
-    var inp=document.getElementById('authInput');
-    var err=document.getElementById('authError');
-    inp.value='';
-    window.checkAuth=function(){
-        var v=(inp.value||'').trim().toLowerCase();
-        if(v==='palau'){
-            localStorage.setItem(k,'1');
-            document.getElementById('authWall').style.display='none';
-        }else{
-            err.textContent='Contrasenya incorrecta';
-            inp.value='';
-            inp.focus();
-        }
-    };
-    inp.addEventListener('keydown',function(e){if(e.key==='Enter')checkAuth();});
-})();
-</script>
 
 <header class="hero" id="top">
     <div class="hero-photo-row">
@@ -474,7 +453,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.07</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.08</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -507,6 +486,21 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 <div class="toast" id="toast"></div>
 
 <script>
+const AUTH_KEY = 'rituals-auth';
+function checkAuth() {
+    const v = document.getElementById('authInput').value.trim();
+    if (v.toLowerCase() === 'palau') {
+        localStorage.setItem(AUTH_KEY, '1');
+        document.getElementById('authWall').style.display = 'none';
+    } else {
+        document.getElementById('authError').textContent = 'Contrasenya incorrecta';
+        document.getElementById('authInput').value = '';
+        document.getElementById('authInput').focus();
+    }
+}
+document.getElementById('authInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkAuth(); });
+if (localStorage.getItem(AUTH_KEY) === '1') document.getElementById('authWall').style.display = 'none';
+
 const USERS = [
     {id:'xavi',name:'Xavi',ini:'X',color:'#2563eb'},
     {id:'anna',name:'Anna',ini:'A',color:'#dc2626'},
