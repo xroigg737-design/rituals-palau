@@ -283,7 +283,12 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .sum-venue-filter{display:flex;gap:.8rem;flex:1;flex-wrap:wrap}
 .sum-venue-radio{display:flex;align-items:center;gap:.25rem;cursor:pointer;color:var(--text2);font-weight:500}
 .sum-venue-radio input{accent-color:var(--text);margin:0}
-.sum-cycle-select{font-family:var(--sans);font-size:.72rem;font-weight:500;padding:.3rem .5rem;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--text);cursor:pointer;outline:none;flex:1;max-width:280px;appearance:auto}
+.sum-cycle-wrap{display:flex;flex-wrap:wrap;gap:.3rem;flex:1}
+.sum-cycle-chip{font-family:var(--sans);font-size:.6rem;font-weight:500;padding:.25rem .5rem;border:1px solid var(--border);border-radius:12px;background:var(--card);color:var(--text2);cursor:pointer;white-space:nowrap;transition:all .2s;user-select:none}
+.sum-cycle-chip:hover{background:rgba(0,0,0,.06)}
+.sum-cycle-chip.active{background:var(--text);color:#fff;border-color:var(--text)}
+.sum-filter-row.cycle-row{align-items:flex-start}
+.sum-filter-row.cycle-row .sum-filter-label{padding-top:.3rem}
 .alc-status{text-align:center;padding:1rem;border-radius:10px;margin-bottom:1rem}
 .alc-status.ok{background:rgba(45,125,70,.08);border:1px solid rgba(45,125,70,.2)}
 .alc-status.pending{background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.2)}
@@ -383,7 +388,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.14</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.15</div>
 </div>
 
 <header class="hero" id="top">
@@ -457,7 +462,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.14</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.15</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1437,7 +1442,23 @@ function calEventHtml(c) {
 
 // ── SUMMARY ──
 let summaryVenueFilter = 'all';
-let summaryCycleFilter = 'all';
+let summaryCycleFilter = new Set();
+
+function autoVenueFromCycles(concerts, cycleSet, setVenue) {
+    if (cycleSet.size === 0) { setVenue('all'); return; }
+    const cycleConcerts = concerts.filter(c => cycleSet.has(c.y || ''));
+    const venues = new Set(cycleConcerts.map(c => c.v));
+    if (venues.size === 1) setVenue([...venues][0]);
+    else setVenue('all');
+}
+
+function toggleSumCycle(cy) {
+    if (summaryCycleFilter.has(cy)) summaryCycleFilter.delete(cy);
+    else summaryCycleFilter.add(cy);
+    const allSelected = C.filter(c => (votes[c.i] || {})[currentUser] === 1);
+    autoVenueFromCycles(allSelected, summaryCycleFilter, v => { summaryVenueFilter = v; });
+    renderSummaryList();
+}
 
 function renderSummaryList() {
     const allSelected = C.filter(c => {
@@ -1447,7 +1468,7 @@ function renderSummaryList() {
 
     let filtered = allSelected;
     if (summaryVenueFilter !== 'all') filtered = filtered.filter(c => c.v === summaryVenueFilter);
-    if (summaryCycleFilter !== 'all') filtered = filtered.filter(c => (c.y || '') === summaryCycleFilter);
+    if (summaryCycleFilter.size > 0) filtered = filtered.filter(c => summaryCycleFilter.has(c.y || ''));
 
     const el = document.getElementById('summaryContent');
     if (allSelected.length === 0) {
@@ -1480,10 +1501,13 @@ function renderSummaryList() {
     const mk = (v, lab) => `<label class="sum-venue-radio"><input type="radio" name="sumVenue" value="${v}"${summaryVenueFilter === v ? ' checked' : ''} onchange="summaryVenueFilter=this.value;renderSummaryList()">${lab}</label>`;
     html += `<div class="sum-filters">`;
     html += `<div class="sum-filter-row"><span class="sum-filter-label">Ubicació</span><div class="sum-venue-filter">${mk('all','Tots')}${mk('P','Palau')}${mk('A','Auditori')}</div></div>`;
-    html += `<div class="sum-filter-row"><span class="sum-filter-label">Cicle</span><select class="sum-cycle-select" onchange="summaryCycleFilter=this.value;renderSummaryList()">`;
-    html += `<option value="all"${summaryCycleFilter === 'all' ? ' selected' : ''}>Tots els cicles</option>`;
-    cycles.forEach(cy => { html += `<option value="${cy}"${summaryCycleFilter === cy ? ' selected' : ''}>${cy}</option>`; });
-    html += `</select></div>`;
+    html += `<div class="sum-filter-row cycle-row"><span class="sum-filter-label">Cicle</span><div class="sum-cycle-wrap">`;
+    cycles.forEach(cy => {
+        const active = summaryCycleFilter.has(cy) ? ' active' : '';
+        const count = allSelected.filter(c => (c.y || '') === cy).length;
+        html += `<span class="sum-cycle-chip${active}" onclick="toggleSumCycle('${cy.replace(/'/g, "\\'")}')">${cy} <span style="opacity:.6">${count}</span></span>`;
+    });
+    html += `</div></div>`;
     html += `</div>`;
 
     for (const c of filtered) {
@@ -1509,7 +1533,7 @@ function showSummary() {
     const userName = USERS.find(u => u.id === currentUser)?.name || '';
     document.querySelector('.summary-top h3').textContent = `La teva selecció ${userName}`;
     summaryVenueFilter = 'all';
-    summaryCycleFilter = 'all';
+    summaryCycleFilter = new Set();
     renderSummaryList();
     document.getElementById('summaryOverlay').classList.add('visible');
 }
@@ -1638,7 +1662,15 @@ function goToConcert(id, group) {
 }
 
 let dashVenueFilter = 'all';
-let dashCycleFilter = 'all';
+let dashCycleFilter = new Set();
+
+function toggleDashCycle(cy) {
+    if (dashCycleFilter.has(cy)) dashCycleFilter.delete(cy);
+    else dashCycleFilter.add(cy);
+    const allConcerts = C.filter(c => { const cv = votes[c.i] || {}; let y = 0; USERS.forEach(u => { if (cv[u.id] === 1) y++; }); return y > 1; });
+    autoVenueFromCycles(allConcerts, dashCycleFilter, v => { dashVenueFilter = v; });
+    renderDashboardList();
+}
 
 function renderDashboardList() {
     const allRanked = C.map(c => {
@@ -1655,7 +1687,7 @@ function renderDashboardList() {
 
     let filtered = allRanked;
     if (dashVenueFilter !== 'all') filtered = filtered.filter(r => r.c.v === dashVenueFilter);
-    if (dashCycleFilter !== 'all') filtered = filtered.filter(r => (r.c.y || '') === dashCycleFilter);
+    if (dashCycleFilter.size > 0) filtered = filtered.filter(r => dashCycleFilter.has(r.c.y || ''));
 
     const el = document.getElementById('summaryContent');
 
@@ -1672,10 +1704,13 @@ function renderDashboardList() {
     const mk = (v, lab) => `<label class="sum-venue-radio"><input type="radio" name="dashVenue" value="${v}"${dashVenueFilter === v ? ' checked' : ''} onchange="dashVenueFilter=this.value;renderDashboardList()">${lab}</label>`;
     html += `<div class="sum-filters">`;
     html += `<div class="sum-filter-row"><span class="sum-filter-label">Ubicació</span><div class="sum-venue-filter">${mk('all','Tots')}${mk('P','Palau')}${mk('A','Auditori')}</div></div>`;
-    html += `<div class="sum-filter-row"><span class="sum-filter-label">Cicle</span><select class="sum-cycle-select" onchange="dashCycleFilter=this.value;renderDashboardList()">`;
-    html += `<option value="all"${dashCycleFilter === 'all' ? ' selected' : ''}>Tots els cicles</option>`;
-    cycles.forEach(cy => { html += `<option value="${cy}"${dashCycleFilter === cy ? ' selected' : ''}>${cy}</option>`; });
-    html += `</select></div>`;
+    html += `<div class="sum-filter-row cycle-row"><span class="sum-filter-label">Cicle</span><div class="sum-cycle-wrap">`;
+    cycles.forEach(cy => {
+        const active = dashCycleFilter.has(cy) ? ' active' : '';
+        const count = allRanked.filter(r => (r.c.y || '') === cy).length;
+        html += `<span class="sum-cycle-chip${active}" onclick="toggleDashCycle('${cy.replace(/'/g, "\\'")}')">${cy} <span style="opacity:.6">${count}</span></span>`;
+    });
+    html += `</div></div>`;
     html += `</div>`;
 
     html += `<div class="dash-legend">`;
@@ -1703,7 +1738,7 @@ function renderDashboardList() {
 function showDashboard() {
     document.querySelector('.summary-top h3').textContent = 'Resultat votacions';
     dashVenueFilter = 'all';
-    dashCycleFilter = 'all';
+    dashCycleFilter = new Set();
     renderDashboardList();
     document.getElementById('summaryOverlay').classList.add('visible');
 }
@@ -1770,7 +1805,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '3.14';
+const APP_VERSION = '3.15';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
