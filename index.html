@@ -301,7 +301,6 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .sum-cycle-item{display:flex;align-items:center;gap:.4rem;padding:.4rem .6rem;cursor:pointer;transition:background .15s;font-family:var(--sans);font-size:.7rem;color:var(--text)}
 .sum-cycle-item:hover{background:rgba(0,0,0,.04)}
 .sum-cycle-item input{accent-color:var(--text);margin:0;pointer-events:none}
-.sum-cycle-item .cy-count{margin-left:auto;font-size:.6rem;color:var(--text3)}
 .alc-status{text-align:center;padding:1rem;border-radius:10px;margin-bottom:1rem}
 .alc-status.ok{background:rgba(45,125,70,.08);border:1px solid rgba(45,125,70,.2)}
 .alc-status.pending{background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.2)}
@@ -401,7 +400,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.21</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.22</div>
 </div>
 
 <header class="hero" id="top">
@@ -475,7 +474,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.21</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.22</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1524,11 +1523,11 @@ function renderSummaryList() {
     html += `<div class="sum-cycle-toggle" onclick="this.parentElement.classList.toggle('open')"><span>${cyLabel}</span><span class="arrow">&#9660;</span></div>`;
     html += `<div class="sum-cycle-list">`;
     const allCyChecked = summaryCycleFilter.size === 0 ? ' checked' : '';
-    html += `<label class="sum-cycle-item" style="font-weight:600;border-bottom:1px solid var(--border2)" onclick="event.preventDefault();summaryCycleFilter.clear();summaryVenueFilter='all';renderSummaryList()"><input type="checkbox"${allCyChecked}><span>Tots</span><span class="cy-count">${allSelected.length}</span></label>`;
+    html += `<label class="sum-cycle-item" style="font-weight:600;border-bottom:1px solid var(--border2)" onclick="event.preventDefault();summaryCycleFilter.clear();summaryVenueFilter='all';renderSummaryList()"><input type="checkbox"${allCyChecked}><span>Tots (${allSelected.length})</span></label>`;
     cycles.forEach(cy => {
         const checked = summaryCycleFilter.has(cy) ? ' checked' : '';
         const count = allSelected.filter(c => (c.y || '') === cy).length;
-        html += `<label class="sum-cycle-item" onclick="event.preventDefault();toggleSumCycle('${cy.replace(/'/g, "\\'")}')"><input type="checkbox"${checked}><span>${cy}</span><span class="cy-count">${count}</span></label>`;
+        html += `<label class="sum-cycle-item" onclick="event.preventDefault();toggleSumCycle('${cy.replace(/'/g, "\\'")}')"><input type="checkbox"${checked}><span>${cy} (${count})</span></label>`;
     });
     html += `</div></div></div>`;
     html += `</div>`;
@@ -1735,11 +1734,11 @@ function renderDashboardList() {
     html += `<div class="sum-cycle-toggle" onclick="this.parentElement.classList.toggle('open')"><span>${cyLabel}</span><span class="arrow">&#9660;</span></div>`;
     html += `<div class="sum-cycle-list">`;
     const allDCyChecked = dashCycleFilter.size === 0 ? ' checked' : '';
-    html += `<label class="sum-cycle-item" style="font-weight:600;border-bottom:1px solid var(--border2)" onclick="event.preventDefault();dashCycleFilter.clear();dashVenueFilter='all';renderDashboardList()"><input type="checkbox"${allDCyChecked}><span>Tots</span><span class="cy-count">${allRanked.length}</span></label>`;
+    html += `<label class="sum-cycle-item" style="font-weight:600;border-bottom:1px solid var(--border2)" onclick="event.preventDefault();dashCycleFilter.clear();dashVenueFilter='all';renderDashboardList()"><input type="checkbox"${allDCyChecked}><span>Tots (${allRanked.length})</span></label>`;
     cycles.forEach(cy => {
         const checked = dashCycleFilter.has(cy) ? ' checked' : '';
         const count = allRanked.filter(r => (r.c.y || '') === cy).length;
-        html += `<label class="sum-cycle-item" onclick="event.preventDefault();toggleDashCycle('${cy.replace(/'/g, "\\'")}')"><input type="checkbox"${checked}><span>${cy}</span><span class="cy-count">${count}</span></label>`;
+        html += `<label class="sum-cycle-item" onclick="event.preventDefault();toggleDashCycle('${cy.replace(/'/g, "\\'")}')"><input type="checkbox"${checked}><span>${cy} (${count})</span></label>`;
     });
     html += `</div></div></div>`;
     html += `</div>`;
@@ -1836,7 +1835,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '3.21';
+const APP_VERSION = '3.22';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
