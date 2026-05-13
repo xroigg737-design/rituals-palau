@@ -401,7 +401,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.18</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.19</div>
 </div>
 
 <header class="hero" id="top">
@@ -475,7 +475,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.18</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.19</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1490,11 +1490,12 @@ function renderSummaryList() {
         return;
     }
 
+    const hasPalau = filtered.some(c => c.v === 'P');
     let totalMin = 0, totalMax = 0, dteMin = 0, dteMax = 0;
     filtered.forEach(c => {
         const r = parsePriceRange(c.pr);
         totalMin += r.min; totalMax += r.max;
-        if (isAlaCarta(c)) { dteMin += Math.round(r.min * 0.20); dteMax += Math.round(r.max * 0.20); }
+        if (hasPalau && isAlaCarta(c)) { dteMin += Math.round(r.min * 0.20); dteMax += Math.round(r.max * 0.20); }
     });
     const costStr = totalMin === totalMax ? `${totalMax}€` : `${totalMin}–${totalMax}€`;
     const afterMin = totalMin - dteMin, afterMax = totalMax - dteMax;
@@ -1507,7 +1508,7 @@ function renderSummaryList() {
     const nAud = filtered.filter(c => c.v === 'A').length;
     html += `<div><strong style="color:var(--text)">${filtered.length} concerts seleccionats</strong> <span style="font-size:.7rem;opacity:.75">(${nPalau} Palau, ${nAud} Auditori)</span></div>`;
     html += `<div>Cost estimat: <strong>${costStr}</strong></div>`;
-    if (dteMin > 0) {
+    if (hasPalau && dteMin > 0) {
         html += `<div style="color:#16a34a">Amb Soci Orfeó (-20%): <strong>${netStr}</strong> <span style="font-size:.65rem;opacity:.8">(estalvi ${savStr})</span></div>`;
     }
     html += `</div>`;
@@ -1827,7 +1828,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '3.18';
+const APP_VERSION = '3.19';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
