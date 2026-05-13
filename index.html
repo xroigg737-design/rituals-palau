@@ -83,6 +83,12 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .section-header .toggle-arrow{font-size:.7rem;color:var(--text3);margin-top:.4rem;transition:transform .3s}
 .section.collapsed .concert-list{display:none}
 .section.collapsed .toggle-arrow{transform:rotate(-90deg)}
+.section.filtered{padding-top:.8rem}
+.section.filtered .section-header{margin-bottom:.6rem}
+.section.filtered .section-header::before,.section.filtered .section-header::after{display:none}
+.section.filtered .section-header h2{font-size:1rem;letter-spacing:.06em;padding:0 .8rem}
+.section.filtered .section-header .sub{display:none}
+.section.filtered .section-header .toggle-arrow{display:none}
 .cycle-group{margin-bottom:.3rem}
 .cycle-header{display:flex;align-items:center;gap:.5rem;padding:.6rem 1rem;cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:10px;margin:.4rem .5rem;transition:all .3s}
 .cycle-header:hover{background:rgba(0,0,0,.03)}
@@ -403,7 +409,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.26</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.27</div>
 </div>
 
 <header class="hero" id="top">
@@ -477,7 +483,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.26</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.27</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1005,7 +1011,7 @@ function renderSections() {
         const visible = concerts.filter(matchesFilter);
         if (visible.length === 0 && filterText) continue;
 
-        const collapseClass = filterText ? '' : ' collapsed';
+        const collapseClass = filterText ? ' filtered' : ' collapsed';
         html += `<section class="section${collapseClass}" id="${sec.id}">`;
         const showBg = sec.icon && !filterText;
         const bgCls = showBg ? ' has-bg' + (sec.sig ? ' has-sig' : '') : '';
@@ -1903,7 +1909,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '3.26';
+const APP_VERSION = '3.27';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
