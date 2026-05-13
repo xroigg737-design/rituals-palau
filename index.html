@@ -283,12 +283,18 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .sum-venue-filter{display:flex;gap:.8rem;flex:1;flex-wrap:wrap}
 .sum-venue-radio{display:flex;align-items:center;gap:.25rem;cursor:pointer;color:var(--text2);font-weight:500}
 .sum-venue-radio input{accent-color:var(--text);margin:0}
-.sum-cycle-wrap{display:flex;flex-wrap:wrap;gap:.3rem;flex:1}
-.sum-cycle-chip{font-family:var(--sans);font-size:.6rem;font-weight:500;padding:.25rem .5rem;border:1px solid var(--border);border-radius:12px;background:var(--card);color:var(--text2);cursor:pointer;white-space:nowrap;transition:all .2s;user-select:none}
-.sum-cycle-chip:hover{background:rgba(0,0,0,.06)}
-.sum-cycle-chip.active{background:var(--text);color:#fff;border-color:var(--text)}
-.sum-filter-row.cycle-row{align-items:flex-start}
-.sum-filter-row.cycle-row .sum-filter-label{padding-top:.3rem}
+.sum-cycle-dropdown{position:relative;flex:1}
+.sum-cycle-toggle{display:flex;align-items:center;justify-content:space-between;padding:.35rem .6rem;border:1px solid var(--border);border-radius:8px;background:var(--card);cursor:pointer;font-family:var(--sans);font-size:.72rem;font-weight:500;color:var(--text);user-select:none;transition:border-color .2s}
+.sum-cycle-toggle:hover{border-color:rgba(0,0,0,.25)}
+.sum-cycle-toggle .arrow{font-size:.5rem;color:var(--text3);transition:transform .2s}
+.sum-cycle-dropdown.open .sum-cycle-toggle{border-color:rgba(0,0,0,.3);border-radius:8px 8px 0 0}
+.sum-cycle-dropdown.open .arrow{transform:rotate(180deg)}
+.sum-cycle-list{display:none;position:absolute;left:0;right:0;top:100%;background:var(--card);border:1px solid var(--border);border-top:none;border-radius:0 0 8px 8px;max-height:220px;overflow-y:auto;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.sum-cycle-dropdown.open .sum-cycle-list{display:block}
+.sum-cycle-item{display:flex;align-items:center;gap:.4rem;padding:.4rem .6rem;cursor:pointer;transition:background .15s;font-family:var(--sans);font-size:.7rem;color:var(--text)}
+.sum-cycle-item:hover{background:rgba(0,0,0,.04)}
+.sum-cycle-item input{accent-color:var(--text);margin:0;pointer-events:none}
+.sum-cycle-item .cy-count{margin-left:auto;font-size:.6rem;color:var(--text3)}
 .alc-status{text-align:center;padding:1rem;border-radius:10px;margin-bottom:1rem}
 .alc-status.ok{background:rgba(45,125,70,.08);border:1px solid rgba(45,125,70,.2)}
 .alc-status.pending{background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.2)}
@@ -388,7 +394,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.15</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.16</div>
 </div>
 
 <header class="hero" id="top">
@@ -462,7 +468,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.15</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.16</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1499,15 +1505,19 @@ function renderSummaryList() {
     html += `</div>`;
 
     const mk = (v, lab) => `<label class="sum-venue-radio"><input type="radio" name="sumVenue" value="${v}"${summaryVenueFilter === v ? ' checked' : ''} onchange="summaryVenueFilter=this.value;renderSummaryList()">${lab}</label>`;
+    const nCy = summaryCycleFilter.size;
+    const cyLabel = nCy === 0 ? 'Tots els cicles' : nCy === 1 ? [...summaryCycleFilter][0] : `${nCy} cicles seleccionats`;
     html += `<div class="sum-filters">`;
     html += `<div class="sum-filter-row"><span class="sum-filter-label">Ubicació</span><div class="sum-venue-filter">${mk('all','Tots')}${mk('P','Palau')}${mk('A','Auditori')}</div></div>`;
-    html += `<div class="sum-filter-row cycle-row"><span class="sum-filter-label">Cicle</span><div class="sum-cycle-wrap">`;
+    html += `<div class="sum-filter-row"><span class="sum-filter-label">Cicle</span><div class="sum-cycle-dropdown" id="sumCycleDD">`;
+    html += `<div class="sum-cycle-toggle" onclick="this.parentElement.classList.toggle('open')"><span>${cyLabel}</span><span class="arrow">&#9660;</span></div>`;
+    html += `<div class="sum-cycle-list">`;
     cycles.forEach(cy => {
-        const active = summaryCycleFilter.has(cy) ? ' active' : '';
+        const checked = summaryCycleFilter.has(cy) ? ' checked' : '';
         const count = allSelected.filter(c => (c.y || '') === cy).length;
-        html += `<span class="sum-cycle-chip${active}" onclick="toggleSumCycle('${cy.replace(/'/g, "\\'")}')">${cy} <span style="opacity:.6">${count}</span></span>`;
+        html += `<label class="sum-cycle-item" onclick="event.preventDefault();toggleSumCycle('${cy.replace(/'/g, "\\'")}')"><input type="checkbox"${checked}><span>${cy}</span><span class="cy-count">${count}</span></label>`;
     });
-    html += `</div></div>`;
+    html += `</div></div></div>`;
     html += `</div>`;
 
     for (const c of filtered) {
@@ -1702,15 +1712,19 @@ function renderDashboardList() {
     let html = `<div class="summary-total">${filtered.length} concerts amb 2+ vots <span style="font-size:.7rem;opacity:.75">(${nP} Palau, ${nA} Auditori)</span></div>`;
 
     const mk = (v, lab) => `<label class="sum-venue-radio"><input type="radio" name="dashVenue" value="${v}"${dashVenueFilter === v ? ' checked' : ''} onchange="dashVenueFilter=this.value;renderDashboardList()">${lab}</label>`;
+    const nCy = dashCycleFilter.size;
+    const cyLabel = nCy === 0 ? 'Tots els cicles' : nCy === 1 ? [...dashCycleFilter][0] : `${nCy} cicles seleccionats`;
     html += `<div class="sum-filters">`;
     html += `<div class="sum-filter-row"><span class="sum-filter-label">Ubicació</span><div class="sum-venue-filter">${mk('all','Tots')}${mk('P','Palau')}${mk('A','Auditori')}</div></div>`;
-    html += `<div class="sum-filter-row cycle-row"><span class="sum-filter-label">Cicle</span><div class="sum-cycle-wrap">`;
+    html += `<div class="sum-filter-row"><span class="sum-filter-label">Cicle</span><div class="sum-cycle-dropdown" id="dashCycleDD">`;
+    html += `<div class="sum-cycle-toggle" onclick="this.parentElement.classList.toggle('open')"><span>${cyLabel}</span><span class="arrow">&#9660;</span></div>`;
+    html += `<div class="sum-cycle-list">`;
     cycles.forEach(cy => {
-        const active = dashCycleFilter.has(cy) ? ' active' : '';
+        const checked = dashCycleFilter.has(cy) ? ' checked' : '';
         const count = allRanked.filter(r => (r.c.y || '') === cy).length;
-        html += `<span class="sum-cycle-chip${active}" onclick="toggleDashCycle('${cy.replace(/'/g, "\\'")}')">${cy} <span style="opacity:.6">${count}</span></span>`;
+        html += `<label class="sum-cycle-item" onclick="event.preventDefault();toggleDashCycle('${cy.replace(/'/g, "\\'")}')"><input type="checkbox"${checked}><span>${cy}</span><span class="cy-count">${count}</span></label>`;
     });
-    html += `</div></div>`;
+    html += `</div></div></div>`;
     html += `</div>`;
 
     html += `<div class="dash-legend">`;
@@ -1805,7 +1819,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '3.15';
+const APP_VERSION = '3.16';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
