@@ -284,6 +284,9 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .sum-alc-badge.candidate{background:rgba(217,119,6,.12);color:#b45309;font-weight:600;white-space:normal;line-height:1.3}
 .sum-alc-discount{font-family:var(--sans);font-size:.65rem;font-weight:800;color:#16a34a;text-align:center}
 .sum-empty{text-align:center;padding:2rem 1rem;font-family:var(--serif);font-size:1rem;color:var(--text3);font-style:italic}
+.sum-export-bar{text-align:center;padding:1.2rem 0 .5rem;border-top:1px solid var(--border2);margin-top:.8rem}
+.sum-export-btn{font-family:var(--sans);font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text);background:none;border:1.5px solid var(--text);border-radius:20px;padding:.45rem 1.2rem;cursor:pointer;transition:all .3s}
+.sum-export-btn:hover{background:var(--text);color:#fff}
 .sum-filters{margin:.8rem 0 .3rem;font-family:var(--sans);font-size:.75rem;border:1px solid var(--border);border-radius:10px;padding:.5rem .8rem;background:rgba(0,0,0,.02);display:flex;flex-direction:column;gap:.5rem}
 .sum-filter-row{display:flex;align-items:center;gap:.6rem}
 .sum-filter-label{font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);white-space:nowrap;min-width:52px}
@@ -400,7 +403,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.23</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.24</div>
 </div>
 
 <header class="hero" id="top">
@@ -474,7 +477,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.23</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.24</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1547,7 +1550,71 @@ function renderSummaryList() {
         html += `</div>`;
         html += `</div>`;
     }
+    html += `<div class="sum-export-bar"><button class="sum-export-btn" onclick="exportSummaryTxt()">&#128196; Exportar a text</button></div>`;
     el.innerHTML = html;
+}
+
+function exportSummaryTxt() {
+    const userName = USERS.find(u => u.id === currentUser)?.name || '';
+    const allSelected = C.filter(c => (votes[c.i] || {})[currentUser] === 1)
+        .sort((a, b) => a.d.localeCompare(b.d) || a.h.localeCompare(b.h));
+    let filtered = allSelected;
+    if (summaryVenueFilter !== 'all') filtered = filtered.filter(c => c.v === summaryVenueFilter);
+    if (summaryCycleFilter.size > 0) filtered = filtered.filter(c => summaryCycleFilter.has(c.y || ''));
+
+    const hasPalau = filtered.some(c => c.v === 'P');
+    let totalMin = 0, totalMax = 0, dteMin = 0, dteMax = 0;
+    filtered.forEach(c => {
+        const r = parsePriceRange(c.pr);
+        totalMin += r.min; totalMax += r.max;
+        if (hasPalau && isAlaCarta(c)) { dteMin += Math.round(r.min * 0.20); dteMax += Math.round(r.max * 0.20); }
+    });
+    const nP = filtered.filter(c => c.v === 'P').length;
+    const nA = filtered.filter(c => c.v === 'A').length;
+
+    let txt = `RITUALS AL PALAU 26-27\n`;
+    txt += `Selecció de ${userName}\n`;
+    txt += `${'═'.repeat(50)}\n\n`;
+    txt += `${filtered.length} concerts (${nP} Palau, ${nA} Auditori)\n`;
+    const costStr = totalMin === totalMax ? `${totalMax}€` : `${totalMin}–${totalMax}€`;
+    txt += `Cost estimat: ${costStr}\n`;
+    if (hasPalau && dteMin > 0) {
+        const afterMin = totalMin - dteMin, afterMax = totalMax - dteMax;
+        const netStr = afterMin === afterMax ? `${afterMax}€` : `${afterMin}–${afterMax}€`;
+        txt += `Amb Soci Orfeó (-20%): ${netStr}\n`;
+    }
+    txt += `\n${'─'.repeat(50)}\n\n`;
+
+    let prevMonth = '';
+    for (const c of filtered) {
+        const d = new Date(c.d + 'T12:00:00');
+        const month = `${MONTHS[d.getMonth()].toUpperCase()} ${d.getFullYear()}`;
+        if (month !== prevMonth) {
+            if (prevMonth) txt += '\n';
+            txt += `▸ ${month}\n\n`;
+            prevMonth = month;
+        }
+        const venue = c.v === 'P' ? 'Palau' : 'Auditori';
+        const day = String(d.getDate()).padStart(2);
+        txt += `  ${day} ${MONTHS[d.getMonth()]} · ${dayName(c.d)} · ${c.h}h\n`;
+        txt += `  ${c.t}\n`;
+        if (c.s) txt += `  ${c.s}\n`;
+        txt += `  ${c.c} · ${c.p}\n`;
+        txt += `  ${venue} · ${c.y || ''} · ${c.pr}`;
+        if (isAlaCarta(c)) txt += ' (Soci Orfeó -20%)';
+        txt += '\n\n';
+    }
+
+    txt += `${'─'.repeat(50)}\n`;
+    txt += `Generat: ${new Date().toLocaleDateString('ca-ES', {day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'})}\n`;
+
+    const blob = new Blob([txt], {type: 'text/plain;charset=utf-8'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `rituals-palau-${userName.toLowerCase()}.txt`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+    showToast('Selecció exportada a fitxer de text');
 }
 
 function showSummary() {
@@ -1835,7 +1902,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '3.23';
+const APP_VERSION = '3.24';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
