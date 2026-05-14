@@ -265,9 +265,9 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .cal-legend-item{display:flex;align-items:center;gap:.25rem}
 .cal-legend-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .cal-legend-circle{width:9px;height:9px;border-radius:50%;border:2px solid var(--yes);flex-shrink:0}
-.cal-mday.purchased .cal-mday-num{box-shadow:0 0 0 2.5px var(--yes);font-weight:700}
-.cal-mday.purchased.today .cal-mday-num{box-shadow:0 0 0 2.5px var(--yes)}
-.cal-ymini-day.purchased{box-shadow:inset 0 0 0 1.5px var(--yes)}
+.cal-mday.purchased .cal-mday-num{outline:3px solid var(--yes);outline-offset:2px;font-weight:700;border-radius:50%}
+.cal-mday.purchased.today .cal-mday-num{outline:3px solid #facc15;outline-offset:2px}
+.cal-ymini-day.purchased{outline:2px solid #facc15;outline-offset:-1px;border-radius:3px;position:relative;z-index:1}
 .cal-ev.purchased{border-left-color:var(--yes);background:rgba(45,125,70,.08)}
 .cal-ev.purchased .cal-ev-title::after{content:'🎟';margin-left:.3rem;font-size:.65rem}
 
@@ -420,7 +420,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.29</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.30</div>
 </div>
 
 <header class="hero" id="top">
@@ -490,7 +490,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.29</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.30</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
