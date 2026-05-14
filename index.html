@@ -346,8 +346,9 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .dash-row{display:flex;align-items:center;gap:.7rem;padding:.55rem 0;border-bottom:1px solid var(--border2)}
 .dash-rank{font-family:var(--sans);font-size:.85rem;font-weight:700;color:var(--text3);width:22px;text-align:center;flex-shrink:0}
 .dash-votes{display:flex;gap:2px;flex-shrink:0}
-.dash-dot{width:10px;height:10px;border-radius:50%}
+.dash-dot{width:10px;height:10px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;font-size:0;overflow:visible}
 .dash-dot.v-yes{opacity:1}.dash-dot.v-no{opacity:.1}
+.dash-dot.v-yes.has-ticket{font-size:.5rem;line-height:1}
 .dash-legend{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem .8rem;margin:.5rem 0 .2rem;padding:.45rem .6rem;border:1px solid var(--border);border-radius:10px;background:rgba(0,0,0,.02)}
 .dash-legend-item{display:flex;align-items:center;gap:.25rem;font-family:var(--sans);font-size:.65rem;color:var(--text2)}
 .dash-legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
@@ -420,7 +421,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.31</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.32</div>
 </div>
 
 <header class="hero" id="top">
@@ -490,7 +491,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.31</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.32</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1895,9 +1896,11 @@ function renderDashboardList() {
     for (const r of filtered) {
         pos++;
         const d = new Date(r.c.d + 'T12:00:00');
+        const cp = purchases[r.c.i] || {};
         const dots = r.details.map(({u, v}) => {
             const st = v === 1 ? 'v-yes' : 'v-no';
-            return `<span class="dash-dot ${st}" style="background:${u.color}" title="${u.name}"></span>`;
+            const bought = v === 1 && cp[u.id] === 1;
+            return `<span class="dash-dot ${st}${bought ? ' has-ticket' : ''}" style="background:${u.color}" title="${u.name}${bought ? ' (comprat)' : ''}">${bought ? '🎟' : ''}</span>`;
         }).join('');
         html += `<div class="dash-row">`;
         html += `<span class="dash-rank">${pos}</span>`;
@@ -1958,28 +1961,32 @@ setTimeout(() => {
 // Periodic refresh — only re-render if votes changed
 setInterval(async () => {
     try {
-        const r = await fetch(API);
-        if (r.ok) {
-            const newVotes = await r.json(); apiOk = true;
-            const oldJson = JSON.stringify(votes);
+        const [rv, rp] = await Promise.all([fetch(API), fetch(PURCHASES_API)]);
+        let changed = false;
+        if (rv.ok) {
+            const newVotes = await rv.json(); apiOk = true;
             const newJson = JSON.stringify(newVotes);
-            if (oldJson === newJson) return;
-            votes = newVotes;
-            localStorage.setItem('rituals-votes', newJson);
-            renderVotes(); updateStats();
-            if (document.getElementById('summaryOverlay').classList.contains('visible')) {
-                const title = document.querySelector('.summary-top h3').textContent;
-                if (title === 'Resultat votacions') renderDashboardList();
-                else if (title === 'Abonament a la carta') showAlaCarta();
-                else if (title === 'Descomptes Palau') { /* no refrescar */ }
-                else renderSummaryList();
-            }
+            if (newJson !== JSON.stringify(votes)) { votes = newVotes; localStorage.setItem('rituals-votes', newJson); changed = true; }
+        }
+        if (rp.ok) {
+            const newPurch = await rp.json();
+            const newJson = JSON.stringify(newPurch);
+            if (newJson !== JSON.stringify(purchases)) { purchases = newPurch; localStorage.setItem('rituals-purchases', newJson); changed = true; }
+        }
+        if (!changed) return;
+        renderVotes(); updateStats();
+        if (document.getElementById('summaryOverlay').classList.contains('visible')) {
+            const title = document.querySelector('.summary-top h3').textContent;
+            if (title === 'Resultat votacions') renderDashboardList();
+            else if (title === 'Abonament a la carta') showAlaCarta();
+            else if (title === 'Descomptes Palau') { /* no refrescar */ }
+            else renderSummaryList();
         }
     } catch {}
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '3.28';
+const APP_VERSION = '3.32';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
