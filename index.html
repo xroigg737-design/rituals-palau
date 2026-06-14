@@ -134,6 +134,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .row-title .badge{font-family:var(--sans);font-size:.5rem;font-weight:600;padding:.1rem .35rem;border-radius:6px;letter-spacing:.04em;text-transform:uppercase;vertical-align:middle;margin-left:.3rem;position:relative;top:-1px}
 .bp{background:rgba(139,26,26,.08);color:var(--palau)}
 .ba{background:rgba(26,58,92,.08);color:var(--auditori)}
+.bb{background:rgba(34,120,69,.08);color:#166534}
 .bn{background:var(--text);color:#fff}
 .ico-piano{display:inline-block;width:14px;height:10px;vertical-align:middle;margin-left:.3rem;position:relative;top:-1px;opacity:.45}
 .row-sub{font-family:var(--serif);font-size:.82rem;font-style:italic;color:var(--text2);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -190,6 +191,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .prog-auditori{background:linear-gradient(135deg,rgba(29,78,216,.08),rgba(29,78,216,.02));color:#1e40af}
 .prog-bcn{background:linear-gradient(135deg,rgba(22,163,106,.08),rgba(22,163,106,.02));color:#166534}
 .prog-fsf{background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(124,58,237,.02));color:#5b21b6}
+.prog-bruf{background:linear-gradient(135deg,rgba(34,120,69,.08),rgba(34,120,69,.02));color:#166534}
 
 
 .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:.6rem 1.5rem;border-radius:8px;font-family:var(--sans);font-size:.82rem;opacity:0;transition:all .3s;z-index:200;pointer-events:none}
@@ -410,7 +412,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.44</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.45</div>
 </div>
 
 <header class="hero" id="top">
@@ -477,9 +479,14 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
             <span class="prog-name">Franz Schubert</span>
             <span class="prog-sub">Filharmonia</span>
         </a>
+        <a class="prog-card prog-bruf" href="https://brufaganya.cat/programacio-2026/" target="_blank" rel="noopener">
+            <span class="prog-icon" style="font-size:1.5rem">🏛️</span>
+            <span class="prog-name">Brufaganya</span>
+            <span class="prog-sub">15 Nits Musicals</span>
+        </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.44</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.45</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -573,7 +580,8 @@ const SECTIONS = [
     {id:'casals',title:'PAU CASALS',sub:'El mestre català',icon:'img/casals.jpg'},
     {id:'cinema',title:'CINEMA',sub:'Bandes sonores',icon:'img/cinema.jpg'},
     {id:'palau',title:'PALAU DE LA MÚSICA',sub:'Resta de la temporada',icon:'img/palau.jpg'},
-    {id:'auditori',title:'L\'AUDITORI',sub:'Resta de la temporada',icon:'img/auditori.jpg'}
+    {id:'auditori',title:'L\'AUDITORI',sub:'Resta de la temporada',icon:'img/auditori.jpg'},
+    {id:'brufaganya',title:'LA BRUFAGANYA',sub:'15 Nits Musicals · Homenatge a Pau Casals'}
 ];
 
 const C = [
@@ -869,6 +877,13 @@ const C = [
 {i:'au10b',g:'auditori',v:'A',d:'2027-02-14',h:'19:00',t:'El Piano de Mozart',s:'Kilar · Mozart: Concert pno · Rakhmaninov',c:'Kilar · Mozart · Rakhmaninov',p:'Saskia Giorgini pno · OBC · Marta Gardolinska dir.',pr:'Des de 20€',y:'OBC'},
 {i:'au14b',g:'auditori',v:'A',d:'2027-05-01',h:'19:00',t:'La Vuitena de Xostakovitx',s:'Mozart: Concert pno 20 · Xostakovitx: Simfonia 8',c:'Mozart · Xostakovitx',p:'Alexei Volodin pno · OBC · Michael Sanderling dir.',pr:'Des de 25€',y:'OBC'},
 {i:'au16b',g:'auditori',v:'A',d:'2027-05-16',h:'19:00',t:'Zaratustra de Strauss',s:'M. Vila · E. Casals · R. Strauss: Aixi parla Zaratustra',c:'Vila · E. Casals · R. Strauss',p:'OBC · Christian Blex dir.',pr:'Des de 20€',y:'OBC'},
+// ── BRUFAGANYA ──
+{i:'br01',g:'brufaganya',v:'B',d:'2026-06-13',h:'21:30',t:'Franz Schubert Filharmonia',s:'Haydn: Simfonies 6 i 8 · Bach: Concert pno 1 · Casals: Romanza',c:'Haydn · Bach · Casals',p:'Oriana Kemelmajer Alías pno · Franz Schubert Filharmonia · Tomàs Grau dir.',pr:'23€',y:'Nits Brufaganya'},
+{i:'br02',g:'brufaganya',v:'B',d:'2026-07-11',h:'21:30',t:'El Rèquiem alemany de Brahms',s:'Brahms: Rèquiem alemany op.15 · Casals: Nigra sum, O vos omnes',c:'Brahms · Casals',p:'Ulrike Haller sop · Josep-Ramon Olivé bar · Pau Casan i Jordi Armengol pnos · Orfeó Gracienc · Pablo Larraz dir.',pr:'20€',y:'Nits Brufaganya'},
+{i:'br03',g:'brufaganya',v:'B',d:'2026-07-26',h:'18:00',t:'L\'ocellaire i els seus amics',s:'Espectacle familiar',c:'Espectacle familiar',p:'',pr:'10€',y:'Nits Brufaganya'},
+{i:'br04',g:'brufaganya',v:'B',d:'2026-08-08',h:'21:30',t:'La Llobregat i els Mèlt',s:'Llach · Els Pets · Sisa · Guinovart · Casals: Sant Martí del Canigó',c:'Llach · Els Pets · Sisa · Guinovart · Casals',p:'Cobla La Principal del Llobregat · Quartet Mèlt · Marcel Sabaté Reixach dir.',pr:'25€',y:'Nits Brufaganya'},
+{i:'br05',g:'brufaganya',v:'B',d:'2026-08-19',h:'21:30',t:'Simfonies 6a i 7a de Beethoven',s:'Beethoven: Pastoral i Simfonia 7 · Casals: Sardana Sant Fèlix',c:'Beethoven · Casals',p:'Encambra\'t',pr:'23€',y:'Nits Brufaganya'},
+{i:'br06',g:'brufaganya',v:'B',d:'2026-09-12',h:'21:30',t:'La mort i la donzella de Schubert',s:'Casals: El cant dels ocells · Toldrà: Vistes al Mar · Schubert: Quartet 14',c:'Casals · Toldrà · Schubert',p:'Cosmos Quartet: Helena Satué, Bernat Prat vlns · Lara Fernández vla · Oriol Prat vlc',pr:'20€',y:'Nits Brufaganya'},
 ];
 
 // ── STATE ──
@@ -1050,7 +1065,9 @@ function renderConcertRow(c, nf) {
     let h = `<div class="row${cls}" id="c-${c.i}" onclick="this.classList.toggle('open')">`;
     h += `<div class="row-date"><span class="rd-day">${d.getDate()} ${MONTHS[d.getMonth()]}</span>${dayName(c.d)} · ${c.h}h<br><span class="rd-time">${d.getFullYear()}</span></div>`;
     h += `<div class="row-info">`;
-    h += `<div class="row-title">${c.t}${isPianoSolo(c) ? ' '+PIANO_SVG : ''} <span class="badge ${c.v === 'P' ? 'bp' : 'ba'}">${c.v === 'P' ? 'Palau' : 'Auditori'}</span>`;
+    const vBadge = c.v === 'P' ? 'bp' : c.v === 'A' ? 'ba' : 'bb';
+    const vName = c.v === 'P' ? 'Palau' : c.v === 'A' ? 'Auditori' : 'Brufaganya';
+    h += `<div class="row-title">${c.t}${isPianoSolo(c) ? ' '+PIANO_SVG : ''} <span class="badge ${vBadge}">${vName}</span>`;
     if (isNext) h += ` <span class="badge bn">Proper</span>`;
     h += `</div>`;
     if (c.s) h += `<div class="row-sub">${c.s}</div>`;
@@ -1061,7 +1078,8 @@ function renderConcertRow(c, nf) {
     h += `<div class="vote-row" id="vr-${c.i}" data-ytq="${ytq}"></div>`;
     h += `<div class="row-expand"><strong>${c.p}</strong>`;
     if (c.y) h += `<br><em>${c.y}</em>`;
-    h += `<br>${fmtDate(c.d)}, ${c.h}h — ${c.v === 'P' ? 'Palau de la Música' : "L'Auditori"}</div>`;
+    const vFull = c.v === 'P' ? 'Palau de la Música' : c.v === 'A' ? "L'Auditori" : 'Santuari de Sant Magí de la Brufaganya';
+    h += `<br>${fmtDate(c.d)}, ${c.h}h — ${vFull}</div>`;
     if (isPianoConcert(c)) h += `<img class="piano-gif" src="img/piano-animated.gif" alt="piano">`;
     h += `</div>`;
     return h;
@@ -1272,7 +1290,7 @@ function downloadCalendar() {
     selected.forEach(c => {
         const dt = c.d.replace(/-/g, '');
         const hm = (c.h || '20:00').replace(':', '') + '00';
-        const venue = c.v === 'P' ? 'Palau de la Musica Catalana' : "L'Auditori de Barcelona";
+        const venue = c.v === 'P' ? 'Palau de la Musica Catalana' : c.v === 'A' ? "L'Auditori de Barcelona" : 'Santuari de Sant Magí de la Brufaganya, Pontils';
         ics += `BEGIN:VEVENT\nDTSTART:${dt}T${hm}\nDURATION:PT2H30M\nSUMMARY:${c.t}\nDESCRIPTION:${(c.s||'').replace(/\n/g,'\\n')} - ${c.c}\nLOCATION:${venue}\\, Barcelona\nEND:VEVENT\n`;
     });
     ics += 'END:VCALENDAR';
@@ -1512,7 +1530,7 @@ function renderCalWeek(el, map, nav) {
 }
 
 function calEventHtml(c) {
-    const venue = c.v==='P' ? 'Palau' : 'Auditori';
+    const venue = c.v==='P' ? 'Palau' : c.v==='A' ? 'Auditori' : 'Brufaganya';
     const cls = c._bought ? 'sel-bought' : c._sel ? 'sel-fav' : 'avail';
     let h = `<div class="cal-ev ${cls}" onclick="goToConcert('${c.i}','${c.g}')">`;
     h += `<div class="cal-ev-time">${c.h}h</div><div class="cal-ev-info">`;
@@ -1581,7 +1599,9 @@ function renderSummaryList() {
     let html = `<div class="summary-total" style="line-height:1.8">`;
     const nPalau = filtered.filter(c => c.v === 'P').length;
     const nAud = filtered.filter(c => c.v === 'A').length;
-    html += `<div><strong style="color:var(--text)">${filtered.length} concerts</strong> <span style="font-size:.7rem;opacity:.75">(${nPalau} Palau, ${nAud} Auditori)</span></div>`;
+    const nBru = filtered.filter(c => c.v === 'B').length;
+    const parts = [`${nPalau} Palau`, `${nAud} Auditori`]; if (nBru) parts.push(`${nBru} Brufaganya`);
+    html += `<div><strong style="color:var(--text)">${filtered.length} concerts</strong> <span style="font-size:.7rem;opacity:.75">(${parts.join(', ')})</span></div>`;
     html += `<div style="font-size:.72rem">❤️ ${nFav} favorit${nFav !== 1 ? 's' : ''} · 🎟️ ${nBought} comprat${nBought !== 1 ? 's' : ''}</div>`;
     html += `<div>Cost estimat: <strong>${costStr}</strong></div>`;
     if (hasPalau && dteMin > 0) {
@@ -1595,7 +1615,7 @@ function renderSummaryList() {
     const cyLabel = nCy === 0 ? 'Tots els cicles' : nCy === 1 ? [...summaryCycleFilter][0] : `${nCy} cicles seleccionats`;
     html += `<div class="sum-filters">`;
     html += `<div class="sum-filter-row"><span class="sum-filter-label">Estat</span><div class="sum-venue-filter">${mks('all','Tots')}${mks('fav','❤️ Favorits')}${mks('bought','🎟️ Comprats')}</div></div>`;
-    html += `<div class="sum-filter-row"><span class="sum-filter-label">Ubicació</span><div class="sum-venue-filter">${mk('all','Tots')}${mk('P','Palau')}${mk('A','Auditori')}</div></div>`;
+    html += `<div class="sum-filter-row"><span class="sum-filter-label">Ubicació</span><div class="sum-venue-filter">${mk('all','Tots')}${mk('P','Palau')}${mk('A','Auditori')}${mk('B','Brufaganya')}</div></div>`;
     html += `<div class="sum-filter-row"><span class="sum-filter-label">Cicle</span><div class="sum-cycle-dropdown" id="sumCycleDD">`;
     html += `<div class="sum-cycle-toggle" onclick="this.parentElement.classList.toggle('open')"><span>${cyLabel}</span><span class="arrow">&#9660;</span></div>`;
     html += `<div class="sum-cycle-list">`;
@@ -1610,7 +1630,7 @@ function renderSummaryList() {
     html += `</div>`;
 
     for (const c of filtered) {
-        const venue = c.v === 'P' ? 'Palau de la Musica' : "L'Auditori";
+        const venue = c.v === 'P' ? 'Palau de la Musica' : c.v === 'A' ? "L'Auditori" : 'Brufaganya';
         const d = new Date(c.d + 'T12:00:00');
         const isFav = (votes[c.i]||{})[currentUser] === 1;
         const isBought = (purchases[c.i]||{})[currentUser] === 1;
@@ -1653,11 +1673,13 @@ function exportSummaryTxt() {
     });
     const nP = filtered.filter(c => c.v === 'P').length;
     const nA = filtered.filter(c => c.v === 'A').length;
+    const nB = filtered.filter(c => c.v === 'B').length;
+    const txParts = [`${nP} Palau`, `${nA} Auditori`]; if (nB) txParts.push(`${nB} Brufaganya`);
 
     let txt = `RITUALS AL PALAU 26-27\n`;
     txt += `Selecció de ${userName}\n`;
     txt += `${'═'.repeat(50)}\n\n`;
-    txt += `${filtered.length} concerts (${nP} Palau, ${nA} Auditori)\n`;
+    txt += `${filtered.length} concerts (${txParts.join(', ')})\n`;
     const costStr = totalMin === totalMax ? `${totalMax}€` : `${totalMin}–${totalMax}€`;
     txt += `Cost estimat: ${costStr}\n`;
     if (hasPalau && dteMin > 0) {
@@ -1676,7 +1698,7 @@ function exportSummaryTxt() {
             txt += `▸ ${month}\n\n`;
             prevMonth = month;
         }
-        const venue = c.v === 'P' ? 'Palau' : 'Auditori';
+        const venue = c.v === 'P' ? 'Palau' : c.v === 'A' ? 'Auditori' : 'Brufaganya';
         const day = String(d.getDate()).padStart(2);
         txt += `  ${day} ${MONTHS[d.getMonth()]} · ${dayName(c.d)} · ${c.h}h\n`;
         txt += `  ${c.t}\n`;
@@ -1864,8 +1886,8 @@ const observer = new IntersectionObserver(entries => {
 }, {rootMargin: '-120px 0px -70% 0px'});
 
 // ── INIT ──
-const _nP = C.filter(c => c.v === 'P').length, _nA = C.filter(c => c.v === 'A').length;
-document.getElementById('heroCount').textContent = `${C.length} concerts (${_nP} Palau, ${_nA} Auditori)`;
+const _nP = C.filter(c => c.v === 'P').length, _nA = C.filter(c => c.v === 'A').length, _nB = C.filter(c => c.v === 'B').length;
+document.getElementById('heroCount').textContent = `${C.length} concerts (${_nP} Palau, ${_nA} Auditori, ${_nB} Brufaganya)`;
 render();
 track('page_view');
 setTimeout(() => {
@@ -1899,7 +1921,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '3.44';
+const APP_VERSION = '3.45';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
