@@ -421,7 +421,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.39</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.40</div>
 </div>
 
 <header class="hero" id="top">
@@ -491,7 +491,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.39</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.40</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1545,6 +1545,7 @@ function calEventHtml(c) {
 // ── SUMMARY ──
 let summaryVenueFilter = 'all';
 let summaryCycleFilter = new Set();
+let summaryStatusFilter = 'all';
 
 function autoVenueFromCycles(concerts, cycleSet, setVenue) {
     if (cycleSet.size === 0) { setVenue('all'); return; }
@@ -1570,6 +1571,8 @@ function renderSummaryList() {
     }).sort((a, b) => a.d.localeCompare(b.d) || a.h.localeCompare(b.h));
 
     let filtered = allSelected;
+    if (summaryStatusFilter === 'fav') filtered = filtered.filter(c => (votes[c.i]||{})[currentUser] === 1);
+    else if (summaryStatusFilter === 'bought') filtered = filtered.filter(c => (purchases[c.i]||{})[currentUser] === 1);
     if (summaryVenueFilter !== 'all') filtered = filtered.filter(c => c.v === summaryVenueFilter);
     if (summaryCycleFilter.size > 0) filtered = filtered.filter(c => summaryCycleFilter.has(c.y || ''));
 
@@ -1605,10 +1608,12 @@ function renderSummaryList() {
     }
     html += `</div>`;
 
+    const mks = (v, lab) => `<label class="sum-venue-radio"><input type="radio" name="sumStatus" value="${v}"${summaryStatusFilter === v ? ' checked' : ''} onchange="summaryStatusFilter=this.value;renderSummaryList()">${lab}</label>`;
     const mk = (v, lab) => `<label class="sum-venue-radio"><input type="radio" name="sumVenue" value="${v}"${summaryVenueFilter === v ? ' checked' : ''} onchange="summaryVenueFilter=this.value;renderSummaryList()">${lab}</label>`;
     const nCy = summaryCycleFilter.size;
     const cyLabel = nCy === 0 ? 'Tots els cicles' : nCy === 1 ? [...summaryCycleFilter][0] : `${nCy} cicles seleccionats`;
     html += `<div class="sum-filters">`;
+    html += `<div class="sum-filter-row"><span class="sum-filter-label">Estat</span><div class="sum-venue-filter">${mks('all','Tots')}${mks('fav','❤️ Favorits')}${mks('bought','🎟️ Comprats')}</div></div>`;
     html += `<div class="sum-filter-row"><span class="sum-filter-label">Ubicació</span><div class="sum-venue-filter">${mk('all','Tots')}${mk('P','Palau')}${mk('A','Auditori')}</div></div>`;
     html += `<div class="sum-filter-row"><span class="sum-filter-label">Cicle</span><div class="sum-cycle-dropdown" id="sumCycleDD">`;
     html += `<div class="sum-cycle-toggle" onclick="this.parentElement.classList.toggle('open')"><span>${cyLabel}</span><span class="arrow">&#9660;</span></div>`;
@@ -1653,6 +1658,8 @@ function exportSummaryTxt() {
     const allSelected = C.filter(c => (votes[c.i]||{})[currentUser] === 1 || (purchases[c.i]||{})[currentUser] === 1)
         .sort((a, b) => a.d.localeCompare(b.d) || a.h.localeCompare(b.h));
     let filtered = allSelected;
+    if (summaryStatusFilter === 'fav') filtered = filtered.filter(c => (votes[c.i]||{})[currentUser] === 1);
+    else if (summaryStatusFilter === 'bought') filtered = filtered.filter(c => (purchases[c.i]||{})[currentUser] === 1);
     if (summaryVenueFilter !== 'all') filtered = filtered.filter(c => c.v === summaryVenueFilter);
     if (summaryCycleFilter.size > 0) filtered = filtered.filter(c => summaryCycleFilter.has(c.y || ''));
 
@@ -1717,6 +1724,7 @@ function showSummary() {
     document.querySelector('.summary-top h3').textContent = `La teva selecció ${userName}`;
     summaryVenueFilter = 'all';
     summaryCycleFilter = new Set();
+    summaryStatusFilter = 'all';
     renderSummaryList();
     document.getElementById('summaryOverlay').classList.add('visible');
 }
@@ -2002,7 +2010,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '3.39';
+const APP_VERSION = '3.40';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
