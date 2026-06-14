@@ -122,7 +122,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .row{display:grid;grid-template-columns:78px 1fr 52px 115px;gap:0 .6rem;padding:.55rem .8rem;border-bottom:1px solid var(--border2);transition:background .2s;align-items:start;position:relative}
 .piano-gif{position:absolute;bottom:4px;right:6px;height:44px;opacity:.6;pointer-events:none}
 .row:hover{background:rgba(0,0,0,.02)}
-.row.past{opacity:.35}.row.past:hover{opacity:.5}
+.row.past{opacity:.5}.row.past:hover{opacity:.7}
 .row.next{background:rgba(12,74,74,.03)}
 
 .row-date{font-family:var(--sans);font-size:.72rem;font-weight:500;color:var(--text2);line-height:1.35}
@@ -136,6 +136,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .ba{background:rgba(26,58,92,.08);color:var(--auditori)}
 .bb{background:rgba(34,120,69,.08);color:#166534}
 .bn{background:var(--text);color:#fff}
+.bpast{background:rgba(0,0,0,.08);color:var(--text3);font-style:italic}
 .ico-piano{display:inline-block;width:14px;height:10px;vertical-align:middle;margin-left:.3rem;position:relative;top:-1px;opacity:.45}
 .row-sub{font-family:var(--serif);font-size:.82rem;font-style:italic;color:var(--text2);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .row-detail{font-family:var(--sans);font-size:.68rem;color:var(--text3);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -412,7 +413,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.46</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.47</div>
 </div>
 
 <header class="hero" id="top">
@@ -486,7 +487,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.46</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.47</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1068,6 +1069,7 @@ function renderConcertRow(c, nf) {
     const vBadge = c.v === 'P' ? 'bp' : c.v === 'A' ? 'ba' : 'bb';
     const vName = c.v === 'P' ? 'Palau' : c.v === 'A' ? 'Auditori' : 'Brufaganya';
     h += `<div class="row-title">${c.t}${isPianoSolo(c) ? ' '+PIANO_SVG : ''} <span class="badge ${vBadge}">${vName}</span>`;
+    if (past) h += ` <span class="badge bpast">Passat</span>`;
     if (isNext) h += ` <span class="badge bn">Proper</span>`;
     h += `</div>`;
     if (c.s) h += `<div class="row-sub">${c.s}</div>`;
@@ -1921,7 +1923,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '3.46';
+const APP_VERSION = '3.47';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
