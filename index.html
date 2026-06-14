@@ -421,7 +421,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.35</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.36</div>
 </div>
 
 <header class="hero" id="top">
@@ -552,7 +552,8 @@ const USERS = [
     {id:'albert',name:'Albert',ini:'Al',color:'#059669'},
     {id:'montse',name:'Montse',ini:'M',color:'#d97706'},
     {id:'elia',name:'Èlia',ini:'E',color:'#7c3aed'},
-    {id:'roger',name:'Roger',ini:'R',color:'#0891b2'}
+    {id:'roger',name:'Roger',ini:'R',color:'#0891b2'},
+    {id:'susan',name:'Susan',ini:'S',color:'#e11d48'}
 ];
 
 const SECTIONS = [
@@ -1992,7 +1993,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '3.35';
+const APP_VERSION = '3.36';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
