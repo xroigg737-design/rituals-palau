@@ -412,7 +412,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.45</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.46</div>
 </div>
 
 <header class="hero" id="top">
@@ -486,7 +486,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.45</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.46</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -878,12 +878,12 @@ const C = [
 {i:'au14b',g:'auditori',v:'A',d:'2027-05-01',h:'19:00',t:'La Vuitena de Xostakovitx',s:'Mozart: Concert pno 20 · Xostakovitx: Simfonia 8',c:'Mozart · Xostakovitx',p:'Alexei Volodin pno · OBC · Michael Sanderling dir.',pr:'Des de 25€',y:'OBC'},
 {i:'au16b',g:'auditori',v:'A',d:'2027-05-16',h:'19:00',t:'Zaratustra de Strauss',s:'M. Vila · E. Casals · R. Strauss: Aixi parla Zaratustra',c:'Vila · E. Casals · R. Strauss',p:'OBC · Christian Blex dir.',pr:'Des de 20€',y:'OBC'},
 // ── BRUFAGANYA ──
-{i:'br01',g:'brufaganya',v:'B',d:'2026-06-13',h:'21:30',t:'Franz Schubert Filharmonia',s:'Haydn: Simfonies 6 i 8 · Bach: Concert pno 1 · Casals: Romanza',c:'Haydn · Bach · Casals',p:'Oriana Kemelmajer Alías pno · Franz Schubert Filharmonia · Tomàs Grau dir.',pr:'23€',y:'Nits Brufaganya'},
-{i:'br02',g:'brufaganya',v:'B',d:'2026-07-11',h:'21:30',t:'El Rèquiem alemany de Brahms',s:'Brahms: Rèquiem alemany op.15 · Casals: Nigra sum, O vos omnes',c:'Brahms · Casals',p:'Ulrike Haller sop · Josep-Ramon Olivé bar · Pau Casan i Jordi Armengol pnos · Orfeó Gracienc · Pablo Larraz dir.',pr:'20€',y:'Nits Brufaganya'},
+{i:'br01',g:'baroque',v:'B',d:'2026-06-13',h:'21:30',t:'Franz Schubert Filharmonia',s:'Haydn: Simfonies 6 i 8 · Bach: Concert pno 1 · Casals: Romanza',c:'Haydn · Bach · Casals',p:'Oriana Kemelmajer Alías pno · Franz Schubert Filharmonia · Tomàs Grau dir.',pr:'23€',y:'Nits Brufaganya'},
+{i:'br02',g:'romantic',v:'B',d:'2026-07-11',h:'21:30',t:'El Rèquiem alemany de Brahms',s:'Brahms: Rèquiem alemany op.15 · Casals: Nigra sum, O vos omnes',c:'Brahms · Casals',p:'Ulrike Haller sop · Josep-Ramon Olivé bar · Pau Casan i Jordi Armengol pnos · Orfeó Gracienc · Pablo Larraz dir.',pr:'20€',y:'Nits Brufaganya'},
 {i:'br03',g:'brufaganya',v:'B',d:'2026-07-26',h:'18:00',t:'L\'ocellaire i els seus amics',s:'Espectacle familiar',c:'Espectacle familiar',p:'',pr:'10€',y:'Nits Brufaganya'},
 {i:'br04',g:'brufaganya',v:'B',d:'2026-08-08',h:'21:30',t:'La Llobregat i els Mèlt',s:'Llach · Els Pets · Sisa · Guinovart · Casals: Sant Martí del Canigó',c:'Llach · Els Pets · Sisa · Guinovart · Casals',p:'Cobla La Principal del Llobregat · Quartet Mèlt · Marcel Sabaté Reixach dir.',pr:'25€',y:'Nits Brufaganya'},
-{i:'br05',g:'brufaganya',v:'B',d:'2026-08-19',h:'21:30',t:'Simfonies 6a i 7a de Beethoven',s:'Beethoven: Pastoral i Simfonia 7 · Casals: Sardana Sant Fèlix',c:'Beethoven · Casals',p:'Encambra\'t',pr:'23€',y:'Nits Brufaganya'},
-{i:'br06',g:'brufaganya',v:'B',d:'2026-09-12',h:'21:30',t:'La mort i la donzella de Schubert',s:'Casals: El cant dels ocells · Toldrà: Vistes al Mar · Schubert: Quartet 14',c:'Casals · Toldrà · Schubert',p:'Cosmos Quartet: Helena Satué, Bernat Prat vlns · Lara Fernández vla · Oriol Prat vlc',pr:'20€',y:'Nits Brufaganya'},
+{i:'br05',g:'beethoven',v:'B',d:'2026-08-19',h:'21:30',t:'Simfonies 6a i 7a de Beethoven',s:'Beethoven: Pastoral i Simfonia 7 · Casals: Sardana Sant Fèlix',c:'Beethoven · Casals',p:'Encambra\'t',pr:'23€',y:'Nits Brufaganya'},
+{i:'br06',g:'casals',v:'B',d:'2026-09-12',h:'21:30',t:'La mort i la donzella de Schubert',s:'Casals: El cant dels ocells · Toldrà: Vistes al Mar · Schubert: Quartet 14',c:'Casals · Toldrà · Schubert',p:'Cosmos Quartet: Helena Satué, Bernat Prat vlns · Lara Fernández vla · Oriol Prat vlc',pr:'20€',y:'Nits Brufaganya'},
 ];
 
 // ── STATE ──
@@ -1921,7 +1921,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '3.45';
+const APP_VERSION = '3.46';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
