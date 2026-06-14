@@ -356,6 +356,15 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .dash-title{font-family:var(--serif);font-size:.92rem;font-weight:600;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dash-date{font-family:var(--sans);font-size:.68rem;color:var(--text3)}
 
+.user-wall{position:fixed;inset:0;z-index:9998;background:linear-gradient(135deg,#0c4a4a 0%,#0a3a3a 100%);display:none;align-items:center;justify-content:center;flex-direction:column;color:#fff}
+.user-wall.visible{display:flex}
+.user-wall h2{font-family:var(--serif);font-size:2.2rem;font-weight:300;letter-spacing:.1em;margin-bottom:.3rem}
+.user-wall p{font-family:var(--sans);font-size:.75rem;opacity:.5;letter-spacing:.15em;text-transform:uppercase;margin-bottom:2rem}
+.user-wall-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;max-width:340px;width:90%}
+.user-wall-btn{font-family:var(--sans);font-size:.9rem;font-weight:600;padding:.7rem 1.2rem;border:2px solid rgba(255,255,255,.2);border-radius:12px;background:rgba(255,255,255,.06);color:#fff;cursor:pointer;transition:all .3s;display:flex;align-items:center;gap:.6rem}
+.user-wall-btn:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.4);transform:translateY(-2px)}
+.user-wall-btn .uw-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;flex-shrink:0}
+
 .auth-wall{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#0c4a4a 0%,#0a3a3a 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff}
 .auth-wall h2{font-family:var(--serif);font-size:2.4rem;font-weight:300;letter-spacing:.1em;margin-bottom:.3rem}
 .auth-wall p{font-family:var(--sans);font-size:.75rem;opacity:.5;letter-spacing:.15em;text-transform:uppercase;margin-bottom:2rem}
@@ -421,7 +430,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.36</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.37</div>
 </div>
 
 <header class="hero" id="top">
@@ -528,6 +537,12 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     </div>
 </div>
 
+<div class="user-wall" id="userWall">
+    <h2>Qui ets?</h2>
+    <p>Tria el teu nom per continuar</p>
+    <div class="user-wall-grid" id="userWallGrid"></div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -537,6 +552,7 @@ function checkAuth() {
     if (v.toLowerCase() === 'palau') {
         localStorage.setItem(AUTH_KEY, '1');
         document.getElementById('authWall').style.display = 'none';
+        if (!localStorage.getItem('rituals-user')) showUserWall();
     } else {
         document.getElementById('authError').textContent = 'Contrasenya incorrecta';
         document.getElementById('authInput').value = '';
@@ -544,7 +560,23 @@ function checkAuth() {
     }
 }
 document.getElementById('authInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkAuth(); });
-if (localStorage.getItem(AUTH_KEY) === '1') document.getElementById('authWall').style.display = 'none';
+if (localStorage.getItem(AUTH_KEY) === '1') {
+    document.getElementById('authWall').style.display = 'none';
+    if (!localStorage.getItem('rituals-user')) showUserWall();
+}
+
+function showUserWall() {
+    const wall = document.getElementById('userWall');
+    const grid = document.getElementById('userWallGrid');
+    grid.innerHTML = USERS.map(u =>
+        `<button class="user-wall-btn" onclick="pickUser('${u.id}')"><span class="uw-dot" style="background:${u.color}">${u.ini}</span>${u.name}</button>`
+    ).join('');
+    wall.classList.add('visible');
+}
+function pickUser(id) {
+    document.getElementById('userWall').classList.remove('visible');
+    selectUser(id);
+}
 
 const USERS = [
     {id:'xavi',name:'Xavi',ini:'X',color:'#2563eb'},
@@ -1993,7 +2025,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '3.36';
+const APP_VERSION = '3.37';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
