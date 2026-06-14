@@ -141,17 +141,15 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 
 .row-price{font-family:var(--sans);font-size:.72rem;color:var(--text2);text-align:right;white-space:nowrap;padding-top:.1rem}
 
-.vote-row{display:flex;gap:.15rem;align-items:center;flex-wrap:nowrap;padding-top:.1rem}
-.vote-btn{width:16px;height:16px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;font-size:.38rem;font-weight:600;font-family:var(--sans);cursor:pointer;transition:all .2s ease;position:relative;color:#fff;flex-shrink:0}
-.vote-btn.mine{width:24px;height:24px;font-size:.5rem;box-shadow:0 0 0 2px var(--bg),0 0 0 3.5px var(--text3);cursor:pointer}
-.vote-btn.mine.empty{opacity:.4;filter:saturate(.5)}
-.vote-btn.mine.empty:active{transform:scale(.9)}
-.vote-btn.empty{opacity:.15}
-.vote-btn.yes{opacity:1;box-shadow:0 0 0 1.5px var(--yes)}
-.vote-btn.yes.mine{box-shadow:0 0 0 2.5px var(--bg),0 0 0 4.5px var(--yes),0 0 12px 2px rgba(45,125,70,.4);transform:scale(1.15);filter:brightness(1.15) saturate(1.3)}
-.vote-btn.yes::after{content:'\2665';position:absolute;bottom:-3px;right:-3px;font-size:.45rem;color:var(--yes);line-height:1;font-weight:700}
-.vote-count{font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-left:.1rem;white-space:nowrap}
-.vote-count .vc-yes{color:var(--yes);font-weight:600}
+.vote-row{display:flex;gap:.35rem;align-items:center;flex-wrap:nowrap;padding-top:.1rem}
+.fav-btn,.bought-btn{display:flex;align-items:center;gap:.2rem;padding:.2rem .5rem;border-radius:16px;border:1.5px solid var(--border);background:none;font-family:var(--sans);font-size:.6rem;font-weight:500;cursor:pointer;transition:all .2s;color:var(--text3);white-space:nowrap}
+.fav-btn:hover,.bought-btn:hover{border-color:rgba(0,0,0,.2)}
+.fav-btn.active{background:rgba(220,38,38,.08);border-color:rgba(220,38,38,.35);color:#dc2626}
+.bought-btn.active{background:rgba(45,125,70,.1);border-color:rgba(45,125,70,.4);color:var(--yes)}
+.fav-btn .fav-icon{font-size:.7rem;line-height:1}
+.bought-btn .bought-icon{font-size:.65rem;line-height:1}
+.fav-others{display:flex;gap:1px;margin-left:.15rem;align-items:center}
+.fav-others-dot{width:8px;height:8px;border-radius:50%;opacity:.7}
 
 .row-expand{display:none;grid-column:1/-1;padding:.4rem 0 .2rem;font-family:var(--serif);font-size:.82rem;color:var(--text);line-height:1.5}
 .row.open .row-expand{display:block}
@@ -191,8 +189,6 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .prog-bcn{background:linear-gradient(135deg,rgba(22,163,106,.08),rgba(22,163,106,.02));color:#166534}
 .prog-fsf{background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(124,58,237,.02));color:#5b21b6}
 
-@keyframes vote-pulse{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1.15)}}
-.vote-btn.mine.vote-pop{animation:vote-pulse .3s ease-out}
 
 .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:.6rem 1.5rem;border-radius:8px;font-family:var(--sans);font-size:.82rem;opacity:0;transition:all .3s;z-index:200;pointer-events:none}
 .toast.visible{transform:translateX(-50%) translateY(0);opacity:1}
@@ -224,14 +220,15 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .cal-mday.selected{background:rgba(12,74,74,.1)}
 .cal-dots{display:flex;gap:2px;margin-top:1px;flex-wrap:wrap;justify-content:center}
 .cal-dot{width:6px;height:6px;border-radius:50%}
-.cal-dot.sel-p{background:var(--palau)}
-.cal-dot.sel-a{background:var(--auditori)}
+.cal-dot.sel-fav{background:rgba(220,38,38,.45)}
+.cal-dot.sel-bought{background:#1a1a1a}
 .cal-dot.avail{background:var(--text3);opacity:.25}
 .cal-detail{margin-top:.6rem;border-top:1px solid var(--border);padding-top:.5rem}
 .cal-detail-title{font-family:var(--sans);font-size:.7rem;font-weight:600;color:var(--text3);text-transform:capitalize;margin-bottom:.5rem}
 .cal-ev{display:flex;align-items:start;gap:.5rem;padding:.45rem .5rem;border-radius:8px;margin-bottom:.25rem;cursor:pointer;transition:background .15s;border-left:3px solid transparent}
 .cal-ev:hover{background:rgba(0,0,0,.04)}
-.cal-ev.sel{border-left-color:var(--yes);background:rgba(45,125,70,.04)}
+.cal-ev.sel-fav{border-left-color:rgba(220,38,38,.5);background:rgba(220,38,38,.04)}
+.cal-ev.sel-bought{border-left-color:#1a1a1a;background:rgba(0,0,0,.04)}
 .cal-ev.avail{opacity:.4;border-left-color:var(--text3)}
 .cal-ev-time{font-family:var(--sans);font-size:.68rem;font-weight:500;color:var(--text2);min-width:36px}
 .cal-ev-info{flex:1;min-width:0}
@@ -246,7 +243,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .cal-ymini-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:0}
 .cal-ymini-hdr{font-family:var(--sans);font-size:.35rem;text-align:center;color:var(--text3)}
 .cal-ymini-day{font-family:var(--sans);font-size:.4rem;text-align:center;padding:1px 0;color:var(--text3);line-height:1.6;border-radius:2px}
-.cal-ymini-day.sel{background:var(--yes);color:#fff;font-weight:700}
+.cal-ymini-day.sel{background:rgba(220,38,38,.35);color:#fff;font-weight:700}
 .cal-ymini-day.avail{background:rgba(0,0,0,.06)}
 .cal-wday{border-bottom:1px solid var(--border2);padding:.5rem 0}
 .cal-wday-hdr{display:flex;align-items:baseline;gap:.4rem;margin-bottom:.3rem}
@@ -255,11 +252,6 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .cal-wday.today .cal-wday-date{color:var(--palau)}
 .cal-wday-empty{font-family:var(--sans);font-size:.6rem;color:var(--text3);font-style:italic;padding:.1rem 0}
 
-.purchase-row{grid-column:4;display:flex;align-items:center;gap:.25rem;padding-top:.15rem}
-.purchase-btn{font-family:var(--sans);font-size:.5rem;font-weight:600;padding:.15rem .4rem;border-radius:8px;border:1.5px solid var(--border);background:none;color:var(--text3);cursor:pointer;transition:all .2s;letter-spacing:.02em;display:flex;align-items:center;gap:.2rem;white-space:nowrap}
-.purchase-btn:hover{border-color:var(--text2);color:var(--text2)}
-.purchase-btn.bought{background:var(--yes);color:#fff;border-color:var(--yes)}
-.purchase-btn.bought:hover{background:#1e6b37;border-color:#1e6b37}
 
 .cal-legend{display:flex;gap:.6rem;padding:.4rem 1rem;font-family:var(--sans);font-size:.52rem;color:var(--text2);align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--border2)}
 .cal-legend-item{display:flex;align-items:center;gap:.25rem}
@@ -398,9 +390,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     .row-sub{font-size:.75rem;white-space:normal}
     .row-detail{font-size:.62rem}
     .row-price{font-size:.66rem}
-    .vote-row{grid-column:1/-1;gap:.15rem;padding-top:.3rem}
-    .vote-btn{width:18px;height:18px;font-size:.4rem}
-    .vote-btn.mine{width:28px;height:28px;font-size:.55rem}
+    .vote-row{grid-column:1/-1;gap:.25rem;padding-top:.3rem;flex-wrap:wrap}
     .user-bar{padding:.4rem .6rem;gap:.4rem}
     .user-select{font-size:.75rem;min-width:100px;padding:.3rem .6rem}
     .user-label{font-size:.6rem;display:none}
@@ -430,7 +420,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.37</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.38</div>
 </div>
 
 <header class="hero" id="top">
@@ -470,7 +460,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
     <p>Palau de la Musica Catalana &middot; L'Auditori de Barcelona</p>
     <div class="ftr-grid">
         <button class="ftr-card ftr-c1" onclick="showSummary()"><span class="ftr-card-icon">&#128203;</span><span class="ftr-card-text"><span class="ftr-card-title">Resum selecció</span><span class="ftr-card-sub">La teva llista</span></span></button>
-        <button class="ftr-card ftr-c2" onclick="showDashboard()"><span class="ftr-card-icon">&#11088;</span><span class="ftr-card-text"><span class="ftr-card-title">Votacions</span><span class="ftr-card-sub">Resultat del grup</span></span></button>
+        <button class="ftr-card ftr-c2" onclick="showDashboard()"><span class="ftr-card-icon">&#11088;</span><span class="ftr-card-text"><span class="ftr-card-title">Favorits grup</span><span class="ftr-card-sub">Concerts en comú</span></span></button>
         <button class="ftr-card ftr-c3" onclick="showAlaCarta()"><span class="ftr-card-icon">&#127915;</span><span class="ftr-card-text"><span class="ftr-card-title">Abon. a la carta</span><span class="ftr-card-sub">Descompte 15%</span></span></button>
         <button class="ftr-card ftr-c4" onclick="showDescomptes()"><span class="ftr-card-icon">&#128184;</span><span class="ftr-card-text"><span class="ftr-card-title">Info descomptes</span><span class="ftr-card-sub">Socis i abonaments</span></span></button>
         <button class="ftr-card ftr-c5" onclick="showCal()"><span class="ftr-card-icon">&#128197;</span><span class="ftr-card-text"><span class="ftr-card-title">Calendari</span><span class="ftr-card-sub">Visualitza per mes</span></span></button>
@@ -500,7 +490,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.34</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.38</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -528,9 +518,8 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
             <button onclick="calNav(1)">&#8250;</button>
         </div>
         <div class="cal-legend" id="calLegend">
-            <span class="cal-legend-item"><span class="cal-legend-dot" style="background:var(--palau)"></span>Seleccionat Palau</span>
-            <span class="cal-legend-item"><span class="cal-legend-dot" style="background:var(--auditori)"></span>Seleccionat Auditori</span>
-            <span class="cal-legend-item"><span class="cal-legend-bought"></span>Comprat</span>
+            <span class="cal-legend-item"><span class="cal-legend-dot" style="background:rgba(220,38,38,.4)"></span>Favorit</span>
+            <span class="cal-legend-item"><span class="cal-legend-dot" style="background:#1a1a1a"></span>Comprat</span>
             <span class="cal-legend-item"><span class="cal-legend-dot" style="background:var(--text3);opacity:.25"></span>Disponible</span>
         </div>
         <div class="cal-body" id="calContent"></div>
@@ -974,7 +963,7 @@ async function savePurchase(id, user, val) {
 }
 
 function togglePurchase(concertId) {
-    if (!currentUser) return;
+    if (!currentUser) { requireUser(); return; }
     const cp = purchases[concertId] || {};
     const current = cp[currentUser] || 0;
     const next = current === 1 ? 0 : 1;
@@ -1193,27 +1182,23 @@ function renderVotes() {
         if (!row) continue;
         const cv = votes[c.i] || {};
         const cp = purchases[c.i] || {};
-        let yesCount = 0;
 
-        let html = USERS.map(u => {
-            const v = cv[u.id] || 0;
-            if (v === 1) yesCount++;
-            const mine = currentUser === u.id ? ' mine' : '';
-            const state = v === 1 ? ' yes' : ' empty';
-            const click = currentUser === u.id ? ` onclick="toggleVote('${c.i}')"` : '';
-            return `<button class="vote-btn${state}${mine}" style="background:${u.color}" title="${u.name}"${click}>${u.ini}</button>`;
-        }).join('');
-
-        if (yesCount > 0) {
-            html += `<span class="vote-count"><span class="vc-yes">${yesCount}♥</span></span>`;
+        let html = '';
+        if (currentUser) {
+            const isFav = cv[currentUser] === 1;
+            const isBought = cp[currentUser] === 1;
+            html += `<button class="fav-btn${isFav ? ' active' : ''}" onclick="event.stopPropagation();toggleFav('${c.i}')"><span class="fav-icon">${isFav ? '❤️' : '🤍'}</span>${isFav ? 'Favorit' : 'Favorit'}</button>`;
+            html += `<button class="bought-btn${isBought ? ' active' : ''}" onclick="event.stopPropagation();togglePurchase('${c.i}')"><span class="bought-icon">${isBought ? '🎟️' : '🎫'}</span>${isBought ? 'Comprat' : 'Comprar'}</button>`;
+        }
+        const others = USERS.filter(u => u.id !== currentUser && cv[u.id] === 1);
+        if (others.length > 0) {
+            html += `<span class="fav-others" title="${others.map(u=>u.name).join(', ')}">`;
+            for (const u of others) html += `<span class="fav-others-dot" style="background:${u.color}"></span>`;
+            html += `</span>`;
         }
         const ytq = row.dataset.ytq;
         if (ytq) html += `<a class="yt-link" href="https://www.youtube.com/results?search_query=${ytq}" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg class="yt-icon" viewBox="0 0 24 24"><path d="M23.5 6.2s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.9 2.5 12 2.5 12 2.5s-4.9 0-8.3.4c-.5.1-1.5.1-2.3 1-.7.7-.9 2.3-.9 2.3S0 8.1 0 10v1.8c0 1.9.5 3.8.5 3.8s.2 1.6.9 2.3c.9.9 2 .9 2.5 1 1.8.2 7.1.2 7.1.2s4.9 0 8.3-.4c.5-.1 1.5-.1 2.3-1 .7-.7.9-2.3.9-2.3s.5-1.9.5-3.8V10c0-1.9-.5-3.8-.5-3.8zM9.5 15.5V8l6.3 3.7-6.3 3.8z"/></svg> Com sona?</a>`;
 
-        if (currentUser && cv[currentUser] === 1) {
-            const isBought = cp[currentUser] === 1;
-            html += `<div class="purchase-row"><button class="purchase-btn${isBought ? ' bought' : ''}" onclick="event.stopPropagation();togglePurchase('${c.i}')">${isBought ? '🎟 Comprat' : 'Comprar?'}</button></div>`;
-        }
         row.innerHTML = html;
     }
 }
@@ -1229,17 +1214,16 @@ function parsePriceMax(pr) { return parsePriceRange(pr).max; }
 function updateStats() {
     const el = document.getElementById('userStats');
     if (!currentUser) { el.innerHTML = ''; return; }
-    const yesVotes = Object.entries(votes).filter(([,v]) => v[currentUser] === 1);
+    const nFav = Object.entries(votes).filter(([,v]) => v[currentUser] === 1).length;
+    const nBought = Object.entries(purchases).filter(([,p]) => p[currentUser] === 1).length;
     let totalMin = 0, totalMax = 0;
-    yesVotes.forEach(([id]) => { const c = C.find(x => x.i === id); if (c) { const r = parsePriceRange(c.pr); totalMin += r.min; totalMax += r.max; } });
-    let html = `<strong>${yesVotes.length}</strong> <span class="vc-yes">seleccionats</span>`;
+    Object.entries(votes).filter(([,v]) => v[currentUser] === 1).forEach(([id]) => { const c = C.find(x => x.i === id); if (c) { const r = parsePriceRange(c.pr); totalMin += r.min; totalMax += r.max; } });
+    Object.entries(purchases).filter(([id,p]) => p[currentUser] === 1 && !(votes[id]||{})[currentUser]).forEach(([id]) => { const c = C.find(x => x.i === id); if (c) { const r = parsePriceRange(c.pr); totalMin += r.min; totalMax += r.max; } });
+    let html = `<strong>${nFav}</strong> ❤️`;
+    if (nBought > 0) html += ` · <strong>${nBought}</strong> 🎟️`;
     if (totalMax > 0) {
         const cost = totalMin === totalMax ? `${totalMax}€` : `${totalMin}–${totalMax}€`;
         html += ` <span class="cost-total">· <strong>${cost}</strong></span>`;
-    }
-    const nBought = Object.entries(purchases).filter(([,p]) => p[currentUser] === 1).length;
-    if (nBought > 0) {
-        html += `<br><span style="font-size:.62rem">🎟 <strong>${nBought}</strong> comprat${nBought > 1 ? 's' : ''}</span>`;
     }
     el.innerHTML = html;
 }
@@ -1256,23 +1240,13 @@ function selectUser(id) {
     }
 }
 
-function toggleVote(concertId) {
+function toggleFav(concertId) {
     if (!currentUser) { requireUser(); return; }
     const cv = votes[concertId] || {};
     const current = cv[currentUser] || 0;
     const next = current === 1 ? 0 : 1;
     saveVote(concertId, currentUser, next);
-    track('vote', {cid: concertId, v: next});
-    setTimeout(() => {
-        const row = document.getElementById('vr-' + concertId);
-        if (!row) return;
-        const btn = row.querySelector('.vote-btn.mine');
-        if (btn && next > 0) {
-            btn.classList.remove('vote-pop');
-            void btn.offsetWidth;
-            btn.classList.add('vote-pop');
-        }
-    }, 50);
+    track('fav', {cid: concertId, v: next});
 }
 
 function scrollToFooter(e) {
@@ -1385,7 +1359,7 @@ function showAlaCarta() {
             h += '</div>';
         }
     } else {
-        h += `<div class="sum-empty">No tens cap concert "a la carta" seleccionat</div>`;
+        h += `<div class="sum-empty">No tens cap concert "a la carta" com a favorit</div>`;
     }
 
     h += `<div class="alc-toggle" onclick="this.classList.toggle('open')"><span class="alc-toggle-title">Tots els concerts elegibles (${allEligible.length})</span><span class="alc-toggle-arrow">&#9654;</span></div>`;
@@ -1518,7 +1492,7 @@ function renderCalMonth(el, map) {
         h += `<div class="${cls}" onclick="calDayClick('${ds}')"><span class="cal-mday-num">${d}</span>`;
         if (cc.length) {
             h += '<div class="cal-dots">';
-            for (const c of cc) h += `<div class="cal-dot ${c._sel ? (c.v==='P'?'sel-p':'sel-a') : 'avail'}"></div>`;
+            for (const c of cc) h += `<div class="cal-dot ${c._bought ? 'sel-bought' : c._sel ? 'sel-fav' : 'avail'}"></div>`;
             h += '</div>';
         }
         h += '</div>';
@@ -1557,10 +1531,10 @@ function renderCalWeek(el, map, nav) {
 
 function calEventHtml(c) {
     const venue = c.v==='P' ? 'Palau' : 'Auditori';
-    const cls = c._bought ? 'purchased' : c._sel ? 'sel' : 'avail';
+    const cls = c._bought ? 'sel-bought' : c._sel ? 'sel-fav' : 'avail';
     let h = `<div class="cal-ev ${cls}" onclick="goToConcert('${c.i}','${c.g}')">`;
     h += `<div class="cal-ev-time">${c.h}h</div><div class="cal-ev-info">`;
-    h += `<div class="cal-ev-title">${c.t}</div>`;
+    h += `<div class="cal-ev-title">${c.t}${c._bought ? ' 🎟️' : c._sel ? ' ❤️' : ''}</div>`;
     if (c.s) h += `<div class="cal-ev-sub">${c.s}</div>`;
     h += `<div class="cal-ev-venue">${venue}${c.y?' · '+c.y:''} · ${c.pr}</div>`;
     h += '</div></div>';
@@ -1582,7 +1556,7 @@ function autoVenueFromCycles(concerts, cycleSet, setVenue) {
 function toggleSumCycle(cy) {
     if (summaryCycleFilter.has(cy)) summaryCycleFilter.delete(cy);
     else summaryCycleFilter.add(cy);
-    const allSelected = C.filter(c => (votes[c.i] || {})[currentUser] === 1);
+    const allSelected = C.filter(c => (votes[c.i]||{})[currentUser] === 1 || (purchases[c.i]||{})[currentUser] === 1);
     autoVenueFromCycles(allSelected, summaryCycleFilter, v => { summaryVenueFilter = v; });
     renderSummaryList();
     const dd = document.getElementById('sumCycleDD');
@@ -1591,8 +1565,7 @@ function toggleSumCycle(cy) {
 
 function renderSummaryList() {
     const allSelected = C.filter(c => {
-        const cv = votes[c.i] || {};
-        return cv[currentUser] === 1;
+        return (votes[c.i]||{})[currentUser] === 1 || (purchases[c.i]||{})[currentUser] === 1;
     }).sort((a, b) => a.d.localeCompare(b.d) || a.h.localeCompare(b.h));
 
     let filtered = allSelected;
@@ -1617,11 +1590,14 @@ function renderSummaryList() {
     const netStr = afterMin === afterMax ? `${afterMax}€` : `${afterMin}–${afterMax}€`;
     const savStr = dteMin === dteMax ? `${dteMax}€` : `${dteMin}–${dteMax}€`;
 
+    const nFav = filtered.filter(c => (votes[c.i]||{})[currentUser] === 1).length;
+    const nBought = filtered.filter(c => (purchases[c.i]||{})[currentUser] === 1).length;
     const cycles = [...new Set(allSelected.map(c => c.y || '').filter(Boolean))].sort();
     let html = `<div class="summary-total" style="line-height:1.8">`;
     const nPalau = filtered.filter(c => c.v === 'P').length;
     const nAud = filtered.filter(c => c.v === 'A').length;
-    html += `<div><strong style="color:var(--text)">${filtered.length} concerts seleccionats</strong> <span style="font-size:.7rem;opacity:.75">(${nPalau} Palau, ${nAud} Auditori)</span></div>`;
+    html += `<div><strong style="color:var(--text)">${filtered.length} concerts</strong> <span style="font-size:.7rem;opacity:.75">(${nPalau} Palau, ${nAud} Auditori)</span></div>`;
+    html += `<div style="font-size:.72rem">❤️ ${nFav} favorit${nFav !== 1 ? 's' : ''} · 🎟️ ${nBought} comprat${nBought !== 1 ? 's' : ''}</div>`;
     html += `<div>Cost estimat: <strong>${costStr}</strong></div>`;
     if (hasPalau && dteMin > 0) {
         html += `<div style="color:#16a34a">Amb Soci Orfeó (-20%): <strong>${netStr}</strong> <span style="font-size:.65rem;opacity:.8">(estalvi ${savStr})</span></div>`;
@@ -1646,18 +1622,18 @@ function renderSummaryList() {
     html += `</div></div></div>`;
     html += `</div>`;
 
-    const nBought = filtered.filter(c => (purchases[c.i]||{})[currentUser] === 1).length;
-    if (nBought > 0) {
-        html += `<div style="font-family:var(--sans);font-size:.7rem;color:var(--yes);margin-bottom:.8rem">🎟 ${nBought} concert${nBought > 1 ? 's' : ''} comprat${nBought > 1 ? 's' : ''}</div>`;
-    }
-
     for (const c of filtered) {
         const venue = c.v === 'P' ? 'Palau de la Musica' : "L'Auditori";
         const d = new Date(c.d + 'T12:00:00');
+        const isFav = (votes[c.i]||{})[currentUser] === 1;
         const isBought = (purchases[c.i]||{})[currentUser] === 1;
-        html += `<div class="sum-row" onclick="goToConcert('${c.i}','${c.g}')"${isBought ? ' style="border-left:3px solid var(--yes);padding-left:.6rem"' : ''}>`;
+        const borderStyle = isBought ? 'border-left:3px solid var(--yes);padding-left:.6rem' : isFav ? 'border-left:3px solid #dc2626;padding-left:.6rem;opacity:.85' : '';
+        html += `<div class="sum-row" onclick="goToConcert('${c.i}','${c.g}')"${borderStyle ? ` style="${borderStyle}"` : ''}>`;
         html += `<div class="sum-date"><strong>${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}</strong>${dayName(c.d)} · ${c.h}h</div>`;
-        html += `<div class="sum-info"><div class="sum-title">${c.t}${isBought ? ' <span style="color:var(--yes);font-size:.6rem">🎟</span>' : ''}</div>`;
+        html += `<div class="sum-info"><div class="sum-title">${c.t}`;
+        if (isBought) html += ' <span style="font-size:.6rem">🎟️</span>';
+        else if (isFav) html += ' <span style="font-size:.6rem">❤️</span>';
+        html += `</div>`;
         html += `<div class="sum-detail">${c.c} · ${c.p}</div>`;
         html += `<div class="sum-venue">${venue} · ${c.y || ''}</div></div>`;
         html += `<div class="sum-price-col"><div class="sum-price">${c.pr}</div>`;
@@ -1673,7 +1649,7 @@ function renderSummaryList() {
 
 function exportSummaryTxt() {
     const userName = USERS.find(u => u.id === currentUser)?.name || '';
-    const allSelected = C.filter(c => (votes[c.i] || {})[currentUser] === 1)
+    const allSelected = C.filter(c => (votes[c.i]||{})[currentUser] === 1 || (purchases[c.i]||{})[currentUser] === 1)
         .sort((a, b) => a.d.localeCompare(b.d) || a.h.localeCompare(b.h));
     let filtered = allSelected;
     if (summaryVenueFilter !== 'all') filtered = filtered.filter(c => c.v === summaryVenueFilter);
@@ -1900,14 +1876,14 @@ function renderDashboardList() {
     const el = document.getElementById('summaryContent');
 
     if (allRanked.length === 0) {
-        el.innerHTML = `<div class="sum-empty">Cap concert amb mes d'un vot</div>`;
+        el.innerHTML = `<div class="sum-empty">Cap concert amb mes d'un favorit</div>`;
         return;
     }
 
     const cycles = [...new Set(allRanked.map(r => r.c.y || '').filter(Boolean))].sort();
     const nP = filtered.filter(r => r.c.v === 'P').length;
     const nA = filtered.filter(r => r.c.v === 'A').length;
-    let html = `<div class="summary-total">${filtered.length} concerts amb 2+ vots <span style="font-size:.7rem;opacity:.75">(${nP} Palau, ${nA} Auditori)</span></div>`;
+    let html = `<div class="summary-total">${filtered.length} concerts amb 2+ favorits <span style="font-size:.7rem;opacity:.75">(${nP} Palau, ${nA} Auditori)</span></div>`;
 
     const mk = (v, lab) => `<label class="sum-venue-radio"><input type="radio" name="dashVenue" value="${v}"${dashVenueFilter === v ? ' checked' : ''} onchange="dashVenueFilter=this.value;renderDashboardList()">${lab}</label>`;
     const nCy = dashCycleFilter.size;
@@ -1952,7 +1928,7 @@ function renderDashboardList() {
 }
 
 function showDashboard() {
-    document.querySelector('.summary-top h3').textContent = 'Resultat votacions';
+    document.querySelector('.summary-top h3').textContent = 'Favorits del grup';
     dashVenueFilter = 'all';
     dashCycleFilter = new Set();
     renderDashboardList();
@@ -2016,7 +1992,7 @@ setInterval(async () => {
         renderVotes(); updateStats();
         if (document.getElementById('summaryOverlay').classList.contains('visible')) {
             const title = document.querySelector('.summary-top h3').textContent;
-            if (title === 'Resultat votacions') renderDashboardList();
+            if (title === 'Favorits del grup') renderDashboardList();
             else if (title === 'Abonament a la carta') showAlaCarta();
             else if (title === 'Descomptes Palau') { /* no refrescar */ }
             else renderSummaryList();
@@ -2025,7 +2001,7 @@ setInterval(async () => {
 }, 10000);
 
 // Auto-update: check VERSION file and reload if newer
-const APP_VERSION = '3.37';
+const APP_VERSION = '3.38';
 setInterval(async () => {
     try {
         const r = await fetch('VERSION?t=' + Date.now());
