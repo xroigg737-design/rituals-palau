@@ -413,7 +413,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.49</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.50</div>
 </div>
 
 <header class="hero" id="top">
@@ -487,7 +487,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.49</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.50</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -1401,9 +1401,9 @@ let calView = 'year', calYear = 2026, calMonth = 8, calSelDay = null, calWeekSta
 function showCal() {
     if (!currentUser) { requireUser(); return; }
     const now = new Date();
-    if (now >= new Date('2026-09-01') && now <= new Date('2027-07-31')) {
+    if (now >= new Date('2026-08-01') && now <= new Date('2027-07-31')) {
         calYear = now.getFullYear(); calMonth = now.getMonth();
-    } else { calYear = 2026; calMonth = 8; }
+    } else { calYear = 2026; calMonth = 7; }
     calSelDay = null; calWeekStart = null; calView = 'year';
     renderCal();
     document.getElementById('calOverlay').classList.add('visible');
@@ -1452,7 +1452,7 @@ function calDayClick(ds) { calSelDay = (calSelDay === ds) ? null : ds; renderCal
 
 function renderCalYear(el, map) {
     const months = [];
-    for (let m = 8; m < 12; m++) months.push({m, y: calYear});
+    for (let m = 7; m < 12; m++) months.push({m, y: calYear});
     for (let m = 0; m <= 6; m++) months.push({m, y: calYear+1});
     let h = '<div class="cal-ygrid">';
     for (const {m, y} of months) {
