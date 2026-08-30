@@ -29,7 +29,7 @@
     --sans:'Inter',-apple-system,sans-serif;
     --bg:#faf9f7;--card:#fff;--text:#1a1a1a;--text2:#555;--text3:#999;
     --border:rgba(0,0,0,.1);--border2:rgba(0,0,0,.06);
-    --palau:#8b1a1a;--auditori:#1a3a5c;
+    --palau:#8b1a1a;--auditori:#1a3a5c;--formacio:#7c3aed;
     --yes:#2d7d46;
 }
 html{scroll-behavior:smooth;scroll-padding-top:110px}
@@ -113,6 +113,15 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .section-header.has-bg .toggle-arrow{display:none}
 .section-header.has-bg .tap-hint{position:absolute;bottom:.6rem;right:1rem;font-family:var(--sans);font-size:.55rem;color:#fbbf24;letter-spacing:.04em;text-shadow:0 1px 4px rgba(0,0,0,.6);opacity:.8}
 #palau .sub,#auditori .sub{font-size:1.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+#formacio .section-header{background:linear-gradient(135deg,#4c1d95 0%,#7c3aed 60%,#a78bfa 100%);border-radius:12px;padding:1.8rem 1.5rem;margin-left:-.5rem;margin-right:-.5rem;position:relative;overflow:hidden}
+#formacio .section-header::before,#formacio .section-header::after{display:none}
+#formacio .section-header h2{background:none;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.3);padding:0;font-size:1.6rem;letter-spacing:.08em}
+#formacio .section-header .sub{color:rgba(255,255,255,.85);font-weight:500;font-style:normal;text-shadow:0 1px 6px rgba(0,0,0,.3);font-size:.95rem;letter-spacing:.06em}
+#formacio .section-header .count{color:rgba(255,255,255,.7);text-shadow:0 1px 4px rgba(0,0,0,.3)}
+#formacio .section-header .accent-line{background:rgba(255,255,255,.3)}
+#formacio .section-header .toggle-arrow{color:rgba(255,255,255,.5)}
+#formacio .section-header .formacio-icon{font-size:2.2rem;margin-bottom:.3rem;display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3))}
+.section-nav a[href="#formacio"]{color:var(--formacio);font-weight:600}
 
 .concert-list{max-width:960px;margin:0 auto;padding:0 .5rem 1rem}
 
@@ -135,6 +144,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .bp{background:rgba(139,26,26,.08);color:var(--palau)}
 .ba{background:rgba(26,58,92,.08);color:var(--auditori)}
 .bb{background:rgba(34,120,69,.08);color:#166534}
+.bfo{background:rgba(124,58,237,.1);color:var(--formacio)}
 .bn{background:var(--text);color:#fff}
 .bpast{background:rgba(0,0,0,.08);color:var(--text3);font-style:italic}
 .ico-piano{display:inline-block;width:14px;height:10px;vertical-align:middle;margin-left:.3rem;position:relative;top:-1px;opacity:.45}
@@ -228,6 +238,9 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .cal-dot.sel-fav{background:rgba(220,38,38,.45)}
 .cal-dot.sel-bought{background:#1a1a1a}
 .cal-dot.avail{background:var(--text3);opacity:.25}
+.cal-dot.formacio{background:var(--formacio);opacity:.7}
+.cal-dot.formacio.sel-fav{background:var(--formacio);opacity:1}
+.cal-dot.formacio.sel-bought{background:var(--formacio);outline:2px solid #4c1d95;outline-offset:1px}
 .cal-detail{margin-top:.6rem;border-top:1px solid var(--border);padding-top:.5rem}
 .cal-detail-title{font-family:var(--sans);font-size:.7rem;font-weight:600;color:var(--text3);text-transform:capitalize;margin-bottom:.5rem}
 .cal-ev{display:flex;align-items:start;gap:.5rem;padding:.45rem .5rem;border-radius:8px;margin-bottom:.25rem;cursor:pointer;transition:background .15s;border-left:3px solid transparent}
@@ -235,6 +248,8 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
 .cal-ev.sel-fav{border-left-color:rgba(220,38,38,.5);background:rgba(220,38,38,.04)}
 .cal-ev.sel-bought{border-left-color:#1a1a1a;background:rgba(0,0,0,.04)}
 .cal-ev.avail{opacity:.4;border-left-color:var(--text3)}
+.cal-ev.formacio{border-left-color:var(--formacio);background:rgba(124,58,237,.05);opacity:1}
+.cal-ev.formacio .cal-ev-title::before{content:'📚 ';font-size:.7rem}
 .cal-ev-time{font-family:var(--sans);font-size:.68rem;font-weight:500;color:var(--text2);min-width:36px}
 .cal-ev-info{flex:1;min-width:0}
 .cal-ev-title{font-family:var(--serif);font-size:.88rem;font-weight:600;line-height:1.2}
@@ -413,7 +428,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         <button class="auth-btn" onclick="checkAuth()">Entrar</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.51</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:rgba(255,255,255,.3);margin-top:2rem;letter-spacing:.05em">v3.52</div>
 </div>
 
 <header class="hero" id="top">
@@ -487,7 +502,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
         </a>
     </div>
     <a href="#top" class="results-link" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-block;margin-top:.8rem">&#8593; Tornar a dalt</a>
-    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.51</div>
+    <div style="font-family:var(--sans);font-size:.55rem;color:var(--text3);margin-top:1.2rem;letter-spacing:.05em;opacity:.5">v3.52</div>
 </footer>
 
 <div class="summary-overlay" id="summaryOverlay" onclick="if(event.target===this)closeSummary()">
@@ -518,6 +533,7 @@ body{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.6;col
             <span class="cal-legend-item"><span class="cal-legend-dot" style="background:rgba(220,38,38,.4)"></span>Favorit</span>
             <span class="cal-legend-item"><span class="cal-legend-dot" style="background:#1a1a1a"></span>Comprat</span>
             <span class="cal-legend-item"><span class="cal-legend-dot" style="background:var(--text3);opacity:.25"></span>Disponible</span>
+            <span class="cal-legend-item"><span class="cal-legend-dot" style="background:var(--formacio);opacity:.7"></span>Formació</span>
         </div>
         <div class="cal-body" id="calContent"></div>
     </div>
@@ -580,6 +596,7 @@ const SECTIONS = [
     {id:'romantic',title:'ROMANTICISME',sub:'Brahms · Mahler · Strauss',icon:'img/brahms.jpg'},
     {id:'casals',title:'PAU CASALS',sub:'El mestre català',icon:'img/casals.jpg'},
     {id:'cinema',title:'CINEMA',sub:'Bandes sonores',icon:'img/cinema.jpg'},
+    {id:'formacio',title:'LABORATORI BEETHOVEN',sub:'Curs amb Carlos Calderón · 6 conferències'},
     {id:'palau',title:'PALAU DE LA MÚSICA',sub:'Resta de la temporada',icon:'img/palau.jpg'},
     {id:'auditori',title:'L\'AUDITORI',sub:'Resta de la temporada',icon:'img/auditori.jpg'},
     {id:'brufaganya',title:'LA BRUFAGANYA',sub:'15 Nits Musicals · Homenatge a Pau Casals'}
@@ -886,6 +903,13 @@ const C = [
 {i:'br04',g:'brufaganya',v:'B',d:'2026-08-08',h:'21:30',t:'La Llobregat i els Mèlt',s:'Llach · Els Pets · Sisa · Guinovart · Casals: Sant Martí del Canigó',c:'Llach · Els Pets · Sisa · Guinovart · Casals',p:'Cobla La Principal del Llobregat · Quartet Mèlt · Marcel Sabaté Reixach dir.',pr:'25€',y:'Nits Brufaganya'},
 {i:'br05',g:'beethoven',v:'B',d:'2026-08-19',h:'21:30',t:'Simfonies 6a i 7a de Beethoven',s:'Beethoven: Pastoral i Simfonia 7 · Casals: Sardana Sant Fèlix',c:'Beethoven · Casals',p:'Encambra\'t',pr:'23€',y:'Nits Brufaganya'},
 {i:'br06',g:'casals',v:'B',d:'2026-09-12',h:'21:30',t:'La mort i la donzella de Schubert',s:'Casals: El cant dels ocells · Toldrà: Vistes al Mar · Schubert: Quartet 14',c:'Casals · Toldrà · Schubert',p:'Cosmos Quartet: Helena Satué, Bernat Prat vlns · Lara Fernández vla · Oriol Prat vlc',pr:'20€',y:'Nits Brufaganya'},
+// ── LABORATORI BEETHOVEN (Formació) ──
+{i:'lb01',g:'formacio',v:'P',d:'2027-02-03',h:'18:00',t:"El laboratori s'instal·la",s:'Conferència 1 · Piano com a quadern d\'esbossos: Beethoven domestica Haydn i Mozart',c:'Beethoven',p:'Prof. Carlos Calderón · Petit Palau',pr:'25€',y:'Laboratori Beethoven'},
+{i:'lb02',g:'formacio',v:'P',d:'2027-02-17',h:'18:00',t:'Explosions diverses',s:'Conferència 2 · Sonates 11-20, quartets Op.18 i les primeres simfonies',c:'Beethoven',p:'Prof. Carlos Calderón · Petit Palau',pr:'25€',y:'Laboratori Beethoven'},
+{i:'lb03',g:'formacio',v:'P',d:'2027-03-03',h:'18:00',t:'Expansió',s:'Conferència 3 · Quartets Razumovsky, l\'Heroica i la Cinquena',c:'Beethoven',p:'Prof. Carlos Calderón · Petit Palau',pr:'25€',y:'Laboratori Beethoven'},
+{i:'lb04',g:'formacio',v:'P',d:'2027-03-17',h:'18:00',t:'Conferència 4',s:'El piano i la simfonia en la plenitud creativa',c:'Beethoven',p:'Prof. Carlos Calderón · Petit Palau',pr:'25€',y:'Laboratori Beethoven'},
+{i:'lb05',g:'formacio',v:'P',d:'2027-04-14',h:'18:00',t:'Conferència 5',s:'La Novena, la Missa Solemnis i les últimes sonates',c:'Beethoven',p:'Prof. Carlos Calderón · Petit Palau',pr:'25€',y:'Laboratori Beethoven'},
+{i:'lb06',g:'formacio',v:'P',d:'2027-05-12',h:'18:00',t:'Silenci i més',s:'Conferència 6 · Últims quartets (12-16) i la Gran Fuga',c:'Beethoven',p:'Prof. Carlos Calderón · Petit Palau',pr:'25€',y:'Laboratori Beethoven'},
 ];
 
 // ── STATE ──
@@ -1067,8 +1091,9 @@ function renderConcertRow(c, nf) {
     let h = `<div class="row${cls}" id="c-${c.i}" onclick="this.classList.toggle('open')">`;
     h += `<div class="row-date"><span class="rd-day">${d.getDate()} ${MONTHS[d.getMonth()]}</span>${dayName(c.d)} · ${c.h}h<br><span class="rd-time">${d.getFullYear()}</span></div>`;
     h += `<div class="row-info">`;
-    const vBadge = c.v === 'P' ? 'bp' : c.v === 'A' ? 'ba' : 'bb';
-    const vName = c.v === 'P' ? 'Palau' : c.v === 'A' ? 'Auditori' : 'Brufaganya';
+    const isFormacio = c.g === 'formacio';
+    const vBadge = isFormacio ? 'bfo' : c.v === 'P' ? 'bp' : c.v === 'A' ? 'ba' : 'bb';
+    const vName = isFormacio ? 'Formació' : c.v === 'P' ? 'Palau' : c.v === 'A' ? 'Auditori' : 'Brufaganya';
     h += `<div class="row-title">${c.t}${isPianoSolo(c) ? ' '+PIANO_SVG : ''} <span class="badge ${vBadge}">${vName}</span>`;
     if (past) h += ` <span class="badge bpast">Passat</span>`;
     if (isNext) h += ` <span class="badge bn">Proper</span>`;
@@ -1114,9 +1139,10 @@ function renderSections() {
             html += `</div>`;
             html += `<span class="tap-hint">Polsa per desplegar</span>`;
         } else {
+            if (sec.id === 'formacio') html += `<span class="formacio-icon">🎓</span>`;
             html += `<h2>${sec.title}</h2>`;
             html += `<div class="sub">${sec.sub}</div>`;
-            html += `<div class="count">${visible.length} de ${concerts.length} concerts</div>`;
+            html += `<div class="count">${visible.length} de ${concerts.length} ${sec.id === 'formacio' ? 'sessions' : 'concerts'}</div>`;
             html += `<div class="toggle-arrow">&#9660;</div>`;
         }
         html += `</div>`;
@@ -1293,8 +1319,9 @@ function downloadCalendar() {
     selected.forEach(c => {
         const dt = c.d.replace(/-/g, '');
         const hm = (c.h || '20:00').replace(':', '') + '00';
-        const venue = c.v === 'P' ? 'Palau de la Musica Catalana' : c.v === 'A' ? "L'Auditori de Barcelona" : 'Santuari de Sant Magí de la Brufaganya, Pontils';
-        ics += `BEGIN:VEVENT\nDTSTART:${dt}T${hm}\nDURATION:PT2H30M\nSUMMARY:${c.t}\nDESCRIPTION:${(c.s||'').replace(/\n/g,'\\n')} - ${c.c}\nLOCATION:${venue}\\, Barcelona\nEND:VEVENT\n`;
+        const venue = c.g==='formacio' ? 'Petit Palau - Palau de la Musica Catalana' : c.v === 'P' ? 'Palau de la Musica Catalana' : c.v === 'A' ? "L'Auditori de Barcelona" : 'Santuari de Sant Magí de la Brufaganya, Pontils';
+        const dur = c.g==='formacio' ? 'PT1H30M' : 'PT2H30M';
+        ics += `BEGIN:VEVENT\nDTSTART:${dt}T${hm}\nDURATION:${dur}\nSUMMARY:${c.g==='formacio' ? '📚 ' : ''}${c.t}\nDESCRIPTION:${(c.s||'').replace(/\n/g,'\\n')} - ${c.c}\nLOCATION:${venue}\\, Barcelona\nEND:VEVENT\n`;
     });
     ics += 'END:VCALENDAR';
 
@@ -1495,7 +1522,7 @@ function renderCalMonth(el, map) {
         h += `<div class="${cls}" onclick="calDayClick('${ds}')"><span class="cal-mday-num">${d}</span>`;
         if (cc.length) {
             h += '<div class="cal-dots">';
-            for (const c of cc) h += `<div class="cal-dot ${c._bought ? 'sel-bought' : c._sel ? 'sel-fav' : 'avail'}"></div>`;
+            for (const c of cc) h += `<div class="cal-dot ${c.g==='formacio' ? 'formacio' : ''} ${c._bought ? 'sel-bought' : c._sel ? 'sel-fav' : 'avail'}"></div>`;
             h += '</div>';
         }
         h += '</div>';
@@ -1533,8 +1560,8 @@ function renderCalWeek(el, map, nav) {
 }
 
 function calEventHtml(c) {
-    const venue = c.v==='P' ? 'Palau' : c.v==='A' ? 'Auditori' : 'Brufaganya';
-    const cls = c._bought ? 'sel-bought' : c._sel ? 'sel-fav' : 'avail';
+    const venue = c.g==='formacio' ? 'Petit Palau' : c.v==='P' ? 'Palau' : c.v==='A' ? 'Auditori' : 'Brufaganya';
+    const cls = c.g==='formacio' ? 'formacio' : c._bought ? 'sel-bought' : c._sel ? 'sel-fav' : 'avail';
     let h = `<div class="cal-ev ${cls}" onclick="goToConcert('${c.i}','${c.g}')">`;
     h += `<div class="cal-ev-time">${c.h}h</div><div class="cal-ev-info">`;
     h += `<div class="cal-ev-title">${c.t}${c._bought ? ' 🎟️' : c._sel ? ' ❤️' : ''}</div>`;

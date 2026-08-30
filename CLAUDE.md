@@ -29,9 +29,10 @@ SEMPRE fer commit + push + deploy a AWS a cada canvi.
 ## Estructura de dades
 
 - `USERS[]` — 6 participants amb id, nom, inicials i color
-- `SECTIONS[]` — Agrupacions temàtiques (beethoven, casals, baroque, romantic, cinema, etc.)
+- `SECTIONS[]` — Agrupacions temàtiques (beethoven, casals, baroque, romantic, cinema, formacio, etc.)
 - `C[]` — Array de concerts amb: id, títol (t), data (d), hora (h), preu (pr), grup (g), lloc, cicle (cy)
 - Secció Beethoven té propietats especials: `icon` (retrat fons), `sig` (signatura manuscrita)
+- Secció Formació (`g:'formacio'`): Laboratori Beethoven — 6 conferències de Carlos Calderón, color violeta (#7c3aed), badge "Formació", al Petit Palau
 
 ## Fonts de dades
 
